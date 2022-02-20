@@ -57,7 +57,7 @@ class Board {
             return
         }
 
-        let pegAtNewCenter = Peg(center: newCenter, color: peg.color)
+        let pegAtNewCenter = Peg(from: peg, newCenter: newCenter)
 
         let canMovePeg = canFit(pegAtNewCenter) && !hasOverlapWithExistingPegs(peg: pegAtNewCenter, except: peg)
 
@@ -68,6 +68,20 @@ class Board {
         pegs.remove(peg)
         peg.move(to: newCenter)
         pegs.insert(peg)
+    }
+
+    func scaleBoardObject(boardObject: Peg, scale: CGFloat) {
+        let scaledObject = Peg(from: boardObject, newRadius: boardObject.radius * scale)
+
+        let canScaleObject = canFit(scaledObject) && !hasOverlapWithExistingPegs(peg: scaledObject, except: boardObject)
+
+        guard canScaleObject else {
+            return
+        }
+
+        pegs.remove(boardObject)
+        boardObject.radius *= scale
+        pegs.insert(boardObject)
     }
 
     func removePeg(_ peg: Peg) {

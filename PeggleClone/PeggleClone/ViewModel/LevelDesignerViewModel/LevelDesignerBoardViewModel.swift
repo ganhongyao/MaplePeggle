@@ -18,6 +18,8 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     @Published var error: PersistenceError?
 
+    private(set) var selectedPeg: Peg?
+
     private unowned var levelDesignerViewModel: LevelDesignerViewModel
 
     init(boardId: UUID?, levelDesignerViewModel: LevelDesignerViewModel) {
@@ -78,8 +80,25 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.snapshot = snapshotImage.pngData()
     }
 
+    func selectPeg(peg: Peg) {
+        selectedPeg = peg
+
+        objectWillChange.send()
+    }
+
+    func scaleBoardItem(scale: CGFloat) {
+        guard let selectedPeg = selectedPeg else {
+            return
+        }
+
+        board.scaleBoardObject(boardObject: selectedPeg, scale: scale)
+
+        objectWillChange.send()
+    }
+
     func addPeg(center: CGPoint) {
-        let newPeg = Peg(center: center, color: levelDesignerViewModel.pegSelectorViewModel.selectedPegColor)
+        let newPeg = Peg(center: center, radius: Peg.defaultRadius,
+                         color: levelDesignerViewModel.pegSelectorViewModel.selectedPegColor)
 
         board.addPeg(newPeg)
 

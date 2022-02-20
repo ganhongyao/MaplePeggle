@@ -33,6 +33,9 @@ struct ViewConstants {
     /// LevelDesignerView
     static let levelDesignerPegSelectorHeightRatio = 0.1
 
+    /// PegView
+    static let pegNumTapsToSelect = 2
+
     /// ControlsView
     static let controlsStartButtonText = "START"
     static let controlsLoadButtonText = "LOAD"

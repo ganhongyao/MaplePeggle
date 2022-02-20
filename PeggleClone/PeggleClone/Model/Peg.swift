@@ -15,7 +15,7 @@ class Peg: CircularObject {
         case orange
     }
 
-    private static let defaultRadius: CGFloat = 25
+    static let defaultRadius: CGFloat = 25
 
     let id: UUID?
 
@@ -35,12 +35,14 @@ class Peg: CircularObject {
         self.parentBoard = parentBoard
     }
 
-    convenience init(center: CGPoint, color: Peg.Color) {
-        self.init(id: UUID(), center: center, radius: Peg.defaultRadius, color: color)
+    convenience init(from pegToClone: Peg, newCenter: CGPoint? = nil, newRadius: CGFloat? = nil,
+                     newColor: Peg.Color? = nil) {
+        self.init(id: UUID(), center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
+                  color: newColor ?? pegToClone.color, parentBoard: pegToClone.parentBoard)
     }
 
-    convenience init(center: CGPoint, color: Peg.Color, parentBoard: Board) {
-        self.init(id: UUID(), center: center, radius: Peg.defaultRadius, color: color, parentBoard: parentBoard)
+    convenience init(center: CGPoint, radius: CGFloat, color: Peg.Color) {
+        self.init(id: UUID(), center: center, radius: radius, color: color)
     }
 
     func move(to newCenter: CGPoint) {

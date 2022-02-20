@@ -10,6 +10,10 @@ import SwiftUI
 struct LevelDesignerBoardView: View {
     @ObservedObject var levelDesignerBoardViewModel: LevelDesignerBoardViewModel
 
+    @State var scale: CGFloat = 1
+
+    @State var lastScale: CGFloat = 1
+
     private var mainBoardView: some View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
@@ -17,9 +21,9 @@ struct LevelDesignerBoardView: View {
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
                 PegView(pegViewModel: pegViewModel)
                     .onTapGesture {
-                        if levelDesignerBoardViewModel.isInDeleteMode {
-                            pegViewModel.removePeg()
-                        }
+                        levelDesignerBoardViewModel.isInDeleteMode
+                            ? pegViewModel.removePeg()
+                            : pegViewModel.selectPeg()
                     }
                     .onLongPressGesture {
                         pegViewModel.removePeg()
@@ -35,6 +39,14 @@ struct LevelDesignerBoardView: View {
                     if !levelDesignerBoardViewModel.isInDeleteMode {
                         levelDesignerBoardViewModel.addPeg(center: value.location)
                     }
+                })
+                .gesture(MagnificationGesture().onChanged { value in
+                    let delta = value / lastScale
+                    lastScale = value
+                    let newScale = scale * delta
+                    levelDesignerBoardViewModel.scaleBoardItem(scale: newScale)
+                }.onEnded { _ in
+                    lastScale = 1.0
                 })
                 // If the board is new, let GeoReader propose a size and set the board's size to the proposed size.
                 .onAppear {

@@ -15,7 +15,9 @@ struct PegView: View {
             .resizable()
             .frame(width: pegViewModel.diameter, height: pegViewModel.diameter)
             .position(pegViewModel.center)
+            .modifier(TranslucentViewModifier(shouldBeTranslucent: pegViewModel.isSelected))
             .gesture(DragGesture().onChanged { value in
+                pegViewModel.selectPeg()
                 pegViewModel.movePeg(to: value.location)
             })
     }
