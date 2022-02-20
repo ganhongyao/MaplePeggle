@@ -14,15 +14,15 @@ struct LevelDesignerBoardView: View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
 
-            ForEach(levelDesignerBoardViewModel.pegs) { peg in
-                PegView(pegViewModel: PegViewModel(peg: peg, levelDesignerBoardViewModel: levelDesignerBoardViewModel))
+            ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
+                PegView(pegViewModel: pegViewModel)
                     .onTapGesture {
                         if levelDesignerBoardViewModel.isInDeleteMode {
-                            levelDesignerBoardViewModel.removePeg(peg)
+                            pegViewModel.removePeg()
                         }
                     }
                     .onLongPressGesture {
-                        levelDesignerBoardViewModel.removePeg(peg)
+                        pegViewModel.removePeg()
                     }
             }
         }

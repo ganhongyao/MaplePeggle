@@ -44,8 +44,8 @@ class LevelDesignerBoardViewModel: ObservableObject {
         }
     }
 
-    var pegs: [Peg] {
-        [Peg](board.pegs)
+    var pegViewModels: [PegViewModel] {
+        board.pegs.map({ PegViewModel(peg: $0, levelDesignerBoardViewModel: self)})
     }
 
     var boardSize: CGSize {

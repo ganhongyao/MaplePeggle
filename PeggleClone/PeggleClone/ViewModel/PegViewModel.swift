@@ -9,13 +9,17 @@ import Foundation
 import CoreGraphics
 
 class PegViewModel: ObservableObject {
-    @Published private var peg: Peg
+    @Published private(set) var peg: Peg
 
     private unowned var levelDesignerBoardViewModel: LevelDesignerBoardViewModel
 
     init(peg: Peg, levelDesignerBoardViewModel: LevelDesignerBoardViewModel) {
         self.peg = peg
         self.levelDesignerBoardViewModel = levelDesignerBoardViewModel
+    }
+
+    var pegId: UUID? {
+        peg.id
     }
 
     var center: CGPoint {
@@ -34,5 +38,9 @@ class PegViewModel: ObservableObject {
         levelDesignerBoardViewModel.movePeg(peg: peg, to: newCenter)
 
         objectWillChange.send()
+    }
+
+    func removePeg() {
+        levelDesignerBoardViewModel.removePeg(peg)
     }
 }
