@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G314" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BoardEntity" representedClassName="BoardEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="snapshot" optional="YES" attributeType="Binary"/>
+        <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="pegs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PegEntity" inverseName="parentBoard" inverseEntity="PegEntity"/>
+    </entity>
+    <entity name="PegEntity" representedClassName="PegEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="centerX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="parentBoard" maxCount="1" deletionRule="Nullify" destinationEntity="BoardEntity" inverseName="pegs" inverseEntity="BoardEntity"/>
+    </entity>
+    <elements>
+        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="134"/>
+        <element name="PegEntity" positionX="-63" positionY="-18" width="128" height="119"/>
+    </elements>
+</model>
