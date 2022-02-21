@@ -54,6 +54,10 @@ class Board {
         pegs.insert(peg)
     }
 
+    func addBlock(_ block: Block) {
+        blocks.insert(block)
+    }
+
     func movePeg(peg: Peg, to newCenter: CGPoint) {
         guard pegs.contains(peg) else {
             return

@@ -117,6 +117,14 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
+    func addBlock(center: CGPoint) {
+        let newBlock = Block(center: center)
+
+        board.addBlock(newBlock)
+
+        objectWillChange.send()
+    }
+
     func movePeg(peg: Peg, to newCenter: CGPoint) {
         board.movePeg(peg: peg, to: newCenter)
 
