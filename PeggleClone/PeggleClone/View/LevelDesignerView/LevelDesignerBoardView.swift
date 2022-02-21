@@ -51,8 +51,8 @@ struct LevelDesignerBoardView: View {
                 .gesture(MagnificationGesture().onChanged { value in
                     let delta = value / lastScale
                     lastScale = value
-                    let newScale = scale * delta
-                    levelDesignerBoardViewModel.scaleBoardItem(scale: newScale)
+                    let scaleFactor = scale * delta
+                    levelDesignerBoardViewModel.scaleBoardObject(factor: scaleFactor)
                 }.onEnded { _ in
                     lastScale = 1.0
                 })

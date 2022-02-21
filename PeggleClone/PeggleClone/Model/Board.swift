@@ -124,12 +124,13 @@ class Board {
         blocks.insert(block)
     }
 
-    func scalePeg(peg: Peg, scale: CGFloat) {
+    func scalePeg(peg: Peg, scaleFactor: CGFloat) {
         guard pegs.contains(peg) else {
             return
         }
 
-        let scaledPeg = Peg(from: peg, newRadius: peg.radius * scale)
+        let scaledPeg = Peg(from: peg)
+        scaledPeg.scale(factor: scaleFactor)
 
         let canScalePeg = canFit(scaledPeg) && !hasOverlapWithExistingObjects(scaledPeg, except: peg)
 
@@ -138,8 +139,27 @@ class Board {
         }
 
         pegs.remove(peg)
-        peg.radius *= scale
+        peg.scale(factor: scaleFactor)
         pegs.insert(peg)
+    }
+
+    func scaleBlock(block: Block, scaleFactor: CGFloat) {
+        guard blocks.contains(block) else {
+            return
+        }
+
+        let scaledBlock = Block(from: block)
+        scaledBlock.scale(factor: scaleFactor)
+
+        let canScaleBlock = canFit(scaledBlock) && !hasOverlapWithExistingObjects(scaledBlock, except: block)
+
+        guard canScaleBlock else {
+            return
+        }
+
+        blocks.remove(block)
+        block.scale(factor: scaleFactor)
+        blocks.insert(block)
     }
 
     func removePeg(_ peg: Peg) {
@@ -154,16 +174,9 @@ class Board {
         pegs = []
     }
 
-    private func canFit(_ circle: Circular) -> Bool {
+    private func canFit(_ object: BoardObject) -> Bool {
         let boardRectangle = CGRect(origin: .zero, size: size)
-        let objectRectangle = CGRect(from: circle)
-
-        return boardRectangle.contains(objectRectangle)
-    }
-
-    private func canFit(_ polygon: Polygonal) -> Bool {
-        let boardRectangle = CGRect(origin: .zero, size: size)
-        let objectRectangle = CGRect(from: polygon)
+        let objectRectangle = CGRect(from: object)
 
         return boardRectangle.contains(objectRectangle)
     }

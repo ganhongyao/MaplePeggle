@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics
 import PhysicsEngine
 
-class Block: Triangular {
+class Block: Triangular, BoardObject {
     private static let defaultLength = 50.0
 
     let id: UUID?
@@ -27,6 +27,10 @@ class Block: Triangular {
         let vertex3 = CGPoint(x: center.x - Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
 
         self.init(vertices: [vertex1, vertex2, vertex3])
+    }
+
+    convenience init(from blockToClone: Block) {
+        self.init(vertices: blockToClone.vertices)
     }
 }
 

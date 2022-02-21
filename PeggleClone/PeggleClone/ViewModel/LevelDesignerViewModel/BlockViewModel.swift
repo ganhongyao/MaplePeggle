@@ -38,13 +38,11 @@ class BlockViewModel: ObservableObject {
         objectWillChange.send()
     }
 
-    func removeBlock() {
-        levelDesignerBoardViewModel.removeBlock(block)
-
-        objectWillChange.send()
+    func selectBlock() {
+        levelDesignerBoardViewModel.select(object: block)
     }
 
-    func selectBlock() {
-
+    func removeBlock() {
+        levelDesignerBoardViewModel.removeBlock(block)
     }
 }

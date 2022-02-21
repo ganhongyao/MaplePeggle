@@ -35,11 +35,11 @@ class PegViewModel: ObservableObject {
     }
 
     var isSelected: Bool {
-        levelDesignerBoardViewModel.selectedPeg === peg
+        levelDesignerBoardViewModel.selectedObject === peg
     }
 
     func selectPeg() {
-        levelDesignerBoardViewModel.selectPeg(peg: peg)
+        levelDesignerBoardViewModel.select(object: peg)
     }
 
     func movePeg(to newCenter: CGPoint) {

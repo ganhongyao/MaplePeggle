@@ -9,6 +9,18 @@ import CoreGraphics
 import PhysicsEngine
 
 extension CGRect {
+    init(from object: BoardObject) {
+        switch object {
+        case let circle as Circular:
+            self.init(from: circle)
+        case let polygon as Polygonal:
+            self.init(from: polygon)
+        default:
+            assertionFailure("BoardObject has unknown shape")
+            self.init()
+        }
+    }
+
     init(from circle: Circular) {
         let objectCenter = circle.center
         let objectRadius = circle.radius

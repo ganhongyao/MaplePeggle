@@ -18,6 +18,10 @@ extension Circular {
         radius * 2
     }
 
+    public func scale(factor: CGFloat) {
+        radius *= factor
+    }
+
     public func contains(point: CGPoint) -> Bool {
         center.distance(to: point) <= radius
     }
