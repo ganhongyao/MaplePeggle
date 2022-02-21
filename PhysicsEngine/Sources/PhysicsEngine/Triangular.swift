@@ -8,22 +8,14 @@
 import CoreGraphics
 
 public protocol Triangular: Polygonal {
-    var vertex1: CGPoint { get set }
 
-    var vertex2: CGPoint { get set }
-
-    var vertex3: CGPoint { get set }
 }
 
 extension Triangular {
-    public var vertices: [CGPoint] {
-        [vertex1, vertex2, vertex3]
-    }
-
     public var edges: [(CGPoint, CGPoint)] {
-        [(vertex1, vertex2),
-         (vertex2, vertex3),
-         (vertex3, vertex1)]
+        [(vertices[0], vertices[1]),
+         (vertices[1], vertices[2]),
+         (vertices[2], vertices[0])]
     }
 
     public var edgeVectors: [CGVector] {

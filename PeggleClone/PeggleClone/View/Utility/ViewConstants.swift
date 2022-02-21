@@ -36,6 +36,10 @@ struct ViewConstants {
     /// PegView
     static let pegNumTapsToSelect = 2
 
+    /// BlockView
+    static let blockOutlineLineWidth = 3.0
+    static let blockVertexCircleDiameter = 12.0
+
     /// ControlsView
     static let controlsStartButtonText = "START"
     static let controlsLoadButtonText = "LOAD"

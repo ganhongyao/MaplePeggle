@@ -131,6 +131,12 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
+    func moveBlockVertex(block: Block, vertexIdx: Int, to newLocation: CGPoint) {
+        board.moveBlockVertex(block: block, vertexIdx: vertexIdx, to: newLocation)
+
+        objectWillChange.send()
+    }
+
     func removePeg(_ peg: Peg) {
         board.removePeg(peg)
 

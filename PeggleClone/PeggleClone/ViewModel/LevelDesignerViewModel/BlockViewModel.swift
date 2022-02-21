@@ -22,15 +22,13 @@ class BlockViewModel: ObservableObject {
         block.id
     }
 
-    var vertex1: CGPoint {
-        block.vertex1
+    var vertices: [CGPoint] {
+        block.vertices
     }
 
-    var vertex2: CGPoint {
-        block.vertex2
-    }
+    func move(vertexIdx: Int, to newLocation: CGPoint) {
+        levelDesignerBoardViewModel.moveBlockVertex(block: block, vertexIdx: vertexIdx, to: newLocation)
 
-    var vertex3: CGPoint {
-        block.vertex3
+        objectWillChange.send()
     }
 }

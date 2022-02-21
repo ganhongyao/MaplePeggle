@@ -8,7 +8,7 @@
 import CoreGraphics
 
 public protocol Polygonal: Shape {
-    var vertices: [CGPoint] { get }
+    var vertices: [CGPoint] { get set }
 
     var edges: [(CGPoint, CGPoint)] { get }
 

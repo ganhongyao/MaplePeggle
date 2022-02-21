@@ -14,17 +14,11 @@ class Block: Triangular {
 
     let id: UUID?
 
-    var vertex1: CGPoint
+    var vertices: [CGPoint] = []
 
-    var vertex2: CGPoint
-
-    var vertex3: CGPoint
-
-    required init(id: UUID? = UUID(), vertex1: CGPoint, vertex2: CGPoint, vertex3: CGPoint) {
+    required init(id: UUID? = UUID(), vertices: [CGPoint]) {
         self.id = id
-        self.vertex1 = vertex1
-        self.vertex2 = vertex2
-        self.vertex3 = vertex3
+        self.vertices = vertices
     }
 
     convenience init(center: CGPoint) {
@@ -32,7 +26,7 @@ class Block: Triangular {
         let vertex2 = CGPoint(x: center.x + Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
         let vertex3 = CGPoint(x: center.x - Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
 
-        self.init(vertex1: vertex1, vertex2: vertex2, vertex3: vertex3)
+        self.init(vertices: [vertex1, vertex2, vertex3])
     }
 }
 
@@ -49,24 +43,25 @@ extension Block: Hashable {
 // MARK: Persistable
 extension Block: Persistable {
     static func fromManagedObject(_ managedObject: BlockEntity) -> Self {
-        Self(id: managedObject.id,
-             vertex1: CGPoint(x: managedObject.vertex1X, y: managedObject.vertex1Y),
-             vertex2: CGPoint(x: managedObject.vertex2X, y: managedObject.vertex2Y),
-             vertex3: CGPoint(x: managedObject.vertex3X, y: managedObject.vertex3Y))
+        let vertex1 = CGPoint(x: managedObject.vertex1X, y: managedObject.vertex1Y)
+        let vertex2 = CGPoint(x: managedObject.vertex2X, y: managedObject.vertex2Y)
+        let vertex3 = CGPoint(x: managedObject.vertex3X, y: managedObject.vertex3Y)
+
+        return Self(id: managedObject.id, vertices: [vertex1, vertex2, vertex3])
     }
 
     func toManagedObject() -> BlockEntity {
         let entity = CoreDataManager.sharedInstance.makeCoreDataEntity(class: Block.self)
         entity.id = id
 
-        entity.vertex1X = vertex1.x
-        entity.vertex1Y = vertex1.y
+        entity.vertex1X = vertices[0].x
+        entity.vertex1Y = vertices[0].y
 
-        entity.vertex2X = vertex2.x
-        entity.vertex2Y = vertex2.y
+        entity.vertex2X = vertices[1].x
+        entity.vertex2Y = vertices[1].y
 
-        entity.vertex3X = vertex3.x
-        entity.vertex3Y = vertex3.y
+        entity.vertex3X = vertices[2].x
+        entity.vertex3Y = vertices[2].y
 
         return entity
     }
