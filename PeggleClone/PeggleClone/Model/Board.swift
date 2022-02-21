@@ -252,6 +252,7 @@ extension Board: Persistable {
         entity.dateCreated = dateCreated
         entity.snapshot = snapshot
         entity.pegs = NSSet(array: pegEntities)
+        entity.blocks = NSSet(array: blocks.map({ $0.toManagedObject() }))
         return entity
     }
 }
