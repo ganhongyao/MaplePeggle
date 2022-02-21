@@ -30,10 +30,13 @@ struct BlockView: View {
                            height: ViewConstants.blockVertexCircleDiameter)
                     .position(x: vertex.x, y: vertex.y)
                     .gesture(DragGesture().onChanged { value in
-                        blockViewModel.move(vertexIdx: idx, to: value.location)
+                        blockViewModel.moveVertex(vertexIdx: idx, to: value.location)
                     })
             }
         }
+        .gesture(DragGesture().onChanged { value in
+            blockViewModel.moveBlock(to: value.location)
+        })
         .onLongPressGesture {
             blockViewModel.removeBlock()
         }

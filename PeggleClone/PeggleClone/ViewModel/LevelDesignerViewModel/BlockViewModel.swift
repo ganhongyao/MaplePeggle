@@ -26,7 +26,13 @@ class BlockViewModel: ObservableObject {
         block.vertices
     }
 
-    func move(vertexIdx: Int, to newLocation: CGPoint) {
+    func moveBlock(to newCentroid: CGPoint) {
+        levelDesignerBoardViewModel.moveBlock(block: block, to: newCentroid)
+
+        objectWillChange.send()
+    }
+
+    func moveVertex(vertexIdx: Int, to newLocation: CGPoint) {
         levelDesignerBoardViewModel.moveBlockVertex(block: block, vertexIdx: vertexIdx, to: newLocation)
 
         objectWillChange.send()

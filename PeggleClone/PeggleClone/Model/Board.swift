@@ -86,6 +86,25 @@ class Board {
         pegs.insert(peg)
     }
 
+    func moveBlock(block: Block, to newCentroid: CGPoint) {
+        guard blocks.contains(block) else {
+            return
+        }
+
+        let movedBlock = Block(vertices: block.vertices)
+        movedBlock.move(to: newCentroid)
+
+        let canMovePeg = canFit(movedBlock) && !hasOverlapWithExistingObjects(movedBlock, except: block)
+
+        guard canMovePeg else {
+            return
+        }
+
+        blocks.remove(block)
+        block.move(to: newCentroid)
+        blocks.insert(block)
+    }
+
     func moveBlockVertex(block: Block, vertexIdx: Int, to newLocation: CGPoint) {
         guard blocks.contains(block) else {
             return
