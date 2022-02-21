@@ -26,6 +26,10 @@ class BlockViewModel: ObservableObject {
         block.vertices
     }
 
+    var isSelected: Bool {
+        levelDesignerBoardViewModel.selectedObject === block
+    }
+
     func moveBlock(to newCentroid: CGPoint) {
         levelDesignerBoardViewModel.moveBlock(block: block, to: newCentroid)
 
