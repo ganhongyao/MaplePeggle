@@ -31,7 +31,7 @@ extension Triangular {
     }
 
     public func overlaps(with circle: Circular) -> Bool {
-        false
+        circle.overlaps(with: self)
     }
 
     public func overlaps(with triangle: Triangular) -> Bool {

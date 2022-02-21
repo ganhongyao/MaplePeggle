@@ -26,6 +26,10 @@ class Board {
 
     private(set) var blocks: Set<Block>
 
+    var boardObjects: [Shape] {
+        pegs.map({ $0 as Shape }) + blocks.map({ $0 as Shape })
+    }
+
     required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
                   dateCreated: Date? = Date()) {
         self.id = id
@@ -44,7 +48,7 @@ class Board {
     }
 
     func addPeg(_ peg: Peg) {
-        let canAddPeg = canFit(peg) && !hasOverlapWithExistingPegs(peg: peg)
+        let canAddPeg = canFit(peg) && !hasOverlapWithExistingObjects(peg)
 
         guard canAddPeg else {
             return
@@ -55,7 +59,7 @@ class Board {
     }
 
     func addBlock(_ block: Block) {
-        guard !pegs.contains(where: { $0.overlaps(with: block) }) else {
+        guard !hasOverlapWithExistingObjects(block) else {
             return
         }
 
@@ -69,7 +73,7 @@ class Board {
 
         let pegAtNewCenter = Peg(from: peg, newCenter: newCenter)
 
-        let canMovePeg = canFit(pegAtNewCenter) && !hasOverlapWithExistingPegs(peg: pegAtNewCenter, except: peg)
+        let canMovePeg = canFit(pegAtNewCenter) && !hasOverlapWithExistingObjects(pegAtNewCenter, except: peg)
 
         guard canMovePeg else {
             return
@@ -80,18 +84,22 @@ class Board {
         pegs.insert(peg)
     }
 
-    func scaleBoardObject(boardObject: Peg, scale: CGFloat) {
-        let scaledObject = Peg(from: boardObject, newRadius: boardObject.radius * scale)
-
-        let canScaleObject = canFit(scaledObject) && !hasOverlapWithExistingPegs(peg: scaledObject, except: boardObject)
-
-        guard canScaleObject else {
+    func scalePeg(peg: Peg, scale: CGFloat) {
+        guard pegs.contains(peg) else {
             return
         }
 
-        pegs.remove(boardObject)
-        boardObject.radius *= scale
-        pegs.insert(boardObject)
+        let scaledPeg = Peg(from: peg, newRadius: peg.radius * scale)
+
+        let canScalePeg = canFit(scaledPeg) && !hasOverlapWithExistingObjects(scaledPeg, except: peg)
+
+        guard canScalePeg else {
+            return
+        }
+
+        pegs.remove(peg)
+        peg.radius *= scale
+        pegs.insert(peg)
     }
 
     func removePeg(_ peg: Peg) {
@@ -110,12 +118,12 @@ class Board {
         return boardRectangle.contains(objectRectangle)
     }
 
-    private func hasOverlapWithExistingPegs(peg: Peg, except pegToExclude: Peg) -> Bool {
-        pegs.contains(where: { $0 != pegToExclude && $0.overlaps(with: peg) })
+    private func hasOverlapWithExistingObjects(_ object: Shape, except objectToExclude: Shape) -> Bool {
+        boardObjects.contains(where: { $0 !== objectToExclude && $0.overlaps(with: object) })
     }
 
-    private func hasOverlapWithExistingPegs(peg: Peg) -> Bool {
-        pegs.contains(where: { $0.overlaps(with: peg) })
+    private func hasOverlapWithExistingObjects(_ object: Shape) -> Bool {
+        boardObjects.contains(where: { $0.overlaps(with: object) })
     }
 
     static func makeNewBoard() -> Board {

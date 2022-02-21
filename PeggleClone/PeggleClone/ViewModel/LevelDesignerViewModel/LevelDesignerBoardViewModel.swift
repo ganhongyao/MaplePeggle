@@ -103,7 +103,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
             return
         }
 
-        board.scaleBoardObject(boardObject: selectedPeg, scale: scale)
+        board.scalePeg(peg: selectedPeg, scale: scale)
 
         objectWillChange.send()
     }
