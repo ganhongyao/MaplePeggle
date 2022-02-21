@@ -59,7 +59,9 @@ class Board {
     }
 
     func addBlock(_ block: Block) {
-        guard !hasOverlapWithExistingObjects(block) else {
+        let canAddBlock = canFit(block) && !hasOverlapWithExistingObjects(block)
+
+        guard canAddBlock else {
             return
         }
 
@@ -112,8 +114,14 @@ class Board {
 
     private func canFit(_ circle: Circular) -> Bool {
         let boardRectangle = CGRect(origin: .zero, size: size)
-
         let objectRectangle = CGRect(from: circle)
+
+        return boardRectangle.contains(objectRectangle)
+    }
+
+    private func canFit(_ polygon: Polygonal) -> Bool {
+        let boardRectangle = CGRect(origin: .zero, size: size)
+        let objectRectangle = CGRect(from: polygon)
 
         return boardRectangle.contains(objectRectangle)
     }

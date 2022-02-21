@@ -22,4 +22,14 @@ extension CGRect {
 
         self.init(origin: origin, size: size)
     }
+
+    init(from polygon: Polygonal) {
+        let minX = polygon.vertices.reduce(CGFloat.infinity, { min($0, $1.x) })
+        let maxX = polygon.vertices.reduce(-CGFloat.infinity, { max($0, $1.x) })
+
+        let minY = polygon.vertices.reduce(CGFloat.infinity, { min($0, $1.y) })
+        let maxY = polygon.vertices.reduce(-CGFloat.infinity, { max($0, $1.y) })
+
+        self.init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+    }
 }
