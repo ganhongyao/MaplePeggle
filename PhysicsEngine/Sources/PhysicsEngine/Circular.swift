@@ -27,6 +27,33 @@ extension Circular {
     }
 
     public func overlaps(with triangle: Triangular) -> Bool {
-        false
+        // Check if any vertex is within circle
+        if triangle.vertices.contains(where: { contains(point: $0) }) {
+            return true
+        }
+
+        // Check if any edge intersects the circle
+        for (pointA, pointB) in triangle.edges {
+            if contains(point: closestPointFromCenterToLineSegment(pointA: pointA, pointB: pointB)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    private func closestPointFromCenterToLineSegment(pointA: CGPoint, pointB: CGPoint) -> CGPoint {
+        let vectorA = CGVector(from: pointA)
+        let vectorB = CGVector(from: pointB)
+
+        let vectorAB = vectorB.subtract(vectorA)
+        let vectorAC = CGVector(from: center).subtract(vectorA)
+
+        var t = vectorAC.dotProduct(with: vectorAB) / vectorAB.dotProduct(with: vectorAB)
+
+        t = min(t, 1.0)
+        t = max(t, 0.0)
+
+        return CGPoint(from: vectorA.add(vectorAB.scale(factor: t)))
     }
 }

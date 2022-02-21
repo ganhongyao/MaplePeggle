@@ -16,6 +16,16 @@ public protocol Triangular: Shape {
 }
 
 extension Triangular {
+    public var vertices: [CGPoint] {
+        [vertex1, vertex2, vertex3]
+    }
+
+    public var edges: [(CGPoint, CGPoint)] {
+        [(vertex1, vertex2),
+         (vertex2, vertex3),
+         (vertex1, vertex3)]
+    }
+
     public func contains(point: CGPoint) -> Bool {
         false
     }

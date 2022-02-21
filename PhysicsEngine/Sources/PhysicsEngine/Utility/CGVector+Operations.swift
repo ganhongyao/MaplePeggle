@@ -8,6 +8,17 @@
 import CoreGraphics
 
 extension CGVector {
+    init(from point: CGPoint) {
+        self.init(dx: point.x, dy: point.y)
+    }
+
+    func add(_ other: CGVector) -> CGVector {
+        let dx = dx + other.dx
+        let dy = dy + other.dy
+
+        return CGVector(dx: dx, dy: dy)
+    }
+
     func subtract(_ other: CGVector) -> CGVector {
         let dx = dx - other.dx
         let dy = dy - other.dy
@@ -24,6 +35,10 @@ extension CGVector {
 
     func scale(factor: CGFloat) -> CGVector {
         CGVector(dx: dx * factor, dy: dy * factor)
+    }
+
+    func dotProduct(with other: CGVector) -> CGFloat {
+        dx * other.dx + dy * other.dy
     }
 
     var norm: CGFloat {

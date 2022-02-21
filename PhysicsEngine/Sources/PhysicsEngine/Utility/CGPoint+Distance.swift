@@ -8,6 +8,10 @@
 import CoreGraphics
 
 extension CGPoint {
+    init(from vector: CGVector) {
+        self.init(x: vector.dx, y: vector.dy)
+    }
+
     func distance(to otherPoint: CGPoint) -> CGFloat {
         sqrt(
             pow(x - otherPoint.x, 2) +

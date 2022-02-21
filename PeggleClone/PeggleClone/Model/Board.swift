@@ -55,6 +55,10 @@ class Board {
     }
 
     func addBlock(_ block: Block) {
+        guard !pegs.contains(where: { $0.overlaps(with: block) }) else {
+            return
+        }
+
         blocks.insert(block)
     }
 
