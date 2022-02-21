@@ -92,7 +92,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.snapshot = snapshotImage.pngData()
     }
 
-    func select(object: BoardObject) {
+    func select(object: BoardObject?) {
         selectedObject = object
 
         objectWillChange.send()

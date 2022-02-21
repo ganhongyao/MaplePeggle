@@ -20,9 +20,14 @@ struct LevelDesignerView: View {
     }
 
     private func snapshotCallback() {
+        // Temporarily unselect any selected object so that editing circles do not appear in SS, will set it back later
+        let selectedObject = levelDesignerViewModel.unselectBoardObject()
+
         let capturingRect = CGRect(origin: .zero, size: levelDesignerViewModel.boardSize)
         let snapshotImage = boardView.snapshot(capturingRect: capturingRect)
         levelDesignerViewModel.setBoardSnapshot(snapshotImage: snapshotImage)
+
+        levelDesignerViewModel.reselectBoardObject(selectedObject: selectedObject)
     }
 
     var body: some View {
