@@ -1,5 +1,5 @@
 //
-//  TriangularObject.swift
+//  Triangular.swift
 //  
 //
 //  Created by Hong Yao on 21/2/22.
@@ -7,7 +7,7 @@
 
 import CoreGraphics
 
-public protocol TriangularObject {
+public protocol Triangular: Shape {
     var vertex1: CGPoint { get set }
 
     var vertex2: CGPoint { get set }
@@ -15,12 +15,16 @@ public protocol TriangularObject {
     var vertex3: CGPoint { get set }
 }
 
-extension TriangularObject {
+extension Triangular {
     public func contains(point: CGPoint) -> Bool {
         false
     }
 
-    public func overlaps(with otherCircle: CircularObject) -> Bool {
+    public func overlaps(with circle: Circular) -> Bool {
+        false
+    }
+
+    public func overlaps(with triangle: Triangular) -> Bool {
         false
     }
 }

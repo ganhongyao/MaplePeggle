@@ -7,13 +7,13 @@
 
 import CoreGraphics
 
-public protocol CircularPhysicsBody: CircularObject, PhysicsBody {
+public protocol CircularPhysicsBody: Circular, PhysicsBody {
 
 }
 
 extension CircularPhysicsBody {
     public func overlaps(with otherCircularPhysicsBody: CircularPhysicsBody) -> Bool {
-        overlaps(with: otherCircularPhysicsBody as CircularObject)
+        overlaps(with: otherCircularPhysicsBody as Circular)
     }
 
     public func hasExceededBoundary(dimensions: CGSize, boundary: PhysicsWorldBoundary) -> Bool {

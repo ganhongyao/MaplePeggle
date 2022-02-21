@@ -98,7 +98,7 @@ class Board {
         pegs = []
     }
 
-    private func canFit(_ circle: CircularObject) -> Bool {
+    private func canFit(_ circle: Circular) -> Bool {
         let boardRectangle = CGRect(origin: .zero, size: size)
 
         let objectRectangle = CGRect(from: circle)

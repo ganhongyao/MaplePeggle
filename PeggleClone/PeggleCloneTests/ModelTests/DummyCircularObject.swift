@@ -8,7 +8,7 @@
 import CoreGraphics
 import PhysicsEngine
 
-struct DummyCircularObject: CircularObject {
+struct DummyCircularObject: Circular {
     var center: CGPoint = .zero
 
     var radius: CGFloat = 1

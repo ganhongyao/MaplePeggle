@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics
 import PhysicsEngine
 
-class Peg: CircularObject {
+class Peg: Circular {
     enum Color: String, CaseIterable {
         case blue
         case orange

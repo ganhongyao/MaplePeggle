@@ -9,7 +9,7 @@ import CoreGraphics
 import PhysicsEngine
 
 extension CGRect {
-    init(from circle: CircularObject) {
+    init(from circle: Circular) {
         let objectCenter = circle.center
         let objectRadius = circle.radius
 
