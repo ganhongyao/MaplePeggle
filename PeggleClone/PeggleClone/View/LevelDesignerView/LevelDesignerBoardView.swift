@@ -25,21 +25,15 @@ struct LevelDesignerBoardView: View {
                             ? pegViewModel.removePeg()
                             : pegViewModel.selectPeg()
                     }
-                    .onLongPressGesture {
-                        pegViewModel.removePeg()
-                    }
             }
 
             ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
                 BlockView(blockViewModel: blockViewModel)
-//                    .onTapGesture {
-//                        levelDesignerBoardViewModel.isInDeleteMode
-//                            ? pegViewModel.removePeg()
-//                            : pegViewModel.selectPeg()
-//                    }
-//                    .onLongPressGesture {
-//                        pegViewModel.removePeg()
-//                    }
+                    .highPriorityGesture(TapGesture().onEnded {
+                        levelDesignerBoardViewModel.isInDeleteMode
+                            ? blockViewModel.removeBlock()
+                            : blockViewModel.selectBlock()
+                    })
             }
         }
     }

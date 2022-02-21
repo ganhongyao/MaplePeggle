@@ -127,6 +127,10 @@ class Board {
         pegs.remove(peg)
     }
 
+    func removeBlock(_ block: Block) {
+        blocks.remove(block)
+    }
+
     func removeAllPegs() {
         pegs = []
     }

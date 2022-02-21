@@ -20,5 +20,8 @@ struct PegView: View {
                 pegViewModel.selectPeg()
                 pegViewModel.movePeg(to: value.location)
             })
+            .onLongPressGesture {
+                pegViewModel.removePeg()
+            }
     }
 }

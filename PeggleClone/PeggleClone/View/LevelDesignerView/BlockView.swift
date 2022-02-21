@@ -33,7 +33,9 @@ struct BlockView: View {
                         blockViewModel.move(vertexIdx: idx, to: value.location)
                     })
             }
-
+        }
+        .onLongPressGesture {
+            blockViewModel.removeBlock()
         }
     }
 }
