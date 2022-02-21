@@ -7,7 +7,7 @@
 
 import CoreGraphics
 
-public protocol Triangular: Shape {
+public protocol Triangular: Polygonal {
     var vertex1: CGPoint { get set }
 
     var vertex2: CGPoint { get set }
@@ -23,7 +23,13 @@ extension Triangular {
     public var edges: [(CGPoint, CGPoint)] {
         [(vertex1, vertex2),
          (vertex2, vertex3),
-         (vertex1, vertex3)]
+         (vertex3, vertex1)]
+    }
+
+    public var edgeVectors: [CGVector] {
+        edges.map({ pointA, pointB in
+            CGVector(from: pointB).subtract(CGVector(from: pointA))
+        })
     }
 
     public func contains(point: CGPoint) -> Bool {
@@ -35,6 +41,7 @@ extension Triangular {
     }
 
     public func overlaps(with triangle: Triangular) -> Bool {
-        false
+        return overlaps(otherPolygon: triangle)
     }
+
 }

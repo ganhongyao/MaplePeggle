@@ -29,8 +29,8 @@ class Block: Triangular {
 
     convenience init(center: CGPoint) {
         let vertex1 = CGPoint(x: center.x, y: center.y - Block.defaultLength * sqrt(3) / 3)
-        let vertex2 = CGPoint(x: center.x - Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
-        let vertex3 = CGPoint(x: center.x + Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
+        let vertex2 = CGPoint(x: center.x + Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
+        let vertex3 = CGPoint(x: center.x - Block.defaultLength / 2, y: center.y + Block.defaultLength * sqrt(3) / 6)
 
         self.init(vertex1: vertex1, vertex2: vertex2, vertex3: vertex3)
     }

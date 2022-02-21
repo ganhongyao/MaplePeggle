@@ -18,4 +18,10 @@ extension CGPoint {
             pow(y - otherPoint.y, 2)
         )
     }
+
+    func projectOnto(axis: CGVector) -> CGFloat {
+        let vector = CGVector(from: self)
+
+        return vector.dotProduct(with: axis)
+    }
 }
