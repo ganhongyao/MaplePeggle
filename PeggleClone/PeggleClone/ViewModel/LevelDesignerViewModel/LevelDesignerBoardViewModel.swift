@@ -50,6 +50,10 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.pegs.map({ PegViewModel(peg: $0, levelDesignerBoardViewModel: self)})
     }
 
+    var blockViewModels: [BlockViewModel] {
+        board.blocks.map({ BlockViewModel(block: $0, levelDesignerBoardViewModel: self)})
+    }
+
     var boardSize: CGSize {
         get {
             board.size
@@ -70,6 +74,14 @@ class LevelDesignerBoardViewModel: ObservableObject {
         set {
             board.snapshot = newValue
         }
+    }
+
+    var isInAddPegMode: Bool {
+        levelDesignerViewModel.pegSelectorViewModel.isInAddPegMode
+    }
+
+    var isInAddBlockMode: Bool {
+        levelDesignerViewModel.pegSelectorViewModel.isInAddBlockMode
     }
 
     var isInDeleteMode: Bool {

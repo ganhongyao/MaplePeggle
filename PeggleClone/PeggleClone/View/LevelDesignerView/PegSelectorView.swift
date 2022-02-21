@@ -15,21 +15,29 @@ struct PegSelectorView: View {
             ForEach(pegSelectorViewModel.pegColors, id: \.rawValue) { color in
                 Button(action: {
                     pegSelectorViewModel.setSelectedPegColor(color: color)
-                    pegSelectorViewModel.disableDeleteMode()
                 }, label: {
                     getPegImage(color: color)
                         .resizable()
                         .scaledToFit()
-                        .modifier(TranslucentViewModifier(shouldBeTranslucent: !pegSelectorViewModel.isInDeleteMode
+                        .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddPegMode
                                                 && color == pegSelectorViewModel.selectedPegColor)
                         )
                 })
             }
 
+            Button(action: {
+                pegSelectorViewModel.enterAddBlockMode()
+            }, label: {
+                Image("peg-blue-triangle") // FIXME: replace image
+                    .resizable()
+                    .scaledToFit()
+                    .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddBlockMode))
+            })
+
             Spacer()
 
             Button(action: {
-                pegSelectorViewModel.enableDeleteMode()
+                pegSelectorViewModel.enterDeleteMode()
             }, label: {
                 Image(ViewConstants.deleteImage)
                     .resizable()

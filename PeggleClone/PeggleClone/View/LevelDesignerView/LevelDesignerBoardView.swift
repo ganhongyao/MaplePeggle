@@ -29,6 +29,18 @@ struct LevelDesignerBoardView: View {
                         pegViewModel.removePeg()
                     }
             }
+
+            ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
+                BlockView(blockViewModel: blockViewModel)
+//                    .onTapGesture {
+//                        levelDesignerBoardViewModel.isInDeleteMode
+//                            ? pegViewModel.removePeg()
+//                            : pegViewModel.selectPeg()
+//                    }
+//                    .onLongPressGesture {
+//                        pegViewModel.removePeg()
+//                    }
+            }
         }
     }
 
@@ -36,8 +48,10 @@ struct LevelDesignerBoardView: View {
         GeometryReader { geo in
             mainBoardView
                 .gesture(DragGesture(minimumDistance: .zero, coordinateSpace: .local).onEnded { value in
-                    if !levelDesignerBoardViewModel.isInDeleteMode {
+                    if levelDesignerBoardViewModel.isInAddPegMode {
                         levelDesignerBoardViewModel.addPeg(center: value.location)
+                    } else if levelDesignerBoardViewModel.isInAddBlockMode {
+                        levelDesignerBoardViewModel.addBlock(center: value.location)
                     }
                 })
                 .gesture(MagnificationGesture().onChanged { value in
