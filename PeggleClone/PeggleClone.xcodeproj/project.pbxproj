@@ -31,6 +31,7 @@
 		F3BECEAA27B9124300247D9D /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEA927B9124300247D9D /* GameViewModel.swift */; };
 		F3BECEAC27B912E400247D9D /* GameControlsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEAB27B912E400247D9D /* GameControlsViewModel.swift */; };
 		F3BECEAE27B9146700247D9D /* GameControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEAD27B9146700247D9D /* GameControlsView.swift */; };
+		F3C7708827C365570030F7BE /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708727C365570030F7BE /* Block.swift */; };
 		F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C80C2C27A2DDFE000770FB /* PegSelectorView.swift */; };
 		F3C80C2F27A2E20B000770FB /* PegSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C80C2E27A2E20B000770FB /* PegSelectorViewModel.swift */; };
 		F3C80C3127A2E8F1000770FB /* LevelDesignerBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C80C3027A2E8F1000770FB /* LevelDesignerBoardView.swift */; };
@@ -102,6 +103,7 @@
 		F3BECEA927B9124300247D9D /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		F3BECEAB27B912E400247D9D /* GameControlsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControlsViewModel.swift; sourceTree = "<group>"; };
 		F3BECEAD27B9146700247D9D /* GameControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControlsView.swift; sourceTree = "<group>"; };
+		F3C7708727C365570030F7BE /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F3C80C2C27A2DDFE000770FB /* PegSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegSelectorView.swift; sourceTree = "<group>"; };
 		F3C80C2E27A2E20B000770FB /* PegSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegSelectorViewModel.swift; sourceTree = "<group>"; };
 		F3C80C3027A2E8F1000770FB /* LevelDesignerBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignerBoardView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				F3F6408627ACE8B80063B64A /* GameModel */,
 				F31F5A862796FE7A0031EA60 /* Peg.swift */,
 				F31F5A8A27970B880031EA60 /* Board.swift */,
+				F3C7708727C365570030F7BE /* Block.swift */,
 				F3CB758F27A463FB0053B675 /* Utility */,
 			);
 			path = Model;
@@ -562,6 +565,7 @@
 				F3BECEAC27B912E400247D9D /* GameControlsViewModel.swift in Sources */,
 				F3E1D8FA279EE50C005DCEEA /* PeggleClone.xcdatamodeld in Sources */,
 				F3F6408E27ACF1940063B64A /* GameView.swift in Sources */,
+				F3C7708827C365570030F7BE /* Block.swift in Sources */,
 				F3BECEAE27B9146700247D9D /* GameControlsView.swift in Sources */,
 				F3B6D0F7279803E20069BED7 /* LevelDesignerViewModel.swift in Sources */,
 			);

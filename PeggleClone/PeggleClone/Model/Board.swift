@@ -24,21 +24,23 @@ class Board {
 
     private(set) var pegs: Set<Peg>
 
-    required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, dateCreated: Date? = Date()) {
+    private(set) var blocks: Set<Block>
+
+    required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
+                  dateCreated: Date? = Date()) {
         self.id = id
         self.name = name
         self.size = size
         self.dateCreated = dateCreated
         self.snapshot = snapshot
         self.pegs = pegs
+        self.blocks = blocks
 
-        for peg in pegs {
-            peg.parentBoard = self
-        }
+        pegs.forEach { $0.parentBoard = self }
     }
 
     convenience init(name: String, size: CGSize) {
-        self.init(id: UUID(), name: name, size: size, snapshot: nil, pegs: [], dateCreated: Date())
+        self.init(id: UUID(), name: name, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
     }
 
     func addPeg(_ peg: Peg) {
@@ -141,11 +143,17 @@ extension Board: Persistable {
             pegs = Set(pegEntities.map(Peg.fromManagedObject))
         }
 
+        var blocks = Set<Block>()
+        if let blockEntities = managedObject.blocks?.allObjects as? [BlockEntity] {
+            blocks = Set(blockEntities.map(Block.fromManagedObject))
+        }
+
         let board = Self(id: managedObject.id,
                          name: managedObject.name ?? "",
                          size: CGSize(width: managedObject.width, height: managedObject.height),
                          snapshot: managedObject.snapshot,
                          pegs: pegs,
+                         blocks: blocks,
                          dateCreated: managedObject.dateCreated)
 
         return board

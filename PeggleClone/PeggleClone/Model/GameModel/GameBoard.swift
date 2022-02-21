@@ -38,12 +38,12 @@ class GameBoard: Board, PhysicsWorld {
         !gameCannon.isAimingAtSelf && gameBall == nil
     }
 
-    required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>,
+    required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
                   dateCreated: Date? = Date()) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
 
-        super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, dateCreated: dateCreated)
+        super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
 
         let gamePegs = pegs.map(GamePeg.init)
         for gamePeg in gamePegs {
@@ -53,7 +53,7 @@ class GameBoard: Board, PhysicsWorld {
 
     convenience init(from board: Board) {
         self.init(id: board.id, name: board.name, size: board.size, snapshot: board.snapshot, pegs: board.pegs,
-                  dateCreated: board.dateCreated)
+                  blocks: board.blocks, dateCreated: board.dateCreated)
     }
 
     func launchBall() {

@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G314" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BlockEntity" representedClassName="BlockEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="vertex1X" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="vertex1Y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="vertex2X" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="vertex2Y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="vertex3X" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="vertex3Y" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="parentBoard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BoardEntity" inverseName="blocks" inverseEntity="BoardEntity"/>
+    </entity>
     <entity name="BoardEntity" representedClassName="BoardEntity" syncable="YES" codeGenerationType="class">
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -7,6 +17,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="snapshot" optional="YES" attributeType="Binary"/>
         <attribute name="width" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="blocks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BlockEntity" inverseName="parentBoard" inverseEntity="BlockEntity"/>
         <relationship name="pegs" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="PegEntity" inverseName="parentBoard" inverseEntity="PegEntity"/>
     </entity>
     <entity name="PegEntity" representedClassName="PegEntity" syncable="YES" codeGenerationType="class">
@@ -18,7 +29,8 @@
         <relationship name="parentBoard" maxCount="1" deletionRule="Nullify" destinationEntity="BoardEntity" inverseName="pegs" inverseEntity="BoardEntity"/>
     </entity>
     <elements>
-        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="134"/>
+        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="163"/>
         <element name="PegEntity" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="BlockEntity" positionX="-45" positionY="72" width="128" height="149"/>
     </elements>
 </model>
