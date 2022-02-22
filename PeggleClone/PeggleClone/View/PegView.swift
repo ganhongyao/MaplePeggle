@@ -26,8 +26,8 @@ struct PegView: View {
                 if pegViewModel.isSelected {
                     Circle()
                         .fill(.blue)
-                        .frame(width: ViewConstants.blockVertexCircleDiameter,
-                               height: ViewConstants.blockVertexCircleDiameter)
+                        .frame(width: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter,
+                               height: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter)
                         .position(pegViewModel.center)
                 }
             }

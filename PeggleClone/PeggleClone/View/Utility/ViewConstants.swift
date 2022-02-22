@@ -35,6 +35,7 @@ struct ViewConstants {
 
     /// PegView
     static let pegNumTapsToSelect = 2
+    static let pegEditingCircleFractionOfDiameter = 0.2
 
     /// BlockView
     static let blockOutlineLineWidth = 3.0
