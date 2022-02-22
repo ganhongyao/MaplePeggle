@@ -13,6 +13,10 @@ struct SpherePolygonCollision: Collision {
 
     private let polygon: PolygonalPhysicsBody
 
+    let collisionAngle: CGFloat
+
+    let depthOfPenetration: CGFloat
+
     init?(circle: CircularPhysicsBody, polygon: PolygonalPhysicsBody) {
         guard circle.isMovable || polygon.isMovable else {
             return nil
@@ -21,12 +25,16 @@ struct SpherePolygonCollision: Collision {
         self.circle = circle
         self.polygon = polygon
 
+        (self.collisionAngle, self.depthOfPenetration) =
+            SpherePolygonCollision.findCollisionAngleAndPenetrationDepth(circle: circle, polygon: polygon)
+
         circle.collisionCount += 1
         polygon.collisionCount += 1
     }
 
 
-    private func findCollisionNormalAndPenetrationDepth() -> (CGVector, CGFloat) {
+    private static func findCollisionAngleAndPenetrationDepth(circle: CircularPhysicsBody,
+                                                               polygon: PolygonalPhysicsBody) -> (CGFloat, CGFloat) {
         var collisionNormal: CGVector = .zero
         var penetrationDepth: CGFloat = .infinity
 
@@ -48,27 +56,13 @@ struct SpherePolygonCollision: Collision {
             }
         }
 
-        return (collisionNormal, penetrationDepth)
+        let collisionAngle = -atan2(collisionNormal.dy, collisionNormal.dx)
+
+        return (collisionAngle, penetrationDepth)
     }
 
     func resolveCollision() {
-        let (collisionNormal, penetrationDepth) = findCollisionNormalAndPenetrationDepth()
-
-        let collisionAngle = -atan2(collisionNormal.dy, collisionNormal.dx)
-
-        let initialRotatedVelocity = circle.velocity.rotate(by: collisionAngle)
-        var finalRotatedVelocity = CGVector(dx: -initialRotatedVelocity.dx,
-                                         dy: initialRotatedVelocity.dy)
-
-        finalRotatedVelocity.dx *= circle.bounciness
-
-        let finalVelocity = finalRotatedVelocity.rotate(by: -collisionAngle)
-        circle.velocity = finalVelocity
-
-        let timeToMoveOut = penetrationDepth / circle.velocity.norm
-        circle.updateCenter(deltaTime: timeToMoveOut)
-
-        return
+        resolveCollision(bodyA: circle, bodyB: polygon)
     }
 
 }

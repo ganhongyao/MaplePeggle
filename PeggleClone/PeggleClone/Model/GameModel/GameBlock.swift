@@ -10,7 +10,7 @@ import PhysicsEngine
 import CoreGraphics
 
 class GameBlock: Block, PolygonalPhysicsBody {
-    var isMovable: Bool = false
+    var isMovable = false
 
     var center: CGPoint {
         get {
@@ -26,7 +26,7 @@ class GameBlock: Block, PolygonalPhysicsBody {
 
     var force: CGVector = .zero
 
-    var mass: CGFloat = .zero
+    var mass: CGFloat = 1
 
     var bounciness: CGFloat = 1
 

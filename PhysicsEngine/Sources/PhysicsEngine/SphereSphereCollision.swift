@@ -35,52 +35,15 @@ struct SphereSphereCollision: Collision {
         return positionVectorB.subtract(positionVectorA)
     }
 
-    private var collisionAngle: CGFloat {
+    var collisionAngle: CGFloat {
         -atan2(lineOfAction.dy, lineOfAction.dx)
     }
 
-    private var depthOfPenetration: CGFloat {
+    var depthOfPenetration: CGFloat {
         bodyA.radius + bodyB.radius - bodyA.center.distance(to: bodyB.center)
     }
 
     func resolveCollision() {
-        let initialRotatedVelocityA = bodyA.velocity.rotate(by: collisionAngle)
-        let initialRotatedVelocityB = bodyB.velocity.rotate(by: collisionAngle)
-
-        var finalRotatedVelocityA: CGVector
-        var finalRotatedVelocityB: CGVector
-
-        if bodyA.isMovable {
-            let massSum = bodyA.mass + bodyB.mass
-
-            finalRotatedVelocityA = CGVector(dx: initialRotatedVelocityA.dx * (bodyA.mass - bodyB.mass) / massSum +
-                                                 initialRotatedVelocityB.dx * 2 * bodyB.mass / massSum,
-                                             dy: initialRotatedVelocityA.dy)
-
-            finalRotatedVelocityB = CGVector(dx: initialRotatedVelocityB.dx * (bodyB.mass - bodyA.mass) / massSum +
-                                                 initialRotatedVelocityA.dx * 2 * bodyA.mass / massSum,
-                                             dy: initialRotatedVelocityA.dy)
-        } else {
-            finalRotatedVelocityA = initialRotatedVelocityA
-            finalRotatedVelocityB = CGVector(dx: -initialRotatedVelocityB.dx,
-                                             dy: initialRotatedVelocityB.dy)
-        }
-
-        finalRotatedVelocityA.dx *= bodyA.bounciness
-        finalRotatedVelocityB.dx *= bodyB.bounciness
-
-        let finalVelocityA = finalRotatedVelocityA.rotate(by: -collisionAngle)
-        let finalVelocityB = finalRotatedVelocityB.rotate(by: -collisionAngle)
-
-        bodyA.velocity = finalVelocityA
-        bodyB.velocity = finalVelocityB
-
-        let timeToMoveB = depthOfPenetration / bodyB.velocity.norm
-        bodyB.updateCenter(deltaTime: timeToMoveB)
-
-        if bodyA.isMovable {
-            let timeToMoveA = depthOfPenetration / bodyA.velocity.norm
-            bodyA.updateCenter(deltaTime: timeToMoveA)
-        }
+        resolveCollision(bodyA: bodyA, bodyB: bodyB)
     }
 }
