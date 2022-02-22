@@ -24,13 +24,14 @@
         <attribute name="centerX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="centerY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="color" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="facingAngle" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="parentBoard" maxCount="1" deletionRule="Nullify" destinationEntity="BoardEntity" inverseName="pegs" inverseEntity="BoardEntity"/>
     </entity>
     <elements>
-        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="163"/>
-        <element name="PegEntity" positionX="-63" positionY="-18" width="128" height="119"/>
         <element name="BlockEntity" positionX="-45" positionY="72" width="128" height="149"/>
+        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="163"/>
+        <element name="PegEntity" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

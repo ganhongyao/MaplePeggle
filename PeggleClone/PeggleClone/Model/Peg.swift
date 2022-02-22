@@ -84,6 +84,7 @@ extension Peg: Persistable {
         Self(id: managedObject.id,
              center: CGPoint(x: managedObject.centerX, y: managedObject.centerY),
              radius: managedObject.radius,
+             facingAngle: managedObject.facingAngle,
              color: intRepresentationToColor(intRep: managedObject.color)
         )
     }
@@ -97,6 +98,7 @@ extension Peg: Persistable {
         entity.centerX = center.x
         entity.centerY = center.y
         entity.radius = radius
+        entity.facingAngle = facingAngle
         entity.color = Peg.colorToIntRepresentation(color: color)
 
         return entity
