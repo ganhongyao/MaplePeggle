@@ -23,14 +23,18 @@ class Peg: Circular, BoardObject {
 
     var radius: CGFloat
 
+    var facingAngle: CGFloat = .zero
+
     let color: Peg.Color
 
     unowned var parentBoard: Board?
 
-    required init(id: UUID?, center: CGPoint, radius: CGFloat, color: Peg.Color, parentBoard: Board? = nil) {
+    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
+                  parentBoard: Board? = nil) {
         self.id = id
         self.center = center
         self.radius = radius
+        self.facingAngle = facingAngle
         self.color = color
         self.parentBoard = parentBoard
     }
@@ -43,6 +47,10 @@ class Peg: Circular, BoardObject {
 
     convenience init(center: CGPoint, radius: CGFloat, color: Peg.Color) {
         self.init(id: UUID(), center: center, radius: radius, color: color)
+    }
+
+    func rotate(angle: CGFloat) {
+        facingAngle += angle
     }
 
     func move(to newCenter: CGPoint) {

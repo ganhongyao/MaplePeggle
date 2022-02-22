@@ -72,6 +72,24 @@ extension Polygonal {
         }
     }
 
+    public func rotate(angle: CGFloat) {
+        for idx in vertices.indices {
+            let originalVertex = vertices[idx]
+            vertices[idx] = rotatePoint(point: originalVertex, angle: angle, anchor: centroid)
+        }
+    }
+
+    private func rotatePoint(point: CGPoint, angle: CGFloat, anchor: CGPoint) -> CGPoint {
+        let anchoredPoint = point.subtract(anchor)
+
+        let rotatedPoint = CGPoint(x: anchoredPoint.x * cos(angle) - anchoredPoint.y * sin(angle),
+                                   y: anchoredPoint.x * sin(angle) + anchoredPoint.y * cos(angle))
+
+        let unanchoredPoint = rotatedPoint.add(anchor)
+
+        return unanchoredPoint
+    }
+
     public func overlaps(with circle: Circular) -> Bool {
         var axes = edgeVectors.map { $0.perpendicular() }
 

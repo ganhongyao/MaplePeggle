@@ -162,6 +162,35 @@ class Board {
         blocks.insert(block)
     }
 
+    func rotatePeg(peg: Peg, angle: CGFloat) {
+        guard pegs.contains(peg) else {
+            return
+        }
+
+        pegs.remove(peg)
+        peg.rotate(angle: angle)
+        pegs.insert(peg)
+    }
+
+    func rotateBlock(block: Block, angle: CGFloat) {
+        guard blocks.contains(block) else {
+            return
+        }
+
+        let rotatedBlock = Block(from: block)
+        rotatedBlock.rotate(angle: angle)
+
+        let canRotateBlock = canFit(rotatedBlock) && !hasOverlapWithExistingObjects(rotatedBlock, except: block)
+
+        guard canRotateBlock else {
+            return
+        }
+
+        blocks.remove(block)
+        block.rotate(angle: angle)
+        blocks.insert(block)
+    }
+
     func removePeg(_ peg: Peg) {
         pegs.remove(peg)
     }

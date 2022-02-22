@@ -14,6 +14,8 @@ struct LevelDesignerBoardView: View {
 
     @State var lastScale: CGFloat = 1
 
+    @State var lastAngle: Angle = .zero
+
     private var mainBoardView: some View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
@@ -55,7 +57,13 @@ struct LevelDesignerBoardView: View {
                     levelDesignerBoardViewModel.scaleBoardObject(factor: scaleFactor)
                 }.onEnded { _ in
                     lastScale = 1.0
-                })
+                }.simultaneously(with: RotationGesture().onChanged { angle in
+                    let delta = angle - lastAngle
+                    lastAngle = angle
+                    levelDesignerBoardViewModel.rotateBoardObject(angle: delta.radians)
+                }.onEnded { _ in
+                    lastAngle = .zero
+                }))
                 // If the board is new, let GeoReader propose a size and set the board's size to the proposed size.
                 .onAppear {
                     if levelDesignerBoardViewModel.isNewBoard {

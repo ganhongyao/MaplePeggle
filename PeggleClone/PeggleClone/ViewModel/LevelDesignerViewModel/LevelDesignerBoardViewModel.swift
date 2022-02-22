@@ -114,6 +114,22 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
+    func rotateBoardObject(angle: CGFloat) {
+        guard let selectedObject = selectedObject else {
+            return
+        }
+
+        if let selectedPeg = selectedObject as? Peg {
+            board.rotatePeg(peg: selectedPeg, angle: angle)
+        }
+
+        if let selectedBlock = selectedObject as? Block {
+            board.rotateBlock(block: selectedBlock, angle: angle)
+        }
+
+        objectWillChange.send()
+    }
+
     func addPeg(center: CGPoint) {
         let newPeg = Peg(center: center, radius: Peg.defaultRadius,
                          color: levelDesignerViewModel.pegSelectorViewModel.selectedPegColor)

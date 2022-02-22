@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics
 
 class PegViewModel: ObservableObject {
-    @Published private(set) var peg: Peg
+    @Published private var peg: Peg
 
     private unowned var levelDesignerBoardViewModel: LevelDesignerBoardViewModel
 
@@ -26,8 +26,16 @@ class PegViewModel: ObservableObject {
         peg.center
     }
 
+    var radius: CGFloat {
+        peg.radius
+    }
+
     var diameter: CGFloat {
         peg.diameter
+    }
+
+    var facingAngle: CGFloat {
+        peg.facingAngle
     }
 
     var color: Peg.Color {

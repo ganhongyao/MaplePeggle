@@ -27,6 +27,10 @@ class GamePegViewModel: ObservableObject {
         gamePeg.diameter
     }
 
+    var pegFacingAngle: CGFloat {
+        gamePeg.facingAngle
+    }
+
     var isLit: Bool {
         gamePeg.collisionCount > 0
     }

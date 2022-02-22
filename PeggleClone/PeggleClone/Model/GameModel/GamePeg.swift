@@ -28,11 +28,14 @@ class GamePeg: Peg, CircularPhysicsBody {
         collisionCount > GamePeg.maxCollisionsBeforeForceRemoval
     }
 
-    required init(id: UUID?, center: CGPoint, radius: CGFloat, color: Peg.Color, parentBoard: Board? = nil) {
-        super.init(id: id, center: center, radius: radius, color: color, parentBoard: parentBoard)
+    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
+                  parentBoard: Board? = nil) {
+        super.init(id: id, center: center, radius: radius, facingAngle: facingAngle, color: color,
+                   parentBoard: parentBoard)
     }
 
     convenience init(from peg: Peg) {
-        self.init(id: peg.id, center: peg.center, radius: peg.radius, color: peg.color, parentBoard: peg.parentBoard)
+        self.init(id: peg.id, center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color,
+                  parentBoard: peg.parentBoard)
     }
 }

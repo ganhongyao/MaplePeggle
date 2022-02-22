@@ -14,6 +14,7 @@ struct GamePegView: View {
         getPegImage(color: gamePegViewModel.pegColor, isLit: gamePegViewModel.isLit)
             .resizable()
             .frame(width: gamePegViewModel.pegDiameter, height: gamePegViewModel.pegDiameter)
+            .rotationEffect(.radians(gamePegViewModel.pegFacingAngle))
             .position(gamePegViewModel.pegCenter)
     }
 }

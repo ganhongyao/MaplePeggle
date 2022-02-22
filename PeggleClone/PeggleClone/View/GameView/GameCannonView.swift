@@ -17,7 +17,7 @@ struct GameCannonView: View {
             Image(ViewConstants.cannonImage)
                 .resizable()
                 .frame(width: gameCannonViewModel.cannonHeight, height: gameCannonViewModel.cannonHeight)
-                .rotationEffect(Angle(radians: gameCannonViewModel.rotationAngle), anchor: .center)
+                .rotationEffect(.radians(gameCannonViewModel.rotationAngle))
                 .position(gameCannonViewModel.cannonPosition)
 
             if isAiming {
