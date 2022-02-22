@@ -34,6 +34,12 @@ struct GameBoardView: View {
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardPegAnimationDuration),
                             value: gameBoardViewModel.gamePegs)
+
+                ZStack {
+                    ForEach(gameBoardViewModel.gameBlocks, id: \.id) { gameBlock in
+                        GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock))
+                    }
+                }
             }
             .onAppear {
                 gameBoardViewModel.initialiseDisplayLink()

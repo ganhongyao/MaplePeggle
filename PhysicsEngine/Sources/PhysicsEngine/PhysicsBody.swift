@@ -36,6 +36,8 @@ public protocol PhysicsBody: AnyObject {
 
     func overlaps(with otherCircularPhysicsBody: CircularPhysicsBody) -> Bool
 
+    func overlaps(with otherPolygonalPhysicsBody: PolygonalPhysicsBody) -> Bool
+
     func hasExceededBoundary(dimensions: CGSize, boundary: PhysicsWorldBoundary) -> Bool
 
     func moveWithinBoundary(dimensions: CGSize, boundary: PhysicsWorldBoundary)
@@ -74,6 +76,8 @@ extension PhysicsBody {
         switch otherPhysicsBody {
         case let circularPhysicsBody as CircularPhysicsBody:
             return overlaps(with: circularPhysicsBody)
+        case let polygonalPhysicsBody as PolygonalPhysicsBody:
+            return overlaps(with: polygonalPhysicsBody)
         default:
             assertionFailure("Unknown subclass of PhysicsBody")
             return false

@@ -22,6 +22,10 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.gamePegs
     }
 
+    var gameBlocks: [GameBlock] {
+        gameBoard.gameBlocks
+    }
+
     var gameBall: GameBall? {
         gameBoard.gameBall
     }
@@ -82,6 +86,7 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.size.height += height
 
         gameBoard.offsetPegsByCannonHeight()
+        gameBoard.offsetBlocksByCannonHeight()
 
         objectWillChange.send()
     }

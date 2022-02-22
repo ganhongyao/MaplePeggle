@@ -1,17 +1,17 @@
 //
-//  CircularPhysicsBody.swift
-//  PeggleClone
+//  PolygonalPhysicsBody.swift
+//  
 //
-//  Created by Hong Yao on 18/1/22.
+//  Created by Hong Yao on 22/2/22.
 //
 
 import CoreGraphics
 
-public protocol CircularPhysicsBody: Circular, PhysicsBody {
+public protocol PolygonalPhysicsBody: Polygonal, PhysicsBody {
 
 }
 
-extension CircularPhysicsBody {
+extension PolygonalPhysicsBody {
     public func overlaps(with otherCircularPhysicsBody: CircularPhysicsBody) -> Bool {
         overlaps(with: otherCircularPhysicsBody as Circular)
     }
@@ -23,13 +23,13 @@ extension CircularPhysicsBody {
     public func hasExceededBoundary(dimensions: CGSize, boundary: PhysicsWorldBoundary) -> Bool {
         switch boundary {
         case .top:
-            return center.y - radius < 0
+            return minY < 0
         case .bottom:
-            return center.y + radius > dimensions.height
+            return maxY > dimensions.height
         case .left:
-            return center.x - radius < 0
+            return minX < 0
         case .right:
-            return center.x + radius > dimensions.width
+            return maxX > dimensions.width
         }
     }
 
@@ -38,15 +38,19 @@ extension CircularPhysicsBody {
             return
         }
 
+        let newCentroid: CGPoint
+
         switch boundary {
         case .top:
-            center.y = radius
+            newCentroid = CGPoint(x: centroid.x, y: centroid.y + (0 - minY))
         case .bottom:
-            center.y = dimensions.height - radius
+            newCentroid = CGPoint(x: centroid.x, y: centroid.y - (maxY - dimensions.height))
         case .left:
-            center.x = radius
+            newCentroid = CGPoint(x: centroid.x + (0 - minX), y: centroid.y)
         case .right:
-            center.x = dimensions.width - radius
+            newCentroid = CGPoint(x: centroid.x - (maxX - dimensions.width), y: centroid.y)
         }
+
+        move(to: newCentroid)
     }
 }

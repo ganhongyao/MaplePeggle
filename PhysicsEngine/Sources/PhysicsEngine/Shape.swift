@@ -10,8 +10,6 @@ import CoreGraphics
 public protocol Shape: AnyObject {
     func scale(factor: CGFloat)
 
-//    func contains(point: CGPoint) -> Bool
-
     func overlaps(with shape: Shape) -> Bool
 
     func overlaps(with circle: Circular) -> Bool

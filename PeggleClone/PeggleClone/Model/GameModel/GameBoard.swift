@@ -22,6 +22,10 @@ class GameBoard: Board, PhysicsWorld {
         physicsBodies.compactMap({ $0 as? GamePeg })
     }
 
+    var gameBlocks: [GameBlock] {
+        physicsBodies.compactMap({ $0 as? GameBlock })
+    }
+
     var gameBall: GameBall? {
         physicsBodies.compactMap({ $0 as? GameBall }).first
     }
@@ -46,9 +50,10 @@ class GameBoard: Board, PhysicsWorld {
         super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
 
         let gamePegs = pegs.map(GamePeg.init)
-        for gamePeg in gamePegs {
-            addBody(physicsBody: gamePeg)
-        }
+        gamePegs.forEach { addBody(physicsBody: $0) }
+
+        let gameBlocks = blocks.map(GameBlock.init)
+        gameBlocks.forEach { addBody(physicsBody: $0) }
     }
 
     convenience init(from board: Board) {
@@ -80,7 +85,11 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func offsetPegsByCannonHeight() {
-        gamePegs.forEach({ $0.center.y += gameCannon.height })
+        gamePegs.forEach { $0.center.y += gameCannon.height }
+    }
+
+    func offsetBlocksByCannonHeight() {
+        gameBlocks.forEach { $0.move(to: CGPoint(x: $0.centroid.x, y: $0.centroid.y + gameCannon.height)) }
     }
 
     func resetToInitialState() {
@@ -92,6 +101,7 @@ class GameBoard: Board, PhysicsWorld {
         }
 
         offsetPegsByCannonHeight()
+        offsetBlocksByCannonHeight()
     }
 
     private func removeBall() {
