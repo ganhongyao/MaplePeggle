@@ -30,7 +30,7 @@ class Block: Polygonal, BoardObject {
     }
 
     convenience init(from blockToClone: Block) {
-        self.init(vertices: blockToClone.vertices)
+        self.init(id: blockToClone.id, vertices: blockToClone.vertices)
     }
 }
 

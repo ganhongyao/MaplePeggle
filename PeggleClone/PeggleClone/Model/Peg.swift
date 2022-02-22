@@ -41,7 +41,7 @@ class Peg: Circular, BoardObject {
 
     convenience init(from pegToClone: Peg, newCenter: CGPoint? = nil, newRadius: CGFloat? = nil,
                      newColor: Peg.Color? = nil) {
-        self.init(id: UUID(), center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
+        self.init(id: pegToClone.id, center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
                   color: newColor ?? pegToClone.color, parentBoard: pegToClone.parentBoard)
     }
 
@@ -67,17 +67,11 @@ extension Peg: CustomStringConvertible {
 // MARK: Hashable
 extension Peg: Hashable {
     static func == (lhs: Peg, rhs: Peg) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.center == rhs.center &&
-        lhs.radius == rhs.radius &&
-        lhs.color == rhs.color
+        lhs.id == rhs.id
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(center)
-        hasher.combine(radius)
-        hasher.combine(color)
     }
 }
 

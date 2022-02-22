@@ -26,8 +26,8 @@ class Board {
 
     private(set) var blocks: Set<Block>
 
-    var boardObjects: [Shape] {
-        pegs.map({ $0 as Shape }) + blocks.map({ $0 as Shape })
+    var boardObjects: [BoardObject] {
+        pegs.map({ $0 as BoardObject }) + blocks.map({ $0 as BoardObject })
     }
 
     required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
@@ -48,9 +48,7 @@ class Board {
     }
 
     func addPeg(_ peg: Peg) {
-        let canAddPeg = canFit(peg) && !hasOverlapWithExistingObjects(peg)
-
-        guard canAddPeg else {
+        guard isAtLegalPosition(peg) else {
             return
         }
 
@@ -59,9 +57,7 @@ class Board {
     }
 
     func addBlock(_ block: Block) {
-        let canAddBlock = canFit(block) && !hasOverlapWithExistingObjects(block)
-
-        guard canAddBlock else {
+        guard isAtLegalPosition(block) else {
             return
         }
 
@@ -75,15 +71,11 @@ class Board {
 
         let pegAtNewCenter = Peg(from: peg, newCenter: newCenter)
 
-        let canMovePeg = canFit(pegAtNewCenter) && !hasOverlapWithExistingObjects(pegAtNewCenter, except: peg)
-
-        guard canMovePeg else {
+        guard isAtLegalPosition(pegAtNewCenter) else {
             return
         }
 
-        pegs.remove(peg)
         peg.move(to: newCenter)
-        pegs.insert(peg)
     }
 
     func moveBlock(block: Block, to newCentroid: CGPoint) {
@@ -91,18 +83,14 @@ class Board {
             return
         }
 
-        let movedBlock = Block(vertices: block.vertices)
+        let movedBlock = Block(from: block)
         movedBlock.move(to: newCentroid)
 
-        let canMovePeg = canFit(movedBlock) && !hasOverlapWithExistingObjects(movedBlock, except: block)
-
-        guard canMovePeg else {
+        guard isAtLegalPosition(movedBlock) else {
             return
         }
 
-        blocks.remove(block)
         block.move(to: newCentroid)
-        blocks.insert(block)
     }
 
     func moveBlockVertex(block: Block, vertexIdx: Int, to newLocation: CGPoint) {
@@ -110,18 +98,14 @@ class Board {
             return
         }
 
-        let movedBlock = Block(vertices: block.vertices)
+        let movedBlock = Block(from: block)
         movedBlock.vertices[vertexIdx] = newLocation
 
-        let canMovePeg = canFit(movedBlock) && !hasOverlapWithExistingObjects(movedBlock, except: block)
-
-        guard canMovePeg else {
+        guard isAtLegalPosition(movedBlock) else {
             return
         }
 
-        blocks.remove(block)
         block.vertices[vertexIdx] = newLocation
-        blocks.insert(block)
     }
 
     func scalePeg(peg: Peg, scaleFactor: CGFloat) {
@@ -132,15 +116,11 @@ class Board {
         let scaledPeg = Peg(from: peg)
         scaledPeg.scale(factor: scaleFactor)
 
-        let canScalePeg = canFit(scaledPeg) && !hasOverlapWithExistingObjects(scaledPeg, except: peg)
-
-        guard canScalePeg else {
+        guard isAtLegalPosition(scaledPeg) else {
             return
         }
 
-        pegs.remove(peg)
         peg.scale(factor: scaleFactor)
-        pegs.insert(peg)
     }
 
     func scaleBlock(block: Block, scaleFactor: CGFloat) {
@@ -151,15 +131,11 @@ class Board {
         let scaledBlock = Block(from: block)
         scaledBlock.scale(factor: scaleFactor)
 
-        let canScaleBlock = canFit(scaledBlock) && !hasOverlapWithExistingObjects(scaledBlock, except: block)
-
-        guard canScaleBlock else {
+        guard isAtLegalPosition(scaledBlock) else {
             return
         }
 
-        blocks.remove(block)
         block.scale(factor: scaleFactor)
-        blocks.insert(block)
     }
 
     func rotatePeg(peg: Peg, angle: CGFloat) {
@@ -167,9 +143,14 @@ class Board {
             return
         }
 
-        pegs.remove(peg)
+        let rotatedPeg = Peg(from: peg)
+        rotatedPeg.rotate(angle: angle)
+
+        guard isAtLegalPosition(rotatedPeg) else {
+            return
+        }
+
         peg.rotate(angle: angle)
-        pegs.insert(peg)
     }
 
     func rotateBlock(block: Block, angle: CGFloat) {
@@ -180,15 +161,11 @@ class Board {
         let rotatedBlock = Block(from: block)
         rotatedBlock.rotate(angle: angle)
 
-        let canRotateBlock = canFit(rotatedBlock) && !hasOverlapWithExistingObjects(rotatedBlock, except: block)
-
-        guard canRotateBlock else {
+        guard isAtLegalPosition(rotatedBlock) else {
             return
         }
 
-        blocks.remove(block)
         block.rotate(angle: angle)
-        blocks.insert(block)
     }
 
     func removePeg(_ peg: Peg) {
@@ -203,6 +180,10 @@ class Board {
         pegs = []
     }
 
+    private func isAtLegalPosition(_ object: BoardObject) -> Bool {
+        canFit(object) && !hasOverlapWithExistingObjects(object)
+    }
+
     private func canFit(_ object: BoardObject) -> Bool {
         let boardRectangle = CGRect(origin: .zero, size: size)
         let objectRectangle = CGRect(from: object)
@@ -210,12 +191,8 @@ class Board {
         return boardRectangle.contains(objectRectangle)
     }
 
-    private func hasOverlapWithExistingObjects(_ object: Shape, except objectToExclude: Shape) -> Bool {
-        boardObjects.contains(where: { $0 !== objectToExclude && $0.overlaps(with: object) })
-    }
-
-    private func hasOverlapWithExistingObjects(_ object: Shape) -> Bool {
-        boardObjects.contains(where: { $0.overlaps(with: object) })
+    private func hasOverlapWithExistingObjects(_ object: BoardObject) -> Bool {
+        boardObjects.contains(where: { $0.id != object.id && $0.overlaps(with: object) })
     }
 
     static func makeNewBoard() -> Board {
