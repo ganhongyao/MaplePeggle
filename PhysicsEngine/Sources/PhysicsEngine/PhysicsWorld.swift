@@ -29,6 +29,7 @@ extension PhysicsWorld {
         keepBodiesWithinBoundaries()
 
         for collision in findCollisions() {
+            print("Found collision")
             collision.resolveCollision()
         }
     }
@@ -79,6 +80,9 @@ extension PhysicsWorld {
         switch (bodyA, bodyB) {
         case let (circleA, circleB) as (CircularPhysicsBody, CircularPhysicsBody):
             return SphereSphereCollision(bodyA: circleA, bodyB: circleB)
+        case let (circle, polygon) as (CircularPhysicsBody, PolygonalPhysicsBody),
+             let (polygon, circle) as (PolygonalPhysicsBody, CircularPhysicsBody):
+            return SpherePolygonCollision(circle: circle, polygon: polygon)
         default:
             return nil
         }
