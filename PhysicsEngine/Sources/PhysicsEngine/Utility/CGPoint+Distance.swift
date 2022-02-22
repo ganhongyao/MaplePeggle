@@ -12,6 +12,14 @@ extension CGPoint {
         self.init(x: vector.dx, y: vector.dy)
     }
 
+    func add(_ otherPoint: CGPoint) -> CGPoint {
+        CGPoint(x: x + otherPoint.x, y: y + otherPoint.y)
+    }
+
+    func subtract(_ otherPoint: CGPoint) -> CGPoint {
+        CGPoint(x: x - otherPoint.x, y: y - otherPoint.y)
+    }
+
     func distance(to otherPoint: CGPoint) -> CGFloat {
         sqrt(
             pow(x - otherPoint.x, 2) +

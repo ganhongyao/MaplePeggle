@@ -37,6 +37,14 @@ extension CGVector {
         CGVector(dx: dx * factor, dy: dy * factor)
     }
 
+    func normalized() -> CGVector {
+        scale(factor: 1 / norm)
+    }
+
+    func perpendicular() -> CGVector {
+        CGVector(dx: -dy, dy: dx)
+    }
+
     func dotProduct(with other: CGVector) -> CGFloat {
         dx * other.dx + dy * other.dy
     }

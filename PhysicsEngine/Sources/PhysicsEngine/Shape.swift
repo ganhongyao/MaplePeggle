@@ -10,13 +10,13 @@ import CoreGraphics
 public protocol Shape: AnyObject {
     func scale(factor: CGFloat)
 
-    func contains(point: CGPoint) -> Bool
+//    func contains(point: CGPoint) -> Bool
 
     func overlaps(with shape: Shape) -> Bool
 
     func overlaps(with circle: Circular) -> Bool
 
-    func overlaps(with triangle: Triangular) -> Bool
+    func overlaps(with polygon: Polygonal) -> Bool
 }
 
 extension Shape {
@@ -24,8 +24,8 @@ extension Shape {
         switch shape {
         case let circle as Circular:
             return overlaps(with: circle)
-        case let triangle as Triangular:
-            return overlaps(with: triangle)
+        case let polygon as Polygonal:
+            return overlaps(with: polygon)
         default:
             assertionFailure("Unknown shape")
             return false

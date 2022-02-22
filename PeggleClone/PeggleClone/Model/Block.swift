@@ -9,7 +9,7 @@ import Foundation
 import CoreGraphics
 import PhysicsEngine
 
-class Block: Triangular, BoardObject {
+class Block: Polygonal, BoardObject {
     private static let defaultLength = 50.0
 
     let id: UUID?
