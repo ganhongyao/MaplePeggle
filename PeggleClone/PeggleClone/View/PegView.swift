@@ -11,25 +11,26 @@ struct PegView: View {
     @ObservedObject var pegViewModel: PegViewModel
 
     var body: some View {
-        getPegImage(color: pegViewModel.color)
-            .resizable()
-            .frame(width: pegViewModel.diameter, height: pegViewModel.diameter)
-            .position(pegViewModel.center)
-            .gesture(DragGesture().onChanged { value in
-                pegViewModel.selectPeg()
-                pegViewModel.movePeg(to: value.location)
-            })
-            .onLongPressGesture {
-                pegViewModel.removePeg()
+        ZStack {
+            getPegImage(color: pegViewModel.color)
+                .resizable()
+                .frame(width: pegViewModel.diameter, height: pegViewModel.diameter)
+                .position(pegViewModel.center)
+
+            if pegViewModel.isSelected {
+                Circle()
+                    .fill(.blue)
+                    .frame(width: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter,
+                           height: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter)
+                    .position(pegViewModel.center)
             }
-            .overlay {
-                if pegViewModel.isSelected {
-                    Circle()
-                        .fill(.blue)
-                        .frame(width: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter,
-                               height: ViewConstants.pegEditingCircleFractionOfDiameter * pegViewModel.diameter)
-                        .position(pegViewModel.center)
-                }
-            }
+        }
+        .gesture(DragGesture().onChanged { value in
+            pegViewModel.selectPeg()
+            pegViewModel.movePeg(to: value.location)
+        })
+        .onLongPressGesture {
+            pegViewModel.removePeg()
+        }
     }
 }
