@@ -33,6 +33,6 @@ class ControlsViewModel: ObservableObject {
     }
 
     func reset() {
-        levelDesignerViewModel.boardViewModel?.removeAllPegs()
+        levelDesignerViewModel.boardViewModel?.removeAllBoardObjects()
     }
 }

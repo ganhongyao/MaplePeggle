@@ -177,8 +177,9 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
-    func removeAllPegs() {
+    func removeAllBoardObjects() {
         board.removeAllPegs()
+        board.removeAllBlocks()
 
         objectWillChange.send()
     }

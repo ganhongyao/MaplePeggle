@@ -180,6 +180,10 @@ class Board {
         pegs = []
     }
 
+    func removeAllBlocks() {
+        blocks = []
+    }
+
     private func isAtLegalPosition(_ object: BoardObject) -> Bool {
         canFit(object) && !hasOverlapWithExistingObjects(object)
     }
