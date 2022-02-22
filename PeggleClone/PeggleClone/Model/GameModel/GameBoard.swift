@@ -89,16 +89,17 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func offsetBlocksByCannonHeight() {
-        gameBlocks.forEach { $0.move(to: CGPoint(x: $0.centroid.x, y: $0.centroid.y + gameCannon.height)) }
+        gameBlocks.forEach { $0.center.y += gameCannon.height }
     }
 
     func resetToInitialState() {
         physicsBodies = []
 
         let gamePegs = pegs.map(GamePeg.init)
-        for gamePeg in gamePegs {
-            addBody(physicsBody: gamePeg)
-        }
+        gamePegs.forEach { addBody(physicsBody: $0) }
+
+        let gameBlocks = blocks.map(GameBlock.init)
+        gameBlocks.forEach { addBody(physicsBody: $0) }
 
         offsetPegsByCannonHeight()
         offsetBlocksByCannonHeight()
