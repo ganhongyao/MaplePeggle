@@ -10,7 +10,7 @@ import CoreGraphics
 import PhysicsEngine
 
 class GamePeg: Peg, CircularPhysicsBody {
-    private static let maxCollisionsBeforeForceRemoval = 50
+    static let maxCollisionsBeforeForceRemoval = 50
 
     let isMovable = false
 
@@ -23,10 +23,6 @@ class GamePeg: Peg, CircularPhysicsBody {
     var bounciness: CGFloat = 1
 
     var collisionCount = 0
-
-    var hasExceededMaxCollisions: Bool {
-        collisionCount > GamePeg.maxCollisionsBeforeForceRemoval
-    }
 
     required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
                   parentBoard: Board? = nil) {

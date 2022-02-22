@@ -29,17 +29,20 @@ struct GameBoardView: View {
                 ZStack {
                     ForEach(gameBoardViewModel.gamePegs, id: \.id) { gamePeg in
                         GamePegView(gamePegViewModel: GamePegViewModel(gamePeg: gamePeg))
-                            .transition(.scale(scale: ViewConstants.gameBoardPegScaleOnRemoval)
+                            .transition(.scale(scale: ViewConstants.gameBoardObjectScaleOnRemoval)
                                             .combined(with: .opacity))
                     }
-                }.animation(.easeInOut(duration: ViewConstants.gameBoardPegAnimationDuration),
+                }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gamePegs)
 
                 ZStack {
                     ForEach(gameBoardViewModel.gameBlocks, id: \.id) { gameBlock in
                         GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock))
+                            .transition(.scale(scale: ViewConstants.gameBoardObjectScaleOnRemoval)
+                                            .combined(with: .opacity))
                     }
-                }
+                }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
+                            value: gameBoardViewModel.gameBlocks)
             }
             .onAppear {
                 gameBoardViewModel.initialiseDisplayLink()

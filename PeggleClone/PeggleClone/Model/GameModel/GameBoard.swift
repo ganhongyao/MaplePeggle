@@ -10,6 +10,8 @@ import CoreGraphics
 import PhysicsEngine
 
 class GameBoard: Board, PhysicsWorld {
+    private static let maxCollisionsBeforeForceRemoval = 50
+
     var physicsBodies: [PhysicsBody] = []
 
     let passableBoundaries: Set<PhysicsWorldBoundary> = [.bottom]
@@ -80,8 +82,21 @@ class GameBoard: Board, PhysicsWorld {
         removeCollidedPegs()
     }
 
-    func removePegsWithMaxCollisions() {
-        physicsBodies = physicsBodies.filter({ !isPegThatExceededMaxCollisions(physicsBody: $0) })
+    func removeBoardObjectsExceedingMaxCollisions() {
+        removePegsExceedingMaxCollisions()
+        removeBlocksExceedingMaxCollisions()
+    }
+
+    func removePegsExceedingMaxCollisions() {
+        physicsBodies.removeAll {
+            $0 is GamePeg && $0.collisionCount > GamePeg.maxCollisionsBeforeForceRemoval
+        }
+    }
+
+    func removeBlocksExceedingMaxCollisions() {
+        physicsBodies.removeAll {
+            $0 is GameBlock && $0.collisionCount > GameBlock.maxCollisionsBeforeForceRemoval
+        }
     }
 
     func offsetPegsByCannonHeight() {
@@ -119,13 +134,5 @@ class GameBoard: Board, PhysicsWorld {
         }
 
         return gamePeg.hasCollided
-    }
-
-    private func isPegThatExceededMaxCollisions(physicsBody: PhysicsBody) -> Bool {
-        guard let gamePeg = physicsBody as? GamePeg else {
-            return false
-        }
-
-        return gamePeg.hasExceededMaxCollisions
     }
 }

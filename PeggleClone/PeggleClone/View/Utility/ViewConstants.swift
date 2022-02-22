@@ -61,8 +61,8 @@ struct ViewConstants {
 
     /// GameBoardView
     static let gameBoardCannonAnimationDuration = 1.0
-    static let gameBoardPegScaleOnRemoval = 1.1
-    static let gameBoardPegAnimationDuration = 1.0
+    static let gameBoardObjectScaleOnRemoval = 1.1
+    static let gameBoardObjectAnimationDuration = 1.0
 
     /// GameCannonView
     static let cannonAimCancelImage = "xmark.circle"

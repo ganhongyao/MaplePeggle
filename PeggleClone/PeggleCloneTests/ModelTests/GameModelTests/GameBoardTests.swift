@@ -136,7 +136,7 @@ class GameBoardTests: XCTestCase {
         }
         XCTAssert(gamePegs[0].hasExceededMaxCollisions)
 
-        gameBoard.removePegsWithMaxCollisions()
+        gameBoard.removeBoardObjectsExceedingMaxCollisions()
 
         XCTAssertFalse(gameBoard.gamePegs.contains(gamePegs[0]))
         XCTAssert(gameBoard.gamePegs.contains(gamePegs[1]))

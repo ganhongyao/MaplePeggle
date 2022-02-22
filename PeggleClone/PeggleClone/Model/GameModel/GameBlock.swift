@@ -10,6 +10,8 @@ import PhysicsEngine
 import CoreGraphics
 
 class GameBlock: Block, PolygonalPhysicsBody {
+    static let maxCollisionsBeforeForceRemoval = 250
+
     var isMovable = false
 
     var center: CGPoint {
@@ -22,9 +24,9 @@ class GameBlock: Block, PolygonalPhysicsBody {
         }
     }
 
-    var velocity: CGVector = .zero
+    var velocity = CGVector.zero
 
-    var force: CGVector = .zero
+    var force = CGVector.zero
 
     var mass: CGFloat = 1
 
