@@ -15,6 +15,8 @@ public protocol Shape: AnyObject {
     func overlaps(with circle: Circular) -> Bool
 
     func overlaps(with polygon: Polygonal) -> Bool
+
+    func getMinMaxProjectionsOntoAxis(axis: CGVector) -> (CGFloat, CGFloat)
 }
 
 extension Shape {

@@ -29,7 +29,6 @@ extension PhysicsWorld {
         keepBodiesWithinBoundaries()
 
         for collision in findCollisions() {
-            print("Found collision")
             collision.resolveCollision()
         }
     }

@@ -33,4 +33,21 @@ extension Circular {
     public func overlaps(with polygon: Polygonal) -> Bool {
         polygon.overlaps(with: self)
     }
+
+    public func getMinMaxProjectionsOntoAxis(axis: CGVector) -> (CGFloat, CGFloat) {
+        let normalizedAxis = axis.normalized()
+
+        let directionVector = normalizedAxis.scale(factor: radius)
+
+        let pointOnCircumference1 = center.add(CGPoint(from: directionVector))
+        let pointOnCircumference2 = center.subtract(CGPoint(from: directionVector))
+
+        let projection1 = pointOnCircumference1.projectOnto(axis: normalizedAxis)
+        let projection2 = pointOnCircumference2.projectOnto(axis: normalizedAxis)
+
+        let minProjection = min(projection1, projection2)
+        let maxProjection = max(projection1, projection2)
+
+        return (minProjection, maxProjection)
+    }
 }

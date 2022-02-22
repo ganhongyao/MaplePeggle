@@ -73,95 +73,43 @@ extension Polygonal {
     }
 
     public func overlaps(with circle: Circular) -> Bool {
-        for edgeVector in edgeVectors {
-            let axis = edgeVector.perpendicular()
+        var axes = edgeVectors.map { $0.perpendicular() }
 
-            if !Self.isProjectionOverlapping(circle: circle, polygon: self, axis: axis) {
-                return false
-            }
+        if let closestVertex = closestVertex(to: circle.center) {
+            axes.append(CGVector(from: closestVertex.subtract(circle.center)))
         }
 
-        guard let closestVertex = closestVertex(to: circle.center) else {
-            return false
+        return axes.allSatisfy { axis in
+            MathUtil.isOverlapping(interval1: getMinMaxProjectionsOntoAxis(axis: axis),
+                                   interval2: circle.getMinMaxProjectionsOntoAxis(axis: axis))
         }
-
-        let axis = CGVector(from: closestVertex.subtract(circle.center))
-
-        if !Self.isProjectionOverlapping(circle: circle, polygon: self, axis: axis) {
-            return false
-        }
-
-        return true
     }
 
     public func overlaps(with otherPolygon: Polygonal) -> Bool {
-        for edgeVector in (edgeVectors + otherPolygon.edgeVectors) {
-            let axis = edgeVector.perpendicular()
+        let axes = (edgeVectors + otherPolygon.edgeVectors).map { $0.perpendicular() }
 
-            if !Self.isProjectionOverlapping(polygonA: self, polygonB: otherPolygon, axis: axis) {
-                return false
-            }
+        return axes.allSatisfy { axis in
+            MathUtil.isOverlapping(interval1: getMinMaxProjectionsOntoAxis(axis: axis),
+                                   interval2: otherPolygon.getMinMaxProjectionsOntoAxis(axis: axis))
         }
-
-        return true
     }
 
-    private static func isProjectionOverlapping(polygonA: Polygonal, polygonB: Polygonal, axis: CGVector) -> Bool {
+    public func getMinMaxProjectionsOntoAxis(axis: CGVector) -> (CGFloat, CGFloat) {
         let normalizedAxis = axis.normalized()
 
-        var minProjectionA: CGFloat = .infinity
-        var maxProjectionA: CGFloat = -.infinity
+        var minProjection: CGFloat = .infinity
+        var maxProjection: CGFloat = -.infinity
 
-        polygonA.vertices.forEach { vertex in
+        vertices.forEach { vertex in
             let projection = vertex.projectOnto(axis: normalizedAxis)
-            minProjectionA = min(minProjectionA, projection)
-            maxProjectionA = max(maxProjectionA, projection)
+            minProjection = min(minProjection, projection)
+            maxProjection = max(maxProjection, projection)
         }
 
-        var minProjectionB: CGFloat = .infinity
-        var maxProjectionB: CGFloat = -.infinity
-
-        polygonB.vertices.forEach { vertex in
-            let projection = vertex.projectOnto(axis: normalizedAxis)
-            minProjectionB = min(minProjectionB, projection)
-            maxProjectionB = max(maxProjectionB, projection)
-        }
-
-        let isOverlappingIntervals = minProjectionA < maxProjectionB && minProjectionB < maxProjectionA
-
-        return isOverlappingIntervals
+        return (minProjection, maxProjection)
     }
 
-    private static func isProjectionOverlapping(circle: Circular, polygon: Polygonal, axis: CGVector) -> Bool {
-        let normalizedAxis = axis.normalized()
-
-        let directionVector = normalizedAxis.scale(factor: circle.radius)
-
-        let pointOnCircumference1 = circle.center.add(CGPoint(from: directionVector))
-        let pointOnCircumference2 = circle.center.subtract(CGPoint(from: directionVector))
-
-        let projection1 = pointOnCircumference1.projectOnto(axis: normalizedAxis)
-        let projection2 = pointOnCircumference2.projectOnto(axis: normalizedAxis)
-
-        let circleMinProjection = min(projection1, projection2)
-        let circleMaxProjection = max(projection1, projection2)
-
-        var polygonMinProjection: CGFloat = .infinity
-        var polygonMaxProjection: CGFloat = -.infinity
-
-        polygon.vertices.forEach { vertex in
-            let projection = vertex.projectOnto(axis: normalizedAxis)
-            polygonMinProjection = min(polygonMinProjection, projection)
-            polygonMaxProjection = max(polygonMaxProjection, projection)
-        }
-
-        let isOverlappingIntervals = circleMinProjection < polygonMaxProjection &&
-                                     polygonMinProjection < circleMaxProjection
-
-        return isOverlappingIntervals
-    }
-
-    private func closestVertex(to point: CGPoint) -> CGPoint? {
+    func closestVertex(to point: CGPoint) -> CGPoint? {
         vertices.min { $0.distance(to: point) < $1.distance(to: point) }
     }
 }
