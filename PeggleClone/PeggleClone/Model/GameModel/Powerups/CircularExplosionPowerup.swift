@@ -1,5 +1,5 @@
 //
-//  CircularExplosionEffect.swift
+//  CircularExplosionPowerup.swift
 //  PeggleClone
 //
 //  Created by Hong Yao on 23/2/22.
@@ -8,7 +8,7 @@
 import PhysicsEngine
 import CoreGraphics
 
-class CircularExplosionEffect: Circular, GameEffect {
+class CircularExplosionPowerup: Circular, Powerup {
     private static let sizeProportionOfPeg = 2.0
 
     var radius: CGFloat
@@ -21,7 +21,7 @@ class CircularExplosionEffect: Circular, GameEffect {
     }
 
     convenience init(from gamePeg: GamePeg) {
-        self.init(radius: gamePeg.radius * CircularExplosionEffect.sizeProportionOfPeg, center: gamePeg.center)
+        self.init(radius: gamePeg.radius * CircularExplosionPowerup.sizeProportionOfPeg, center: gamePeg.center)
     }
 
     func apply(gameBoard: GameBoard) -> Bool {
@@ -35,7 +35,7 @@ class CircularExplosionEffect: Circular, GameEffect {
             }
 
             if let gamePeg = physicsBody as? GamePeg, gamePeg.willActivatePowerup {
-                gameBoard.gameEffects.append(CircularExplosionEffect(from: gamePeg))
+                gameBoard.powerups.append(CircularExplosionPowerup(from: gamePeg))
                 gamePeg.hasActivatedPowerup = true
             }
 

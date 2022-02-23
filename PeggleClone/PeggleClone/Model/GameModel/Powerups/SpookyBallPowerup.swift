@@ -1,11 +1,11 @@
 //
-//  SpookyBallEffect.swift
+//  SpookyBallPowerup.swift
 //  PeggleClone
 //
 //  Created by Hong Yao on 23/2/22.
 //
 
-class SpookyBallEffect: GameEffect {
+class SpookyBallPowerup: Powerup {
     func apply(gameBoard: GameBoard) -> Bool {
         guard !gameBoard.hasBallWithinBoard else {
             return false

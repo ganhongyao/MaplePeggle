@@ -15,5 +15,5 @@ struct GameMaster {
 
     let description: String
 
-    let powerup: GameEffectDescriptor
+    let powerup: PowerupDescriptor
 }

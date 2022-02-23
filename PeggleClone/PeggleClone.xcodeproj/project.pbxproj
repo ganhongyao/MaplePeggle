@@ -31,12 +31,12 @@
 		F3BECEAA27B9124300247D9D /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEA927B9124300247D9D /* GameViewModel.swift */; };
 		F3BECEAC27B912E400247D9D /* GameControlsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEAB27B912E400247D9D /* GameControlsViewModel.swift */; };
 		F3BECEAE27B9146700247D9D /* GameControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEAD27B9146700247D9D /* GameControlsView.swift */; };
-		F3C0410A27C62D4D00DB1112 /* GameEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410927C62D4C00DB1112 /* GameEffect.swift */; };
-		F3C0410D27C62D7A00DB1112 /* CircularExplosionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */; };
-		F3C0410F27C6545400DB1112 /* SpookyBallEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */; };
+		F3C0410A27C62D4D00DB1112 /* Powerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410927C62D4C00DB1112 /* Powerup.swift */; };
+		F3C0410D27C62D7A00DB1112 /* CircularExplosionPowerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410C27C62D7A00DB1112 /* CircularExplosionPowerup.swift */; };
+		F3C0410F27C6545400DB1112 /* SpookyBallPowerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410E27C6545300DB1112 /* SpookyBallPowerup.swift */; };
 		F3C0411127C65E5800DB1112 /* GameMasterSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411027C65E5800DB1112 /* GameMasterSelectorView.swift */; };
 		F3C0411327C67E9D00DB1112 /* GameMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411227C67E9D00DB1112 /* GameMaster.swift */; };
-		F3C0411527C68A7600DB1112 /* GameEffectDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */; };
+		F3C0411527C68A7600DB1112 /* PowerupDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411427C68A7600DB1112 /* PowerupDescriptor.swift */; };
 		F3C7708827C365570030F7BE /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708727C365570030F7BE /* Block.swift */; };
 		F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708B27C36A340030F7BE /* BlockView.swift */; };
 		F3C7708E27C36AAD0030F7BE /* BlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */; };
@@ -115,12 +115,12 @@
 		F3BECEA927B9124300247D9D /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		F3BECEAB27B912E400247D9D /* GameControlsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControlsViewModel.swift; sourceTree = "<group>"; };
 		F3BECEAD27B9146700247D9D /* GameControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControlsView.swift; sourceTree = "<group>"; };
-		F3C0410927C62D4C00DB1112 /* GameEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEffect.swift; sourceTree = "<group>"; };
-		F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularExplosionEffect.swift; sourceTree = "<group>"; };
-		F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyBallEffect.swift; sourceTree = "<group>"; };
+		F3C0410927C62D4C00DB1112 /* Powerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Powerup.swift; sourceTree = "<group>"; };
+		F3C0410C27C62D7A00DB1112 /* CircularExplosionPowerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularExplosionPowerup.swift; sourceTree = "<group>"; };
+		F3C0410E27C6545300DB1112 /* SpookyBallPowerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyBallPowerup.swift; sourceTree = "<group>"; };
 		F3C0411027C65E5800DB1112 /* GameMasterSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMasterSelectorView.swift; sourceTree = "<group>"; };
 		F3C0411227C67E9D00DB1112 /* GameMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMaster.swift; sourceTree = "<group>"; };
-		F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEffectDescriptor.swift; sourceTree = "<group>"; };
+		F3C0411427C68A7600DB1112 /* PowerupDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerupDescriptor.swift; sourceTree = "<group>"; };
 		F3C7708727C365570030F7BE /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F3C7708B27C36A340030F7BE /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModel.swift; sourceTree = "<group>"; };
@@ -191,6 +191,18 @@
 				F3CB758F27A463FB0053B675 /* Utility */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		F34A671427C6983100B9CABE /* Powerups */ = {
+			isa = PBXGroup;
+			children = (
+				F3C0411227C67E9D00DB1112 /* GameMaster.swift */,
+				F3C0410927C62D4C00DB1112 /* Powerup.swift */,
+				F3C0411427C68A7600DB1112 /* PowerupDescriptor.swift */,
+				F3C0410C27C62D7A00DB1112 /* CircularExplosionPowerup.swift */,
+				F3C0410E27C6545300DB1112 /* SpookyBallPowerup.swift */,
+			);
+			path = Powerups;
 			sourceTree = "<group>";
 		};
 		F398143727969B7B0032536A = {
@@ -278,17 +290,6 @@
 				F3C7708B27C36A340030F7BE /* BlockView.swift */,
 			);
 			path = LevelDesignerView;
-			sourceTree = "<group>";
-		};
-		F3C0410B27C62D6000DB1112 /* GameEffects */ = {
-			isa = PBXGroup;
-			children = (
-				F3C0410927C62D4C00DB1112 /* GameEffect.swift */,
-				F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */,
-				F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */,
-				F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */,
-			);
-			path = GameEffects;
 			sourceTree = "<group>";
 		};
 		F3CB758F27A463FB0053B675 /* Utility */ = {
@@ -405,9 +406,8 @@
 				F3F6408927ACE9790063B64A /* GameBall.swift */,
 				F3B2967727AFE96800BA25D5 /* GameCannon.swift */,
 				F3F6408B27ACE9A70063B64A /* GameBoard.swift */,
-				F3C0411227C67E9D00DB1112 /* GameMaster.swift */,
 				F3C7709127C4ABEA0030F7BE /* GameBlock.swift */,
-				F3C0410B27C62D6000DB1112 /* GameEffects */,
+				F34A671427C6983100B9CABE /* Powerups */,
 			);
 			path = GameModel;
 			sourceTree = "<group>";
@@ -588,7 +588,7 @@
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
 				F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */,
 				F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */,
-				F3C0411527C68A7600DB1112 /* GameEffectDescriptor.swift in Sources */,
+				F3C0411527C68A7600DB1112 /* PowerupDescriptor.swift in Sources */,
 				F3C80C3327A2E93D000770FB /* LevelDesignerBoardViewModel.swift in Sources */,
 				F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */,
 				F3B2967427AFD2E300BA25D5 /* CGVector+Operations.swift in Sources */,
@@ -597,15 +597,15 @@
 				F3C7708E27C36AAD0030F7BE /* BlockViewModel.swift in Sources */,
 				F3A981DE27A0341900E40428 /* LevelSelectorViewModel.swift in Sources */,
 				F31F5A8B27970B880031EA60 /* Board.swift in Sources */,
-				F3C0410A27C62D4D00DB1112 /* GameEffect.swift in Sources */,
-				F3C0410F27C6545400DB1112 /* SpookyBallEffect.swift in Sources */,
+				F3C0410A27C62D4D00DB1112 /* Powerup.swift in Sources */,
+				F3C0410F27C6545400DB1112 /* SpookyBallPowerup.swift in Sources */,
 				F31F5A89279706460031EA60 /* PegView.swift in Sources */,
 				F3A981E227A034D400E40428 /* LevelSelectorView.swift in Sources */,
 				F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */,
 				F3F6409A27AD700E0063B64A /* GameBallViewModel.swift in Sources */,
 				F3F6409627AD0D9D0063B64A /* GamePegView.swift in Sources */,
 				F3CB758627A3C3D40053B675 /* BoardCardViewModel.swift in Sources */,
-				F3C0410D27C62D7A00DB1112 /* CircularExplosionEffect.swift in Sources */,
+				F3C0410D27C62D7A00DB1112 /* CircularExplosionPowerup.swift in Sources */,
 				F3F6408C27ACE9A70063B64A /* GameBoard.swift in Sources */,
 				F3BECEA827B8E50B00247D9D /* ViewConstants.swift in Sources */,
 				F3F6409827AD0DBE0063B64A /* GamePegViewModel.swift in Sources */,

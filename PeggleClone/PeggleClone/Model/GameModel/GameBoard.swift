@@ -32,7 +32,7 @@ class GameBoard: Board, PhysicsWorld {
         physicsBodies.compactMap({ $0 as? GameBall }).first
     }
 
-    var gameEffects: [GameEffect] = []
+    var powerups: [Powerup] = []
 
     var hasBallWithinBoard: Bool {
         guard let gameBall = gameBall else {
@@ -92,9 +92,9 @@ class GameBoard: Board, PhysicsWorld {
         for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
             switch gameMaster.powerup {
             case .kaboom:
-                gameEffects.append(CircularExplosionEffect(from: powerupPeg))
+                powerups.append(CircularExplosionPowerup(from: powerupPeg))
             case .spookyBall:
-                gameEffects.append(SpookyBallEffect())
+                powerups.append(SpookyBallPowerup())
             }
 
             powerupPeg.hasActivatedPowerup = true
@@ -102,10 +102,10 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func applyPowerups() {
-        for effect in gameEffects {
-            let wasApplied = effect.apply(gameBoard: self)
+        for powerup in powerups {
+            let wasApplied = powerup.apply(gameBoard: self)
             if wasApplied {
-                gameEffects.removeAll { $0 === effect }
+                powerups.removeAll { $0 === powerup }
             }
         }
     }
@@ -140,7 +140,7 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func resetToInitialState() {
-        gameEffects = []
+        powerups = []
         physicsBodies = []
 
         let gamePegs = pegs.map(GamePeg.init)
