@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import QuartzCore
+import PhysicsEngine
 
 class GameBoardViewModel: ObservableObject {
     @Published private var gameBoard: GameBoard
@@ -67,7 +68,11 @@ class GameBoardViewModel: ObservableObject {
     @objc private func step(displayLink: CADisplayLink) {
         let deltaTime = displayLink.targetTimestamp - displayLink.timestamp
 
-        gameBoard.simulate(deltaTime: deltaTime)
+        let collisions = gameBoard.simulate(deltaTime: deltaTime)
+
+        for collision in collisions {
+            collision.resolveCollision()
+        }
 
         gameBoard.handleBallLeftBoard()
 
@@ -78,6 +83,10 @@ class GameBoardViewModel: ObservableObject {
         }
 
         objectWillChange.send()
+    }
+
+    private func getPowerupPeg(collision: Collision) -> GamePeg? {
+        collision.bodies.compactMap { $0 as? GamePeg }.first(where: { $0.isPowerup })
     }
 
     func setCannonHeight(_ height: CGFloat) {

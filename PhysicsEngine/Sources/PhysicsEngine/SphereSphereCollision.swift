@@ -9,7 +9,11 @@ import CoreGraphics
 
 /// Represents a colliison between two circular physics bodies.
 /// Body B will always be movable, while Body A may or may not be movable.
-struct SphereSphereCollision: Collision {
+public struct SphereSphereCollision: Collision {
+    public var bodies: [PhysicsBody] {
+        [bodyA, bodyB]
+    }
+
     private let bodyA: CircularPhysicsBody
 
     private let bodyB: CircularPhysicsBody
@@ -35,15 +39,15 @@ struct SphereSphereCollision: Collision {
         return positionVectorB.subtract(positionVectorA)
     }
 
-    var collisionAngle: CGFloat {
+    public var collisionAngle: CGFloat {
         -atan2(lineOfAction.dy, lineOfAction.dx)
     }
 
-    var depthOfPenetration: CGFloat {
+    public var depthOfPenetration: CGFloat {
         bodyA.radius + bodyB.radius - bodyA.center.distance(to: bodyB.center)
     }
 
-    func resolveCollision() {
+    public func resolveCollision() {
         resolveCollision(bodyA: bodyA, bodyB: bodyB)
     }
 }

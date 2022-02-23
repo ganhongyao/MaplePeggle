@@ -16,21 +16,19 @@ public protocol PhysicsWorld: AnyObject {
 
     var gravity: CGVector { get set }
 
-    func simulate(deltaTime: CFTimeInterval)
+    func simulate(deltaTime: CFTimeInterval) -> [Collision]
 
     func addBody(physicsBody: PhysicsBody)
 }
 
 /// Exposed method implementations
 extension PhysicsWorld {
-    public func simulate(deltaTime: CFTimeInterval) {
+    public func simulate(deltaTime: CFTimeInterval) -> [Collision] {
         updateVelocities(deltaTime: deltaTime)
         updatePositions(deltaTime: deltaTime)
         keepBodiesWithinBoundaries()
 
-        for collision in findCollisions() {
-            collision.resolveCollision()
-        }
+        return findCollisions()
     }
 
     public func addBody(physicsBody: PhysicsBody) {

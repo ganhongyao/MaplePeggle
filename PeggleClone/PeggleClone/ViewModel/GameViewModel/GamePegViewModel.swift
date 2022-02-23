@@ -31,6 +31,10 @@ class GamePegViewModel: ObservableObject {
         gamePeg.facingAngle
     }
 
+    var isPowerup: Bool {
+        gamePeg.isPowerup
+    }
+
     var isLit: Bool {
         gamePeg.collisionCount > 0
     }

@@ -7,7 +7,9 @@
 
 import CoreGraphics
 
-protocol Collision {
+public protocol Collision {
+    var bodies: [PhysicsBody] { get }
+
     var collisionAngle: CGFloat { get }
 
     var depthOfPenetration: CGFloat { get }
@@ -16,7 +18,7 @@ protocol Collision {
 }
 
 extension Collision {
-    func resolveCollision(bodyA: PhysicsBody, bodyB: PhysicsBody) {
+    public func resolveCollision(bodyA: PhysicsBody, bodyB: PhysicsBody) {
         let initialRotatedVelocityA = bodyA.velocity.rotate(by: collisionAngle)
         let initialRotatedVelocityB = bodyB.velocity.rotate(by: collisionAngle)
 

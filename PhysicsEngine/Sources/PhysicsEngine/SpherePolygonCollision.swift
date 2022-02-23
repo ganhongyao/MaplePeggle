@@ -8,14 +8,18 @@
 import Foundation
 import CoreGraphics
 
-struct SpherePolygonCollision: Collision {
+public struct SpherePolygonCollision: Collision {
+    public var bodies: [PhysicsBody] {
+        [circle, polygon]
+    }
+
     private let circle: CircularPhysicsBody
 
     private let polygon: PolygonalPhysicsBody
 
-    let collisionAngle: CGFloat
+    public let collisionAngle: CGFloat
 
-    let depthOfPenetration: CGFloat
+    public let depthOfPenetration: CGFloat
 
     init?(circle: CircularPhysicsBody, polygon: PolygonalPhysicsBody) {
         guard circle.isMovable || polygon.isMovable else {
@@ -61,7 +65,7 @@ struct SpherePolygonCollision: Collision {
         return (collisionAngle, penetrationDepth)
     }
 
-    func resolveCollision() {
+    public func resolveCollision() {
         resolveCollision(bodyA: circle, bodyB: polygon)
     }
 

@@ -30,6 +30,10 @@ class Peg: Circular, BoardObject {
 
     unowned var parentBoard: Board?
 
+    var isPowerup: Bool {
+        color == .green
+    }
+
     required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
                   parentBoard: Board? = nil) {
         self.id = id

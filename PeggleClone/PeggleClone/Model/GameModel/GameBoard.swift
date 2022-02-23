@@ -82,6 +82,10 @@ class GameBoard: Board, PhysicsWorld {
         removeCollidedPegs()
     }
 
+    func removeGamePeg(gamePeg: GamePeg) {
+        physicsBodies.removeAll { $0 === gamePeg }
+    }
+
     func removeBoardObjectsExceedingMaxCollisions() {
         removePegsExceedingMaxCollisions()
         removeBlocksExceedingMaxCollisions()
