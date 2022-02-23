@@ -84,6 +84,32 @@ class GameBoard: Board, PhysicsWorld {
         removeCollidedPegs()
     }
 
+    func activatePowerups(gameMaster: GameMaster?) {
+        guard let gameMaster = gameMaster else {
+            return
+        }
+
+        for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
+            switch gameMaster.powerup {
+            case .kaboom:
+                gameEffects.append(CircularExplosionEffect(from: powerupPeg))
+            case .spookyBall:
+                gameEffects.append(SpookyBallEffect())
+            }
+
+            powerupPeg.hasActivatedPowerup = true
+        }
+    }
+
+    func applyPowerups() {
+        for effect in gameEffects {
+            let wasApplied = effect.apply(gameBoard: self)
+            if wasApplied {
+                gameEffects.removeAll { $0 === effect }
+            }
+        }
+    }
+
     func removeGamePeg(gamePeg: GamePeg) {
         physicsBodies.removeAll { $0 === gamePeg }
     }

@@ -36,6 +36,7 @@
 		F3C0410F27C6545400DB1112 /* SpookyBallEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */; };
 		F3C0411127C65E5800DB1112 /* GameMasterSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411027C65E5800DB1112 /* GameMasterSelectorView.swift */; };
 		F3C0411327C67E9D00DB1112 /* GameMaster.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411227C67E9D00DB1112 /* GameMaster.swift */; };
+		F3C0411527C68A7600DB1112 /* GameEffectDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */; };
 		F3C7708827C365570030F7BE /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708727C365570030F7BE /* Block.swift */; };
 		F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708B27C36A340030F7BE /* BlockView.swift */; };
 		F3C7708E27C36AAD0030F7BE /* BlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */; };
@@ -119,6 +120,7 @@
 		F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyBallEffect.swift; sourceTree = "<group>"; };
 		F3C0411027C65E5800DB1112 /* GameMasterSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMasterSelectorView.swift; sourceTree = "<group>"; };
 		F3C0411227C67E9D00DB1112 /* GameMaster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMaster.swift; sourceTree = "<group>"; };
+		F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEffectDescriptor.swift; sourceTree = "<group>"; };
 		F3C7708727C365570030F7BE /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F3C7708B27C36A340030F7BE /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModel.swift; sourceTree = "<group>"; };
@@ -282,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				F3C0410927C62D4C00DB1112 /* GameEffect.swift */,
+				F3C0411427C68A7600DB1112 /* GameEffectDescriptor.swift */,
 				F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */,
 				F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */,
 			);
@@ -585,6 +588,7 @@
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
 				F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */,
 				F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */,
+				F3C0411527C68A7600DB1112 /* GameEffectDescriptor.swift in Sources */,
 				F3C80C3327A2E93D000770FB /* LevelDesignerBoardViewModel.swift in Sources */,
 				F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */,
 				F3B2967427AFD2E300BA25D5 /* CGVector+Operations.swift in Sources */,

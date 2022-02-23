@@ -6,6 +6,12 @@
 //
 
 struct ViewConstants {
+    // TODO: Remove
+    static let loremIpsum = """
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do \
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus \
+                            vestibulum mattis ullamcorper velit sed ullamcorper morbi.
+                            """
     /// Image asset names
     static let coralBackgroundImage = "coral"
     static let deleteImage = "delete"

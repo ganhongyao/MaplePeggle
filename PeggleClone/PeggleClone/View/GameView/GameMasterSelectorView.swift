@@ -21,7 +21,7 @@ struct GameMasterSelectorView: View {
 
                 ScrollView {
                     VStack {
-                        ForEach(GameMaster.allCases, id: \.self) { gameMaster in
+                        ForEach(GameMaster.availableGameMasters, id: \.name) { gameMaster in
                             HStack {
                                 Image(ViewConstants.coralBackgroundImage)
                                     .resizable()
@@ -30,17 +30,13 @@ struct GameMasterSelectorView: View {
                                     .cornerRadius(ViewConstants.gameMasterImageCornerRadius)
 
                                 VStack {
-                                    Text(gameMaster.rawValue)
+                                    Text(gameMaster.name)
                                         .foregroundColor(.black)
                                         .font(.title2)
 
                                     Spacer()
 
-                                    Text("""
-                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do \
-                                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Lectus \
-                                         vestibulum mattis ullamcorper velit sed ullamcorper morbi.
-                                         """)
+                                    Text(gameMaster.description)
                                         .font(.caption)
                                         .padding()
                                 }

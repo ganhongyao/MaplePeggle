@@ -80,18 +80,9 @@ class GameBoardViewModel: ObservableObject {
             collision.bodies.1.collisionCount += 1
         }
 
-        for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
-            gameBoard.gameEffects.append(CircularExplosionEffect(from: powerupPeg))
-            gameBoard.gameEffects.append(SpookyBallEffect())
-            powerupPeg.hasActivatedPowerup = true
-        }
+        gameBoard.activatePowerups(gameMaster: gameViewModel.chosenGameMaster)
 
-        for effect in gameBoard.gameEffects {
-            let wasApplied = effect.apply(gameBoard: gameBoard)
-            if wasApplied {
-                gameBoard.gameEffects.removeAll { $0 === effect }
-            }
-        }
+        gameBoard.applyPowerups()
 
         gameBoard.handleBallLeftBoard()
 
