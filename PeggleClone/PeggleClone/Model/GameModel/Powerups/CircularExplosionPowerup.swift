@@ -34,12 +34,15 @@ class CircularExplosionPowerup: Circular, Powerup {
                 continue
             }
 
-            if let gamePeg = physicsBody as? GamePeg, gamePeg.willActivatePowerup {
-                gameBoard.powerups.append(CircularExplosionPowerup(from: gamePeg))
-                gamePeg.hasActivatedPowerup = true
-            }
-
             physicsBody.collisionCount += 1
+
+            if let gamePeg = physicsBody as? GamePeg {
+                if gamePeg.willActivatePowerup {
+                    gameBoard.powerups.append(CircularExplosionPowerup(from: gamePeg))
+                    gamePeg.hasActivatedPowerup = true
+                }
+                gameBoard.removeGamePeg(gamePeg: gamePeg)
+            }
         }
 
         return true

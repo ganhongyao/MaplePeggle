@@ -84,7 +84,7 @@ class GameBoardViewModel: ObservableObject {
 
         gameBoard.removeBoardObjectsExceedingMaxCollisions()
 
-        if gamePegs.isEmpty {
+        if !hasBallWithinBoard && gamePegs.isEmpty {
             gameViewModel.isShowingDialog = true
         }
 
