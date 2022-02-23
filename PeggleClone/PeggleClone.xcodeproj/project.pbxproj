@@ -33,6 +33,7 @@
 		F3BECEAE27B9146700247D9D /* GameControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3BECEAD27B9146700247D9D /* GameControlsView.swift */; };
 		F3C0410A27C62D4D00DB1112 /* GameEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410927C62D4C00DB1112 /* GameEffect.swift */; };
 		F3C0410D27C62D7A00DB1112 /* CircularExplosionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */; };
+		F3C0410F27C6545400DB1112 /* SpookyBallEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */; };
 		F3C7708827C365570030F7BE /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708727C365570030F7BE /* Block.swift */; };
 		F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708B27C36A340030F7BE /* BlockView.swift */; };
 		F3C7708E27C36AAD0030F7BE /* BlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */; };
@@ -113,6 +114,7 @@
 		F3BECEAD27B9146700247D9D /* GameControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameControlsView.swift; sourceTree = "<group>"; };
 		F3C0410927C62D4C00DB1112 /* GameEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEffect.swift; sourceTree = "<group>"; };
 		F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularExplosionEffect.swift; sourceTree = "<group>"; };
+		F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpookyBallEffect.swift; sourceTree = "<group>"; };
 		F3C7708727C365570030F7BE /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
 		F3C7708B27C36A340030F7BE /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		F3C7708D27C36AAD0030F7BE /* BlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockViewModel.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			children = (
 				F3C0410927C62D4C00DB1112 /* GameEffect.swift */,
 				F3C0410C27C62D7A00DB1112 /* CircularExplosionEffect.swift */,
+				F3C0410E27C6545300DB1112 /* SpookyBallEffect.swift */,
 			);
 			path = GameEffects;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				F3A981DE27A0341900E40428 /* LevelSelectorViewModel.swift in Sources */,
 				F31F5A8B27970B880031EA60 /* Board.swift in Sources */,
 				F3C0410A27C62D4D00DB1112 /* GameEffect.swift in Sources */,
+				F3C0410F27C6545400DB1112 /* SpookyBallEffect.swift in Sources */,
 				F31F5A89279706460031EA60 /* PegView.swift in Sources */,
 				F3A981E227A034D400E40428 /* LevelSelectorView.swift in Sources */,
 				F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */,

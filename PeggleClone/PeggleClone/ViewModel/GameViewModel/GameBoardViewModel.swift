@@ -78,6 +78,7 @@ class GameBoardViewModel: ObservableObject {
 
         for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
             gameBoard.gameEffects.append(CircularExplosionEffect(from: powerupPeg))
+            gameBoard.gameEffects.append(SpookyBallEffect())
             powerupPeg.hasActivatedPowerup = true
         }
 
