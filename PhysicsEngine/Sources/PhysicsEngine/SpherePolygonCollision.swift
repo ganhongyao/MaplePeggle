@@ -31,6 +31,9 @@ public struct SpherePolygonCollision: Collision {
 
         (self.collisionAngle, self.depthOfPenetration) =
             SpherePolygonCollision.findCollisionAngleAndPenetrationDepth(circle: circle, polygon: polygon)
+
+        circle.collisionCount += 1
+        polygon.collisionCount += 1
     }
 
 

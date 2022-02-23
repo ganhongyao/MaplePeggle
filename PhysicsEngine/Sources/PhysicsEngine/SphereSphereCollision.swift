@@ -18,6 +18,14 @@ public struct SphereSphereCollision: Collision {
 
     let bodyB: CircularPhysicsBody
 
+    init(bodyA: CircularPhysicsBody, bodyB: CircularPhysicsBody) {
+        self.bodyA = bodyA
+        self.bodyB = bodyB
+
+        bodyA.collisionCount += 1
+        bodyB.collisionCount += 1
+    }
+
     private var lineOfAction: CGVector {
         let positionVectorA = CGVector(dx: bodyA.center.x, dy: bodyA.center.y)
         let positionVectorB = CGVector(dx: bodyB.center.x, dy: bodyB.center.y)

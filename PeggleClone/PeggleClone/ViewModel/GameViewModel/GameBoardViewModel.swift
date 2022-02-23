@@ -74,11 +74,7 @@ class GameBoardViewModel: ObservableObject {
 
         let collisions = gameBoard.simulate(deltaTime: deltaTime)
 
-        for collision in collisions {
-            collision.resolveCollision()
-            collision.bodies.0.collisionCount += 1
-            collision.bodies.1.collisionCount += 1
-        }
+        collisions.forEach { $0.resolveCollision() }
 
         gameBoard.activatePowerups(gameMaster: gameViewModel.chosenGameMaster)
 
@@ -126,6 +122,7 @@ class GameBoardViewModel: ObservableObject {
 
     func restart() {
         gameBoard.resetToInitialState()
+        gameViewModel.chosenGameMaster = nil
         objectWillChange.send()
     }
 }
