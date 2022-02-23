@@ -140,6 +140,7 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func resetToInitialState() {
+        gameEffects = []
         physicsBodies = []
 
         let gamePegs = pegs.map(GamePeg.init)
