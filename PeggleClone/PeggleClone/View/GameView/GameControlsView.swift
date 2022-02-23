@@ -24,7 +24,11 @@ struct GameControlsView: View {
 
             Spacer()
 
-            Button(action: controlsViewModel.restartLevel) {
+            Button {
+                withAnimation {
+                    controlsViewModel.restartLevel()
+                }
+            } label: {
                 Label(ViewConstants.gameRestartButtonText, systemImage: ViewConstants.gameRestartButtonImage)
             }
         }

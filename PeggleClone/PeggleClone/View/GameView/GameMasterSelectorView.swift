@@ -41,7 +41,9 @@ struct GameMasterSelectorView: View {
                                         .padding()
                                 }
                             }.onTapGesture {
-                                chosenGameMaster = gameMaster
+                                withAnimation {
+                                    chosenGameMaster = gameMaster
+                                }
                             }
                             .padding()
                         }
@@ -54,6 +56,7 @@ struct GameMasterSelectorView: View {
             .foregroundColor(.black)
             .cornerRadius(ViewConstants.gameMasterDialogCornerRadius)
             .shadow(radius: ViewConstants.gameMasterDialogShadowRadius)
+            .transition(.slide.combined(with: .opacity))
         }
     }
 }

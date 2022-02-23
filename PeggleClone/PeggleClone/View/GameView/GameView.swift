@@ -33,6 +33,7 @@ struct GameView: View {
         }
         .overlay(
             GameMasterSelectorView(chosenGameMaster: $gameViewModel.chosenGameMaster)
+
         )
         .alert(ViewConstants.gameCompletedDialogTitle, isPresented: $gameViewModel.isShowingDialog, actions: {
             Button(ViewConstants.gameRestartDialogButtonText) {
