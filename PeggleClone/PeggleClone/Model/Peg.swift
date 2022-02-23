@@ -13,6 +13,7 @@ class Peg: Circular, BoardObject {
     enum Color: String, CaseIterable {
         case blue
         case orange
+        case green
     }
 
     static let defaultRadius: CGFloat = 25
