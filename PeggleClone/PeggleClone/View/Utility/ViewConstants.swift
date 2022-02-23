@@ -53,6 +53,14 @@ struct ViewConstants {
     static let gameReturnButtonText = "Return to Level Designer"
     static let gameRestartDialogButtonText = "Restart"
 
+    /// GameMasterSelectorView
+    static let gameMasterSelectorTitle = "Choose Your Character"
+    static let gameMasterDialogCornerRadius = 20.0
+    static let gameMasterDialogShadowRadius = 10.0
+    static let gameMasterImageCornerRadius = 10.0
+    static let gameMasterImageSize = 100.0
+    static let gameMasterDialogSize = 500.0
+
     /// GameControlsView
     static let gameQuitButtonText = "Leave Game"
     static let gameQuitButtonImage = "escape"

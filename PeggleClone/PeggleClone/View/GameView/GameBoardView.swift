@@ -45,7 +45,6 @@ struct GameBoardView: View {
                             value: gameBoardViewModel.gameBlocks)
             }
             .onAppear {
-                gameBoardViewModel.initialiseDisplayLink()
                 let spareHeight = geo.size.height - gameBoardViewModel.boardSize.height
                 let halfSpareHeight = spareHeight / 2
                 gameBoardViewModel.setCannonHeight(halfSpareHeight)

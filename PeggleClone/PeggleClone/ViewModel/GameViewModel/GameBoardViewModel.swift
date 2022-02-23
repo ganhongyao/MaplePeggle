@@ -19,6 +19,10 @@ class GameBoardViewModel: ObservableObject {
 
     private var displayLink: CADisplayLink?
 
+    private var hasGameStarted: Bool {
+        displayLink != nil
+    }
+
     var gamePegs: [GamePeg] {
         gameBoard.gamePegs
     }
@@ -116,6 +120,10 @@ class GameBoardViewModel: ObservableObject {
     }
 
     func launchBall() {
+        guard hasGameStarted else {
+            return
+        }
+
         gameBoard.launchBall()
 
         objectWillChange.send()

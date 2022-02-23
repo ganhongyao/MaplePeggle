@@ -10,6 +10,12 @@ import Foundation
 class GameViewModel: ObservableObject {
     @Published var isShowingDialog = false
 
+    @Published var chosenGameMaster: GameMaster? {
+        didSet {
+            boardViewModel?.initialiseDisplayLink()
+        }
+    }
+
     private(set) var controlsViewModel: GameControlsViewModel?
 
     private(set) var boardViewModel: GameBoardViewModel?

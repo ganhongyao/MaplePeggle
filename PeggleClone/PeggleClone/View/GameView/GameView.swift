@@ -31,6 +31,9 @@ struct GameView: View {
 
             gameBoardView
         }
+        .overlay(
+            GameMasterSelectorView(chosenGameMaster: $gameViewModel.chosenGameMaster)
+        )
         .alert(ViewConstants.gameCompletedDialogTitle, isPresented: $gameViewModel.isShowingDialog, actions: {
             Button(ViewConstants.gameRestartDialogButtonText) {
                 gameViewModel.restartLevel()
