@@ -9,8 +9,8 @@ import Foundation
 import CoreGraphics
 
 public struct SpherePolygonCollision: Collision {
-    public var bodies: [PhysicsBody] {
-        [circle, polygon]
+    public var bodies: (PhysicsBody, PhysicsBody) {
+        (circle, polygon)
     }
 
     private let circle: CircularPhysicsBody
@@ -31,9 +31,6 @@ public struct SpherePolygonCollision: Collision {
 
         (self.collisionAngle, self.depthOfPenetration) =
             SpherePolygonCollision.findCollisionAngleAndPenetrationDepth(circle: circle, polygon: polygon)
-
-        circle.collisionCount += 1
-        polygon.collisionCount += 1
     }
 
 

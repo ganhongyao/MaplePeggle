@@ -32,6 +32,8 @@ class GameBoard: Board, PhysicsWorld {
         physicsBodies.compactMap({ $0 as? GameBall }).first
     }
 
+    var gameEffects: [GameEffect] = []
+
     var hasBallWithinBoard: Bool {
         guard let gameBall = gameBall else {
             return false

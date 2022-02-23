@@ -72,6 +72,20 @@ class GameBoardViewModel: ObservableObject {
 
         for collision in collisions {
             collision.resolveCollision()
+            collision.bodies.0.collisionCount += 1
+            collision.bodies.1.collisionCount += 1
+        }
+
+        for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
+            gameBoard.gameEffects.append(CircularExplosionEffect(from: powerupPeg))
+            powerupPeg.hasActivatedPowerup = true
+        }
+
+        for effect in gameBoard.gameEffects {
+            let wasApplied = effect.apply(gameBoard: gameBoard)
+            if wasApplied {
+                gameBoard.gameEffects.removeAll { $0 === effect }
+            }
         }
 
         gameBoard.handleBallLeftBoard()
@@ -83,10 +97,6 @@ class GameBoardViewModel: ObservableObject {
         }
 
         objectWillChange.send()
-    }
-
-    private func getPowerupPeg(collision: Collision) -> GamePeg? {
-        collision.bodies.compactMap { $0 as? GamePeg }.first(where: { $0.isPowerup })
     }
 
     func setCannonHeight(_ height: CGFloat) {

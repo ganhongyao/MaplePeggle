@@ -8,7 +8,7 @@
 import CoreGraphics
 
 public protocol Collision {
-    var bodies: [PhysicsBody] { get }
+    var bodies: (PhysicsBody, PhysicsBody) { get }
 
     var collisionAngle: CGFloat { get }
 

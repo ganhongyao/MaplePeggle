@@ -24,6 +24,12 @@ class GamePeg: Peg, CircularPhysicsBody {
 
     var collisionCount = 0
 
+    var hasActivatedPowerup = false
+
+    var willActivatePowerup: Bool {
+        isPowerup && hasCollided && !hasActivatedPowerup
+    }
+
     required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
                   parentBoard: Board? = nil) {
         super.init(id: id, center: center, radius: radius, facingAngle: facingAngle, color: color,
