@@ -53,6 +53,22 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.numBallsRemaining
     }
 
+    func numPegsRemaining(color: Peg.Color) -> Int {
+        gameBoard.gamePegs.filter { $0.color == color }.count
+    }
+
+    var hasWon: Bool {
+        numPegsRemaining(color: .orange) == 0
+    }
+
+    var hasLost: Bool {
+        numPegsRemaining(color: .orange) > 0 && numBallsRemaining == 0
+    }
+
+    var hasEnded: Bool {
+        !hasBallWithinBoard && (hasWon || hasLost)
+    }
+
     init(board: Board, gameViewModel: GameViewModel) {
         let gameBoard = GameBoard(from: board)
         self.gameBoard = gameBoard
@@ -98,8 +114,8 @@ class GameBoardViewModel: ObservableObject {
 
         gameBoard.removeBoardObjectsExceedingMaxCollisions()
 
-        if !hasBallWithinBoard && gamePegs.isEmpty {
-            gameViewModel.isShowingDialog = true
+        if hasEnded {
+            handleGameEnded()
         }
 
         objectWillChange.send()
@@ -156,5 +172,9 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.resetToInitialState()
         gameViewModel.chosenGameMaster = nil
         objectWillChange.send()
+    }
+
+    private func handleGameEnded() {
+        gameViewModel.isShowingDialog = true
     }
 }

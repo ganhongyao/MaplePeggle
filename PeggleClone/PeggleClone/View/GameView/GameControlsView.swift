@@ -26,6 +26,14 @@ struct GameControlsView: View {
 
             Spacer()
 
+            getPegImage(color: .orange)
+                .resizable()
+                .scaledToFit()
+                .overlay(
+                    Text(String(boardViewModel.numPegsRemaining(color: .orange)))
+                        .bold()
+                )
+
             Image(ViewConstants.ballImage)
                 .resizable()
                 .scaledToFit()
