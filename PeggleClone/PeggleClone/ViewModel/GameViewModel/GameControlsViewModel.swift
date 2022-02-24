@@ -15,6 +15,6 @@ class GameControlsViewModel: ObservableObject {
     }
 
     func restartLevel() {
-        gameViewModel.boardViewModel?.restart()
+        gameViewModel.restartLevel()
     }
 }

@@ -55,7 +55,7 @@ class GameBoard: Board, PhysicsWorld {
                   dateCreated: Date? = Date()) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
-        gameBucket = GameBucket(xCoordinate: boardCenter.x, minYCoordinate: size.height)
+        gameBucket = GameBucket(initialXCoordinate: boardCenter.x, minYCoordinate: size.height)
 
         super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
 
@@ -174,6 +174,7 @@ class GameBoard: Board, PhysicsWorld {
 
         offsetPegsByCannonHeight()
         offsetBlocksByCannonHeight()
+        gameBucket.centralize()
     }
 
     private func removeBall() {

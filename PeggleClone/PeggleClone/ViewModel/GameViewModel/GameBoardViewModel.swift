@@ -19,7 +19,7 @@ class GameBoardViewModel: ObservableObject {
 
     private(set) var bucketViewModel: GameBucketViewModel
 
-    private var displayLink: CADisplayLink?
+    var displayLink: CADisplayLink?
 
     private var hasGameStarted: Bool {
         displayLink != nil

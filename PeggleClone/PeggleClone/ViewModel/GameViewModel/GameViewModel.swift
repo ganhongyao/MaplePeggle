@@ -12,7 +12,9 @@ class GameViewModel: ObservableObject {
 
     @Published var chosenGameMaster: GameMaster? {
         didSet {
-            boardViewModel?.initialiseDisplayLink()
+            if chosenGameMaster != nil {
+                boardViewModel?.initialiseDisplayLink()
+            }
         }
     }
 
@@ -34,5 +36,6 @@ class GameViewModel: ObservableObject {
 
     func restartLevel() {
         boardViewModel?.restart()
+        boardViewModel?.deinitialiseDisplayLink()
     }
 }
