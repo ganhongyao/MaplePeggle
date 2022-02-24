@@ -160,6 +160,7 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func resetToInitialState() {
+        numBallsRemaining = GameBoard.numInitialBalls
         powerups = []
         physicsBodies = []
 
