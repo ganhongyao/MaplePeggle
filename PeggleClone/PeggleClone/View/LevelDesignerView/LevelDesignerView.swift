@@ -19,6 +19,10 @@ struct LevelDesignerView: View {
                                                                     controlsViewModel: $0) })
     }
 
+    private var pegSelectorView: some View {
+        levelDesignerViewModel.pegSelectorViewModel.map({ PegSelectorView(pegSelectorViewModel: $0) })
+    }
+
     private func snapshotCallback() {
         // Temporarily unselect any selected object so that editing circles do not appear in SS, will set it back later
         let selectedObject = levelDesignerViewModel.unselectBoardObject()
@@ -39,7 +43,7 @@ struct LevelDesignerView: View {
 
                 Spacer()
 
-                PegSelectorView(pegSelectorViewModel: levelDesignerViewModel.pegSelectorViewModel)
+                pegSelectorView
                     .frame(height: geo.size.height * ViewConstants.levelDesignerPegSelectorHeightRatio,
                            alignment: .bottom)
             }

@@ -12,7 +12,7 @@ struct PegSelectorView: View {
 
     var body: some View {
         HStack {
-            ForEach(pegSelectorViewModel.pegColors, id: \.rawValue) { color in
+            ForEach(pegSelectorViewModel.pegColorsAndCounts, id: \.0.rawValue) { (color, count) in
                 Button(action: {
                     pegSelectorViewModel.setSelectedPegColor(color: color)
                 }, label: {
@@ -21,6 +21,9 @@ struct PegSelectorView: View {
                         .scaledToFit()
                         .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddPegMode
                                                 && color == pegSelectorViewModel.selectedPegColor)
+                        )
+                        .overlay(
+                            Text(String(count)).bold().foregroundColor(.black)
                         )
                 })
             }
@@ -32,6 +35,9 @@ struct PegSelectorView: View {
                     .resizable()
                     .scaledToFit()
                     .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddBlockMode))
+                    .overlay(
+                        Text(String(pegSelectorViewModel.blockCount)).bold().foregroundColor(.black)
+                    )
             })
 
             Spacer()
@@ -46,11 +52,5 @@ struct PegSelectorView: View {
             })
         }
         .padding()
-    }
-}
-
-struct PegSelectorView_Previews: PreviewProvider {
-    static var previews: some View {
-        PegSelectorView(pegSelectorViewModel: PegSelectorViewModel())
     }
 }

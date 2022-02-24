@@ -14,11 +14,11 @@ class LevelDesignerViewModel: ObservableObject {
 
     @Published var error: PersistenceError?
 
-    private(set) var pegSelectorViewModel = PegSelectorViewModel()
+    private(set) var pegSelectorViewModel: PegSelectorViewModel?
 
     private(set) var controlsViewModel: ControlsViewModel?
 
-    private(set) var boardViewModel: LevelDesignerBoardViewModel?
+    @Published private(set) var boardViewModel: LevelDesignerBoardViewModel?
 
     private let boardId: UUID?
 
@@ -26,6 +26,7 @@ class LevelDesignerViewModel: ObservableObject {
         self.boardId = boardId
         controlsViewModel = ControlsViewModel(levelDesignerViewModel: self)
         boardViewModel = LevelDesignerBoardViewModel(boardId: boardId, levelDesignerViewModel: self)
+        pegSelectorViewModel = PegSelectorViewModel(levelDesignerViewModel: self)
 
         assert(controlsViewModel != nil)
         assert(boardViewModel != nil)

@@ -77,15 +77,15 @@ class LevelDesignerBoardViewModel: ObservableObject {
     }
 
     var isInAddPegMode: Bool {
-        levelDesignerViewModel.pegSelectorViewModel.isInAddPegMode
+        levelDesignerViewModel.pegSelectorViewModel?.isInAddPegMode ?? false
     }
 
     var isInAddBlockMode: Bool {
-        levelDesignerViewModel.pegSelectorViewModel.isInAddBlockMode
+        levelDesignerViewModel.pegSelectorViewModel?.isInAddBlockMode ?? false
     }
 
     var isInDeleteMode: Bool {
-        levelDesignerViewModel.pegSelectorViewModel.isInDeleteMode
+        levelDesignerViewModel.pegSelectorViewModel?.isInDeleteMode ?? false
     }
 
     func setSnapshot(snapshotImage: UIImage) {
@@ -131,10 +131,15 @@ class LevelDesignerBoardViewModel: ObservableObject {
     }
 
     func addPeg(center: CGPoint) {
-        let newPeg = Peg(center: center, radius: Peg.defaultRadius,
-                         color: levelDesignerViewModel.pegSelectorViewModel.selectedPegColor)
+        guard let selectedPegColor = levelDesignerViewModel.pegSelectorViewModel?.selectedPegColor else {
+            return
+        }
+
+        let newPeg = Peg(center: center, radius: Peg.defaultRadius, color: selectedPegColor)
 
         board.addPeg(newPeg)
+
+        levelDesignerViewModel.pegSelectorViewModel?.increasePegCountForColor(color: selectedPegColor)
 
         objectWillChange.send()
     }
