@@ -77,7 +77,14 @@ class GameBoardViewModel: ObservableObject {
 
         let collisions = gameBoard.simulate(deltaTime: deltaTime)
 
-        collisions.forEach { $0.resolveCollision() }
+        for collision in collisions {
+            if isBallEnteringBucket(collision: collision) {
+                gameBoard.handleBallEnteredBucket()
+                continue
+            }
+
+            collision.resolveCollision()
+        }
 
         gameBoard.activatePowerups(gameMaster: gameViewModel.chosenGameMaster)
 
@@ -92,6 +99,19 @@ class GameBoardViewModel: ObservableObject {
         }
 
         objectWillChange.send()
+    }
+
+    private func isBallEnteringBucket(collision: Collision) -> Bool {
+        let (bodyA, bodyB) = collision.bodies
+
+        let involvesBallAndBucket = (bodyA is GameBucket && bodyB is GameBall) ||
+                                    (bodyB is GameBucket && bodyA is GameBall)
+
+        guard involvesBallAndBucket else {
+            return false
+        }
+
+        return collision.collisionAngle == -.pi / 2
     }
 
     func setCannonHeight(_ height: CGFloat) {

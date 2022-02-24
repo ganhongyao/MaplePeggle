@@ -89,6 +89,13 @@ class GameBoard: Board, PhysicsWorld {
         removeCollidedPegs()
     }
 
+    func handleBallEnteredBucket() {
+        print("Ball entered bucket")
+        removeBall()
+
+        // TODO: Handle ball count
+    }
+
     func activatePowerups(gameMaster: GameMaster?) {
         guard let gameMaster = gameMaster else {
             return
