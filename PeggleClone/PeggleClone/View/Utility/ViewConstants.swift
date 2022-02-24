@@ -59,6 +59,7 @@ struct ViewConstants {
     static let gameCompletedDialogTitle = "Level Completed"
     static let gameReturnButtonText = "Return to Level Designer"
     static let gameRestartDialogButtonText = "Restart"
+    static let gameControlsHeightRatio = 0.05
 
     /// GameMasterSelectorView
     static let gameMasterSelectorTitle = "Choose Your Character"
@@ -73,6 +74,7 @@ struct ViewConstants {
     static let gameQuitButtonImage = "escape"
     static let gameRestartButtonText = "Restart Level"
     static let gameRestartButtonImage = "arrow.uturn.forward.circle"
+    static let gameBallThresholdForWarning = 3
 
     /// GameBoardView
     static let gameBoardCannonAnimationDuration = 1.0

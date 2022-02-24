@@ -26,7 +26,15 @@ struct GameControlsView: View {
 
             Spacer()
 
-            Text(String(boardViewModel.numBallsRemaining))
+            Image(ViewConstants.ballImage)
+                .resizable()
+                .scaledToFit()
+                .overlay(
+                    Text(String(boardViewModel.numBallsRemaining))
+                        .bold()
+                        .foregroundColor(boardViewModel.numBallsRemaining <=
+                                         ViewConstants.gameBallThresholdForWarning ? .red : .black)
+                )
 
             Spacer()
 
@@ -38,7 +46,7 @@ struct GameControlsView: View {
                 Label(ViewConstants.gameRestartButtonText, systemImage: ViewConstants.gameRestartButtonImage)
             }
         }
-        .padding()
+        .padding(.horizontal)
         .buttonStyle(.bordered)
     }
 }

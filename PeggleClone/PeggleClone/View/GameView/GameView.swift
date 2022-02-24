@@ -30,24 +30,29 @@ struct GameView: View {
     }
 
     var body: some View {
-        VStack {
-            gameControlsView
+        GeometryReader { geo in
+            VStack {
+                gameControlsView
+                    .frame(height: geo.size.height * ViewConstants.gameControlsHeightRatio,
+                           alignment: .top)
 
-            gameBoardView
+                gameBoardView
+            }
+            .overlay(
+                GameMasterSelectorView(chosenGameMaster: $gameViewModel.chosenGameMaster)
+
+            )
+            .alert(ViewConstants.gameCompletedDialogTitle, isPresented: $gameViewModel.isShowingDialog, actions: {
+                Button(ViewConstants.gameRestartDialogButtonText) {
+                    gameViewModel.restartLevel()
+                }
+
+                Button(ViewConstants.gameReturnButtonText) {
+                    returnToLevelDesigner()
+                }
+            })
+            .navigationBarHidden(true)
         }
-        .overlay(
-            GameMasterSelectorView(chosenGameMaster: $gameViewModel.chosenGameMaster)
 
-        )
-        .alert(ViewConstants.gameCompletedDialogTitle, isPresented: $gameViewModel.isShowingDialog, actions: {
-            Button(ViewConstants.gameRestartDialogButtonText) {
-                gameViewModel.restartLevel()
-            }
-
-            Button(ViewConstants.gameReturnButtonText) {
-                returnToLevelDesigner()
-            }
-        })
-        .navigationBarHidden(true)
     }
 }
