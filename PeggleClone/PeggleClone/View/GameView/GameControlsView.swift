@@ -10,6 +10,8 @@ import SwiftUI
 struct GameControlsView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
+    @ObservedObject var boardViewModel: GameBoardViewModel
+
     @ObservedObject var controlsViewModel: GameControlsViewModel
 
     private func returnToLevelDesigner() {
@@ -21,6 +23,10 @@ struct GameControlsView: View {
             Button(action: returnToLevelDesigner) {
                 Label(ViewConstants.gameQuitButtonText, systemImage: ViewConstants.gameQuitButtonImage)
             }
+
+            Spacer()
+
+            Text(String(boardViewModel.numBallsRemaining))
 
             Spacer()
 

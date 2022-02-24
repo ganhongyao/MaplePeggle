@@ -17,8 +17,12 @@ struct GameView: View {
         dismiss()
     }
 
+    @ViewBuilder
     private var gameControlsView: some View {
-        gameViewModel.controlsViewModel.map({ GameControlsView(controlsViewModel: $0) })
+        if let boardViewModel = gameViewModel.boardViewModel,
+           let controlsViewModel = gameViewModel.controlsViewModel {
+            GameControlsView(boardViewModel: boardViewModel, controlsViewModel: controlsViewModel)
+        }
     }
 
     private var gameBoardView: some View {

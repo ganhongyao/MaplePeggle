@@ -49,6 +49,10 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.shouldLaunchBall
     }
 
+    var numBallsRemaining: Int {
+        gameBoard.numBallsRemaining
+    }
+
     init(board: Board, gameViewModel: GameViewModel) {
         let gameBoard = GameBoard(from: board)
         self.gameBoard = gameBoard
