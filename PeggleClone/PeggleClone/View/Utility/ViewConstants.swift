@@ -56,7 +56,8 @@ struct ViewConstants {
     static let controlsTextFieldLabel = "Level Name"
 
     /// GameView
-    static let gameCompletedDialogTitle = "Level Completed"
+    static let gameWonDialogTitle = "Level Cleared"
+    static let gameLostDialogTitle = "Game Over"
     static let gameReturnButtonText = "Return to Level Designer"
     static let gameRestartDialogButtonText = "Restart"
     static let gameControlsHeightRatio = 0.05
