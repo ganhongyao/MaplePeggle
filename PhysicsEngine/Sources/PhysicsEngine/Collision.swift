@@ -25,7 +25,7 @@ extension Collision {
         var finalRotatedVelocityA: CGVector
         var finalRotatedVelocityB: CGVector
 
-        if bodyA.isMovable && bodyB.isMovable {
+        if bodyA.isKnockable && bodyB.isKnockable {
             let massSum = bodyA.mass + bodyB.mass
 
             finalRotatedVelocityA = CGVector(dx: initialRotatedVelocityA.dx * (bodyA.mass - bodyB.mass) / massSum +
@@ -35,11 +35,11 @@ extension Collision {
             finalRotatedVelocityB = CGVector(dx: initialRotatedVelocityB.dx * (bodyB.mass - bodyA.mass) / massSum +
                                                  initialRotatedVelocityA.dx * 2 * bodyA.mass / massSum,
                                              dy: initialRotatedVelocityA.dy)
-        } else if bodyA.isMovable {
+        } else if bodyA.isKnockable {
             finalRotatedVelocityA = CGVector(dx: -initialRotatedVelocityA.dx,
                                              dy: initialRotatedVelocityA.dy)
             finalRotatedVelocityB = initialRotatedVelocityB
-        } else if bodyB.isMovable {
+        } else if bodyB.isKnockable {
             finalRotatedVelocityA = initialRotatedVelocityA
             finalRotatedVelocityB = CGVector(dx: -initialRotatedVelocityB.dx,
                                              dy: initialRotatedVelocityB.dy)
@@ -57,12 +57,12 @@ extension Collision {
         bodyA.velocity = finalVelocityA
         bodyB.velocity = finalVelocityB
 
-        if bodyA.isMovable {
+        if bodyA.isKnockable {
             let timeToMoveA = depthOfPenetration / bodyA.velocity.norm
             bodyA.updateCenter(deltaTime: timeToMoveA)
         }
 
-        if bodyB.isMovable {
+        if bodyB.isKnockable {
             let timeToMoveB = depthOfPenetration / bodyB.velocity.norm
             bodyB.updateCenter(deltaTime: timeToMoveB)
         }

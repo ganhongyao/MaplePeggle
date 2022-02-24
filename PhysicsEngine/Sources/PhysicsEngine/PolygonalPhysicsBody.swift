@@ -12,6 +12,16 @@ public protocol PolygonalPhysicsBody: Polygonal, PhysicsBody {
 }
 
 extension PolygonalPhysicsBody {
+    public var center: CGPoint {
+        get {
+            centroid
+        }
+
+        set {
+            move(to: newValue)
+        }
+    }
+
     public func overlaps(with otherCircularPhysicsBody: CircularPhysicsBody) -> Bool {
         overlaps(with: otherCircularPhysicsBody as Circular)
     }

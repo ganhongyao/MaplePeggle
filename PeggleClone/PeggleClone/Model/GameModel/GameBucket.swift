@@ -33,13 +33,17 @@ class GameBucket: PolygonalPhysicsBody {
         }
 
         set {
-            assertionFailure("Bucket vertices should not be manipulated directly")
+
         }
     }
 
-    var isMovable = false
+    let isMovable = true
 
-    var velocity: CGVector = .zero
+    let isKnockable = false
+
+    let isGravitable = false
+
+    var velocity = CGVector(dx: 200, dy: 0)
 
     var force: CGVector = .zero
 

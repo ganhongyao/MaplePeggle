@@ -10,6 +10,10 @@ import CoreGraphics
 public protocol PhysicsBody: AnyObject {
     var isMovable: Bool { get }
 
+    var isKnockable: Bool { get }
+
+    var isGravitable: Bool { get }
+
     var center: CGPoint { get set }
 
     var velocity: CGVector { get set }

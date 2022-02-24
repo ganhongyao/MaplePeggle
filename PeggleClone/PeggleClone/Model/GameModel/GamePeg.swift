@@ -14,6 +14,10 @@ class GamePeg: Peg, CircularPhysicsBody {
 
     let isMovable = false
 
+    let isKnockable = false
+
+    let isGravitable = false
+
     var velocity = CGVector.zero
 
     var force = CGVector.zero

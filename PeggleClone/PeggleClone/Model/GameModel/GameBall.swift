@@ -13,6 +13,10 @@ class GameBall: CircularPhysicsBody {
 
     let isMovable = true
 
+    let isKnockable = true
+
+    let isGravitable = true
+
     var center: CGPoint
 
     var radius: CGFloat = defaultRadius

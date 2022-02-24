@@ -12,17 +12,11 @@ import CoreGraphics
 class GameBlock: Block, PolygonalPhysicsBody {
     static let maxCollisionsBeforeForceRemoval = 250
 
-    var isMovable = false
+    let isMovable = false
 
-    var center: CGPoint {
-        get {
-            centroid
-        }
+    let isKnockable = false
 
-        set {
-            move(to: newValue)
-        }
-    }
+    let isGravitable = false
 
     var velocity = CGVector.zero
 
