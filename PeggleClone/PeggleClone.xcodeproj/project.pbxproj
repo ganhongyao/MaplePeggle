@@ -13,6 +13,7 @@
 		F34A671627C6ABCC00B9CABE /* GameBucket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34A671527C6ABCC00B9CABE /* GameBucket.swift */; };
 		F34A671827C7522B00B9CABE /* GameBucketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34A671727C7522B00B9CABE /* GameBucketView.swift */; };
 		F34A671A27C752DB00B9CABE /* GameBucketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34A671927C752DB00B9CABE /* GameBucketViewModel.swift */; };
+		F34A671C27C7965700B9CABE /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34A671B27C7965700B9CABE /* GameState.swift */; };
 		F37F248B27A6E14900B56E8D /* TranslucentViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F37F248A27A6E14900B56E8D /* TranslucentViewModifier.swift */; };
 		F392E41F27B2C8D600FEDB3A /* GameCannonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F392E41E27B2C8D600FEDB3A /* GameCannonViewModel.swift */; };
 		F392E42327B2C95B00FEDB3A /* GameCannonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F392E42227B2C95B00FEDB3A /* GameCannonView.swift */; };
@@ -97,6 +98,7 @@
 		F34A671527C6ABCC00B9CABE /* GameBucket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBucket.swift; sourceTree = "<group>"; };
 		F34A671727C7522B00B9CABE /* GameBucketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBucketView.swift; sourceTree = "<group>"; };
 		F34A671927C752DB00B9CABE /* GameBucketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBucketViewModel.swift; sourceTree = "<group>"; };
+		F34A671B27C7965700B9CABE /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		F37F248A27A6E14900B56E8D /* TranslucentViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentViewModifier.swift; sourceTree = "<group>"; };
 		F392E41E27B2C8D600FEDB3A /* GameCannonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCannonViewModel.swift; sourceTree = "<group>"; };
 		F392E42227B2C95B00FEDB3A /* GameCannonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCannonView.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 			children = (
 				F3F6409327ACF3550063B64A /* GameBoardViewModel.swift */,
 				F3BECEA927B9124300247D9D /* GameViewModel.swift */,
+				F34A671B27C7965700B9CABE /* GameState.swift */,
 				F34A671927C752DB00B9CABE /* GameBucketViewModel.swift */,
 				F3BECEAB27B912E400247D9D /* GameControlsViewModel.swift */,
 				F3F6409727AD0DBE0063B64A /* GamePegViewModel.swift */,
@@ -576,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F392E42327B2C95B00FEDB3A /* GameCannonView.swift in Sources */,
+				F34A671C27C7965700B9CABE /* GameState.swift in Sources */,
 				F3C0411127C65E5800DB1112 /* GameMasterSelectorView.swift in Sources */,
 				F3A72274279EF53400A8F091 /* Persistable.swift in Sources */,
 				F31F5A872796FE7B0031EA60 /* Peg.swift in Sources */,

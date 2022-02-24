@@ -13,7 +13,7 @@ struct GameView: View {
     @StateObject var gameViewModel: GameViewModel
 
     private func returnToLevelDesigner() {
-        gameViewModel.endLevel()
+        gameViewModel.exitLevel()
         dismiss()
     }
 

@@ -8,6 +8,14 @@
 import Foundation
 
 class GameViewModel: ObservableObject {
+    @Published var currentGameState = GameState.inProgress {
+        didSet {
+            if currentGameState != .inProgress {
+                isShowingDialog = true
+            }
+        }
+    }
+
     @Published var isShowingDialog = false
 
     @Published var chosenGameMaster: GameMaster? {
@@ -30,11 +38,12 @@ class GameViewModel: ObservableObject {
         boardViewModel = GameBoardViewModel(board: board, gameViewModel: self)
     }
 
-    func endLevel() {
+    func exitLevel() {
         boardViewModel?.deinitialiseDisplayLink()
     }
 
     func restartLevel() {
+        currentGameState = .inProgress
         boardViewModel?.restart()
         boardViewModel?.deinitialiseDisplayLink()
     }

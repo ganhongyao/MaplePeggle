@@ -175,6 +175,10 @@ class GameBoardViewModel: ObservableObject {
     }
 
     private func handleGameEnded() {
-        gameViewModel.isShowingDialog = true
+        guard hasEnded else {
+            return
+        }
+
+        gameViewModel.currentGameState = hasWon ? .won : .lost
     }
 }
