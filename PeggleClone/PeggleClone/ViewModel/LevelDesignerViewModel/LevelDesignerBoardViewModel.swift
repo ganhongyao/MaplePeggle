@@ -66,6 +66,10 @@ class LevelDesignerBoardViewModel: ObservableObject {
         }
     }
 
+    var blockCount: Int {
+        board.blocks.count
+    }
+
     var snapshot: Data? {
         get {
             board.snapshot
@@ -90,6 +94,10 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     func setSnapshot(snapshotImage: UIImage) {
         board.snapshot = snapshotImage.pngData()
+    }
+
+    func getPegCount(color: Peg.Color) -> Int {
+        board.pegs.filter { $0.color == color }.count
     }
 
     func select(object: BoardObject?) {
@@ -138,8 +146,6 @@ class LevelDesignerBoardViewModel: ObservableObject {
         let newPeg = Peg(center: center, radius: Peg.defaultRadius, color: selectedPegColor)
 
         board.addPeg(newPeg)
-
-        levelDesignerViewModel.pegSelectorViewModel?.increasePegCountForColor(color: selectedPegColor)
 
         objectWillChange.send()
     }

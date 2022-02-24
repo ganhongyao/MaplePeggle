@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct PegSelectorView: View {
+    @ObservedObject var boardViewModel: LevelDesignerBoardViewModel
+
     @ObservedObject var pegSelectorViewModel: PegSelectorViewModel
 
     var body: some View {
         HStack {
-            ForEach(pegSelectorViewModel.pegColorsAndCounts, id: \.0.rawValue) { (color, count) in
+            ForEach(pegSelectorViewModel.pegColors, id: \.rawValue) { color in
                 Button(action: {
                     pegSelectorViewModel.setSelectedPegColor(color: color)
                 }, label: {
@@ -23,7 +25,9 @@ struct PegSelectorView: View {
                                                 && color == pegSelectorViewModel.selectedPegColor)
                         )
                         .overlay(
-                            Text(String(count)).bold().foregroundColor(.black)
+                            Text(String(boardViewModel.getPegCount(color: color)))
+                                .bold()
+                                .foregroundColor(.black)
                         )
                 })
             }
@@ -36,7 +40,9 @@ struct PegSelectorView: View {
                     .scaledToFit()
                     .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddBlockMode))
                     .overlay(
-                        Text(String(pegSelectorViewModel.blockCount)).bold().foregroundColor(.black)
+                        Text(String(boardViewModel.blockCount))
+                            .bold()
+                            .foregroundColor(.black)
                     )
             })
 

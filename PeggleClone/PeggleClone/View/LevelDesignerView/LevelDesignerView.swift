@@ -19,8 +19,12 @@ struct LevelDesignerView: View {
                                                                     controlsViewModel: $0) })
     }
 
+    @ViewBuilder
     private var pegSelectorView: some View {
-        levelDesignerViewModel.pegSelectorViewModel.map({ PegSelectorView(pegSelectorViewModel: $0) })
+        if let boardViewModel = levelDesignerViewModel.boardViewModel,
+           let pegSelectorViewModel = levelDesignerViewModel.pegSelectorViewModel {
+            PegSelectorView(boardViewModel: boardViewModel, pegSelectorViewModel: pegSelectorViewModel)
+        }
     }
 
     private func snapshotCallback() {
