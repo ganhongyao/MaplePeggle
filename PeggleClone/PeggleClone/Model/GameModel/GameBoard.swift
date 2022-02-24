@@ -11,6 +11,7 @@ import PhysicsEngine
 
 class GameBoard: Board, PhysicsWorld {
     private static let maxCollisionsBeforeForceRemoval = 50
+    private static let numInitialBalls = 10
 
     var physicsBodies: [PhysicsBody] = []
 
@@ -36,6 +37,8 @@ class GameBoard: Board, PhysicsWorld {
 
     var powerups: [Powerup] = []
 
+    var numBallsRemaining = GameBoard.numInitialBalls
+
     var hasBallWithinBoard: Bool {
         guard let gameBall = gameBall else {
             return false
@@ -45,7 +48,7 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     var shouldLaunchBall: Bool {
-        !gameCannon.isAimingAtSelf && gameBall == nil
+        !gameCannon.isAimingAtSelf && gameBall == nil && numBallsRemaining > 0
     }
 
     required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
@@ -78,6 +81,11 @@ class GameBoard: Board, PhysicsWorld {
         let ball = gameCannon.ballToLaunch
 
         addBody(physicsBody: ball)
+
+        numBallsRemaining -= 1
+        if numBallsRemaining <= 0 {
+            print("Out of balls")
+        }
     }
 
     func handleBallLeftBoard() {
@@ -93,7 +101,7 @@ class GameBoard: Board, PhysicsWorld {
         print("Ball entered bucket")
         removeBall()
 
-        // TODO: Handle ball count
+        numBallsRemaining += 1
     }
 
     func activatePowerups(gameMaster: GameMaster?) {
