@@ -20,6 +20,8 @@ class GameBoard: Board, PhysicsWorld {
 
     var gameCannon: GameCannon
 
+    var gameBucket: GameBucket
+
     var gamePegs: [GamePeg] {
         physicsBodies.compactMap({ $0 as? GamePeg })
     }
@@ -50,8 +52,11 @@ class GameBoard: Board, PhysicsWorld {
                   dateCreated: Date? = Date()) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
+        gameBucket = GameBucket(xCoordinate: boardCenter.x, minYCoordinate: size.height)
 
         super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
+
+        addBody(physicsBody: gameBucket)
 
         let gamePegs = pegs.map(GamePeg.init)
         gamePegs.forEach { addBody(physicsBody: $0) }
@@ -148,6 +153,8 @@ class GameBoard: Board, PhysicsWorld {
 
         let gameBlocks = blocks.map(GameBlock.init)
         gameBlocks.forEach { addBody(physicsBody: $0) }
+
+        addBody(physicsBody: gameBucket)
 
         offsetPegsByCannonHeight()
         offsetBlocksByCannonHeight()

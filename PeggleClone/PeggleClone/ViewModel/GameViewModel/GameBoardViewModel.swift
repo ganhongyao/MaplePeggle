@@ -17,6 +17,8 @@ class GameBoardViewModel: ObservableObject {
 
     private(set) var cannonViewModel: GameCannonViewModel
 
+    private(set) var bucketViewModel: GameBucketViewModel
+
     private var displayLink: CADisplayLink?
 
     private var hasGameStarted: Bool {
@@ -52,6 +54,7 @@ class GameBoardViewModel: ObservableObject {
         self.gameBoard = gameBoard
         self.gameViewModel = gameViewModel
         cannonViewModel = GameCannonViewModel(gameCannon: gameBoard.gameCannon)
+        bucketViewModel = GameBucketViewModel(gameBucket: gameBoard.gameBucket)
     }
 
     func initialiseDisplayLink() {
@@ -95,6 +98,7 @@ class GameBoardViewModel: ObservableObject {
         cannonViewModel.cannonHeight = height
 
         gameBoard.size.height += height
+        gameBoard.gameBucket.minYCoordinate += height
 
         gameBoard.offsetPegsByCannonHeight()
         gameBoard.offsetBlocksByCannonHeight()
@@ -103,7 +107,11 @@ class GameBoardViewModel: ObservableObject {
     }
 
     func setBucketHeight(_ height: CGFloat) {
+        bucketViewModel.bucketHeight = height
+
         gameBoard.size.height += height
+
+        objectWillChange.send()
     }
 
     func launchBall() {

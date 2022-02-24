@@ -17,6 +17,7 @@ struct ViewConstants {
     static let deleteImage = "delete"
     static let cannonImage = "cannon"
     static let ballImage = "ball"
+    static let bucketImage = "bucket"
 
     /// LevelSelectorView
     static let levelSelectorNavTitle = "Levels"
@@ -82,4 +83,5 @@ struct ViewConstants {
     static let cannonAimCancelImage = "xmark.circle"
     static let cannonAimCancelOpacity = 0.3
     static let cannonPadding = 5.0
+
 }

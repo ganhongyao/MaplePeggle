@@ -43,6 +43,8 @@ struct GameBoardView: View {
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gameBlocks)
+
+                GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
             }
             .onAppear {
                 let spareHeight = geo.size.height - gameBoardViewModel.boardSize.height
