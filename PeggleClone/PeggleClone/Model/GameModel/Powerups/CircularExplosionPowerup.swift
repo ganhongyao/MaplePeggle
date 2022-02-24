@@ -41,7 +41,7 @@ class CircularExplosionPowerup: Circular, Powerup {
                     gameBoard.powerups.append(CircularExplosionPowerup(from: gamePeg))
                     gamePeg.hasActivatedPowerup = true
                 }
-                gameBoard.removeGamePeg(gamePeg: gamePeg)
+                gameBoard.pegsToBeRemovedQueue.append(gamePeg)
             }
         }
 

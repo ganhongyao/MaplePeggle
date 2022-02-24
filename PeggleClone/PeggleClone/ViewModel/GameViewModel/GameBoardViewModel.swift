@@ -95,6 +95,8 @@ class GameBoardViewModel: ObservableObject {
     @objc private func step(displayLink: CADisplayLink) {
         let deltaTime = displayLink.targetTimestamp - displayLink.timestamp
 
+        gameBoard.removeGamePegsQueuedForRemoval()
+
         let collisions = gameBoard.simulate(deltaTime: deltaTime)
 
         for collision in collisions {

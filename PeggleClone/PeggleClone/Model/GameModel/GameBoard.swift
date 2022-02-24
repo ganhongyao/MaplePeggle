@@ -35,6 +35,9 @@ class GameBoard: Board, PhysicsWorld {
         physicsBodies.compactMap({ $0 as? GameBall }).first
     }
 
+    /// Pegs that are to be removed in the next re-render.
+    var pegsToBeRemovedQueue: [GamePeg] = []
+
     var powerups: [Powerup] = []
 
     var numBallsRemaining = GameBoard.numInitialBalls
@@ -83,9 +86,6 @@ class GameBoard: Board, PhysicsWorld {
         addBody(physicsBody: ball)
 
         numBallsRemaining -= 1
-        if numBallsRemaining <= 0 {
-            print("Out of balls")
-        }
     }
 
     func handleBallLeftBoard() {
@@ -98,7 +98,6 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func handleBallEnteredBucket() {
-        print("Ball entered bucket")
         removeBall()
 
         numBallsRemaining += 1
@@ -128,6 +127,11 @@ class GameBoard: Board, PhysicsWorld {
                 powerups.removeAll { $0 === powerup }
             }
         }
+    }
+
+    func removeGamePegsQueuedForRemoval() {
+        pegsToBeRemovedQueue.forEach { removeGamePeg(gamePeg: $0) }
+        pegsToBeRemovedQueue = []
     }
 
     func removeGamePeg(gamePeg: GamePeg) {
