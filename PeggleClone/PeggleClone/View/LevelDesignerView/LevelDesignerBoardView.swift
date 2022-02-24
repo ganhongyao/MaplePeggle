@@ -10,8 +10,6 @@ import SwiftUI
 struct LevelDesignerBoardView: View {
     @ObservedObject var levelDesignerBoardViewModel: LevelDesignerBoardViewModel
 
-    @State var scale: CGFloat = 1
-
     @State var lastScale: CGFloat = 1
 
     @State var lastAngle: Angle = .zero
@@ -51,9 +49,8 @@ struct LevelDesignerBoardView: View {
                     }
                 })
                 .gesture(MagnificationGesture().onChanged { value in
-                    let delta = value / lastScale
+                    let scaleFactor = value / lastScale
                     lastScale = value
-                    let scaleFactor = scale * delta
                     levelDesignerBoardViewModel.scaleBoardObject(factor: scaleFactor)
                 }.onEnded { _ in
                     lastScale = 1.0
