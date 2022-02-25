@@ -49,6 +49,7 @@ struct GameBoardView: View {
                     .modifier(TranslucentViewModifier(shouldBeTranslucent: gameBoardViewModel.hasBallWithinBoard))
                     .animation(.easeInOut(duration: ViewConstants.gameBoardCannonAnimationDuration),
                                value: isAiming || gameBoardViewModel.hasBallWithinBoard)
+                    .clipped()
 
                 gameBoardViewModel.gameBall.map({ ball in
                     GameBallView(gameBallViewModel: GameBallViewModel(gameBall: ball))
@@ -61,6 +62,7 @@ struct GameBoardView: View {
                             .offset(y: offset)
                             .transition(.scaleAndOpacityOnRemove(scaleFactor:
                                                                     ViewConstants.gameBoardObjectScaleOnRemoval))
+                            .clipped()
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gamePegs)
@@ -70,6 +72,7 @@ struct GameBoardView: View {
                         GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock))
                             .transition(.scaleAndOpacityOnRemove(scaleFactor:
                                                                     ViewConstants.gameBoardObjectScaleOnRemoval))
+                            .clipped()
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gameBlocks)
