@@ -31,20 +31,11 @@ struct GameBoardView: View {
             return 0
         }
 
-        guard !(boardHeight - ballYCoordinate < screenHeight) else {
-            return -(boardHeight - screenHeight - preferredBallPlacement)
+        if boardHeight - ballYCoordinate < (1 - ViewConstants.gameBallPreferredPlacement) * screenHeight {
+            return -(boardHeight - screenHeight)
         }
 
-        return -(ballYCoordinate - preferredBallPlacement)
-    }
-
-    private var bucketOffset: CGFloat {
-        guard let ballYCoordinate = ballYCoordinate,
-              boardHeight - ballYCoordinate < screenHeight else {
-            return 0
-        }
-
-        return -(boardHeight - screenHeight)
+        return -ballYCoordinate + preferredBallPlacement
     }
 
     var body: some View {
@@ -84,7 +75,7 @@ struct GameBoardView: View {
                             value: gameBoardViewModel.gameBlocks)
 
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
-                    .offset(y: bucketOffset)
+                    .offset(y: offset)
             }
             .onAppear {
                 screenHeight = geo.size.height
