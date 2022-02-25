@@ -28,6 +28,7 @@
 		F3A981E227A034D400E40428 /* LevelSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A981E127A034D400E40428 /* LevelSelectorView.swift */; };
 		F3B2967427AFD2E300BA25D5 /* CGVector+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B2967327AFD2E300BA25D5 /* CGVector+Operations.swift */; };
 		F3B2967827AFE96900BA25D5 /* GameCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B2967727AFE96800BA25D5 /* GameCannon.swift */; };
+		F3B62E3827C916920090DD5A /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B62E3727C916920090DD5A /* SeedData.swift */; };
 		F3B6D0F7279803E20069BED7 /* LevelDesignerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6D0F6279803E20069BED7 /* LevelDesignerViewModel.swift */; };
 		F3B6D0F9279805330069BED7 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6D0F8279805320069BED7 /* ControlsView.swift */; };
 		F3B6E68427A13524004A82A1 /* View+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6E68327A13524004A82A1 /* View+Snapshot.swift */; };
@@ -117,6 +118,7 @@
 		F3A981E127A034D400E40428 /* LevelSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectorView.swift; sourceTree = "<group>"; };
 		F3B2967327AFD2E300BA25D5 /* CGVector+Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Operations.swift"; sourceTree = "<group>"; };
 		F3B2967727AFE96800BA25D5 /* GameCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCannon.swift; sourceTree = "<group>"; };
+		F3B62E3727C916920090DD5A /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
 		F3B6D0F6279803E20069BED7 /* LevelDesignerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignerViewModel.swift; sourceTree = "<group>"; };
 		F3B6D0F8279805320069BED7 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		F3B6E68327A13524004A82A1 /* View+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snapshot.swift"; sourceTree = "<group>"; };
@@ -393,6 +395,7 @@
 				F3A72273279EF53300A8F091 /* Persistable.swift */,
 				F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */,
 				F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */,
+				F3B62E3727C916920090DD5A /* SeedData.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -611,6 +614,7 @@
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
 				F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */,
 				F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */,
+				F3B62E3827C916920090DD5A /* SeedData.swift in Sources */,
 				F3C0411527C68A7600DB1112 /* PowerupDescriptor.swift in Sources */,
 				F3C80C3327A2E93D000770FB /* LevelDesignerBoardViewModel.swift in Sources */,
 				F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */,

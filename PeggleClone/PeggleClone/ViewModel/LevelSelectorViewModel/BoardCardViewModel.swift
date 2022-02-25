@@ -8,6 +8,8 @@
 import Foundation
 
 class BoardCardViewModel: ObservableObject {
+    private static let seedDeletionErrorMessage = "Preloaded levels cannot be deleted."
+
     @Published var isShowingError = false
 
     @Published var error: PersistenceError?
@@ -29,13 +31,19 @@ class BoardCardViewModel: ObservableObject {
         board.name
     }
 
-    var dateTimeSinceCreated: String {
+    var caption: String {
         guard let dateCreated = board.dateCreated else {
             return ""
         }
 
+        guard !board.isSeedData else {
+            return "Preloaded Level"
+        }
+
         let currentDateTime = Date()
-        return RelativeDateTimeFormatter().localizedString(for: dateCreated, relativeTo: currentDateTime)
+        let distanceFromCreation = RelativeDateTimeFormatter().localizedString(for: dateCreated, relativeTo: currentDateTime)
+
+        return "Created \(distanceFromCreation)"
     }
 
     var snapshotImageData: Data? {
@@ -43,6 +51,14 @@ class BoardCardViewModel: ObservableObject {
     }
 
     func deleteBoard() {
+        guard !board.isSeedData else {
+            isShowingError = true
+            error = PersistenceError(className: String(describing: Board.self),
+                                     failedOperation: .delete,
+                                     reason: BoardCardViewModel.seedDeletionErrorMessage)
+            return
+        }
+
         do {
             try CoreDataManager.sharedInstance.delete(model: board)
         } catch let persistenceError as PersistenceError {

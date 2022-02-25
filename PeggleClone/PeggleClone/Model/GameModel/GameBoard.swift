@@ -56,7 +56,7 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
-                  dateCreated: Date? = Date()) {
+                  dateCreated: Date? = Date(), isSeedData: Bool = false) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
         gameBucket = GameBucket(initialXCoordinate: boardCenter.x, minYCoordinate: size.height)
@@ -74,7 +74,7 @@ class GameBoard: Board, PhysicsWorld {
 
     convenience init(from board: Board) {
         self.init(id: board.id, name: board.name, size: board.size, snapshot: board.snapshot, pegs: board.pegs,
-                  blocks: board.blocks, dateCreated: board.dateCreated)
+                  blocks: board.blocks, dateCreated: board.dateCreated, isSeedData: board.isSeedData)
     }
 
     func launchBall() {

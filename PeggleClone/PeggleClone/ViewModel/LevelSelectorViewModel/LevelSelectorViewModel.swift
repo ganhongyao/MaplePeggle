@@ -17,6 +17,16 @@ class LevelSelectorViewModel: ObservableObject {
     func fetchAllBoards() {
         let sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 
+        UserDefaults.standard.removeObject(forKey: "isAppAlreadyLaunchedOnce")
+
+        if !CoreDataManager.sharedInstance.isAppAlreadyLaunchedOnce {
+            do {
+                try SeedData.seedAllBoards(database: CoreDataManager.sharedInstance)
+            } catch {
+                print("Error seeding boards: \(error)")
+            }
+        }
+
         do {
             let fetchedBoards: [Board] = try CoreDataManager.sharedInstance.fetchAll(sortDescriptors: sortDescriptors)
             boards = fetchedBoards

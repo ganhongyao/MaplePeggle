@@ -34,7 +34,7 @@ class Peg: Circular, BoardObject {
         color == .green
     }
 
-    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
+    required init(id: UUID? = UUID(), center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
                   parentBoard: Board? = nil) {
         self.id = id
         self.center = center
@@ -48,10 +48,6 @@ class Peg: Circular, BoardObject {
                      newColor: Peg.Color? = nil) {
         self.init(id: pegToClone.id, center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
                   color: newColor ?? pegToClone.color, parentBoard: pegToClone.parentBoard)
-    }
-
-    convenience init(center: CGPoint, radius: CGFloat, color: Peg.Color) {
-        self.init(id: UUID(), center: center, radius: radius, color: color)
     }
 
     func rotate(angle: CGFloat) {

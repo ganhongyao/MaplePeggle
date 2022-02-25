@@ -36,7 +36,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
                 return
             }
 
-            board = fetchedBoard
+            board = fetchedBoard.isSeedData ? Board.makeBoardFromSeedData(board: fetchedBoard) : fetchedBoard
 
         } catch let persistenceError as PersistenceError {
             isShowingError = true

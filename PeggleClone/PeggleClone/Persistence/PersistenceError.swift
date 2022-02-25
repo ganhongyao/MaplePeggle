@@ -16,6 +16,7 @@ struct PersistenceError: Error {
 
     let className: String
     let failedOperation: Operation
+    var reason: String?
 }
 
 extension PersistenceError: LocalizedError {
@@ -24,7 +25,7 @@ extension PersistenceError: LocalizedError {
     }
 
     public var failureReason: String? {
-        "Something went wrong with the persistence store."
+        reason ?? "Something went wrong with the persistence store."
     }
 
     public var recoverySuggestion: String? {

@@ -29,7 +29,7 @@ struct BoardCardView: View {
                         .bold()
                         .lineLimit(ViewConstants.boardCardLineLimit)
 
-                    Text("Created \(boardCardViewModel.dateTimeSinceCreated)")
+                    Text(boardCardViewModel.caption)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .lineLimit(ViewConstants.boardCardLineLimit)
@@ -55,6 +55,9 @@ struct BoardCardView: View {
         .background(Color.yellow)
         .cornerRadius(ViewConstants.boardCardCornerRadius)
         .shadow(radius: ViewConstants.boardCardShadowRadius)
-        .alert(isPresented: $boardCardViewModel.isShowingError, error: boardCardViewModel.error) {}
+        .alert(isPresented: $boardCardViewModel.isShowingError,
+               error: boardCardViewModel.error, actions: { _ in }) { error in
+            Text(error.failureReason ?? "")
+        }
     }
 }

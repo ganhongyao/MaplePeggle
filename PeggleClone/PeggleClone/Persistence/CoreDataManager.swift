@@ -8,10 +8,24 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
+class CoreDataManager: PersistenceManager {
     static let sharedInstance = CoreDataManager()
 
     private let container: NSPersistentContainer
+
+    private static let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"
+
+    /// Useful when we need to determine whether to populate the database with seed data.
+    var isAppAlreadyLaunchedOnce: Bool {
+        let defaults = UserDefaults.standard
+
+        guard defaults.string(forKey: CoreDataManager.isAppAlreadyLaunchedOnceKey) == nil else {
+            return true
+        }
+
+        defaults.set(true, forKey: CoreDataManager.isAppAlreadyLaunchedOnceKey)
+        return false
+    }
 
     private init() {
         container = NSPersistentContainer(name: "PeggleClone")

@@ -22,6 +22,8 @@ class Board {
 
     var snapshot: Data?
 
+    let isSeedData: Bool
+
     private(set) var pegs: Set<Peg>
 
     private(set) var blocks: Set<Block>
@@ -42,13 +44,14 @@ class Board {
         return max(maxPegYCoordinate, maxBlockYCoordinate)
     }
 
-    required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
-                  dateCreated: Date? = Date()) {
+    required init(id: UUID? = UUID(), name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
+                  dateCreated: Date? = Date(), isSeedData: Bool = false) {
         self.id = id
         self.name = name
         self.size = size
         self.dateCreated = dateCreated
         self.snapshot = snapshot
+        self.isSeedData = isSeedData
         self.pegs = pegs
         self.blocks = blocks
 
@@ -57,6 +60,18 @@ class Board {
 
     convenience init(name: String, size: CGSize) {
         self.init(id: UUID(), name: name, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
+    }
+
+    static func makeBoardFromSeedData(board: Board) -> Board {
+        let pegs = board.pegs.map { peg in
+            Peg(center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color)
+        }
+
+        let blocks = board.blocks.map { block in
+            Block(vertices: block.vertices)
+        }
+
+        return Board(name: "", size: board.size, snapshot: board.snapshot, pegs: Set(pegs), blocks: Set(blocks))
     }
 
     func addPeg(_ peg: Peg) {
@@ -255,7 +270,9 @@ extension Board: Persistable {
                          snapshot: managedObject.snapshot,
                          pegs: pegs,
                          blocks: blocks,
-                         dateCreated: managedObject.dateCreated)
+                         dateCreated: managedObject.dateCreated,
+                         isSeedData: managedObject.isSeedData
+        )
 
         return board
     }
@@ -273,6 +290,7 @@ extension Board: Persistable {
         })
         entity.dateCreated = dateCreated
         entity.snapshot = snapshot
+        entity.isSeedData = isSeedData
         entity.pegs = NSSet(array: pegEntities)
         entity.blocks = NSSet(array: blocks.map({ $0.toManagedObject() }))
         return entity

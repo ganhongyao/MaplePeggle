@@ -27,9 +27,6 @@ class LevelDesignerViewModel: ObservableObject {
         controlsViewModel = ControlsViewModel(levelDesignerViewModel: self)
         boardViewModel = LevelDesignerBoardViewModel(boardId: boardId, levelDesignerViewModel: self)
         pegSelectorViewModel = PegSelectorViewModel(levelDesignerViewModel: self)
-
-        assert(controlsViewModel != nil)
-        assert(boardViewModel != nil)
     }
 
     var boardSize: CGSize {
