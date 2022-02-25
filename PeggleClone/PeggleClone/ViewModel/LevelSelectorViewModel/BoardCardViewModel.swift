@@ -51,13 +51,14 @@ class BoardCardViewModel: ObservableObject {
     }
 
     func deleteBoard() {
-        guard !board.isSeedData else {
-            isShowingError = true
-            error = PersistenceError(className: String(describing: Board.self),
-                                     failedOperation: .delete,
-                                     reason: BoardCardViewModel.seedDeletionErrorMessage)
-            return
-        }
+        // TODO: Uncomment
+//        guard !board.isSeedData else {
+//            isShowingError = true
+//            error = PersistenceError(className: String(describing: Board.self),
+//                                     failedOperation: .delete,
+//                                     reason: BoardCardViewModel.seedDeletionErrorMessage)
+//            return
+//        }
 
         do {
             try CoreDataManager.sharedInstance.delete(model: board)
