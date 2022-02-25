@@ -80,6 +80,7 @@ struct GameBoardView: View {
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
                     .offset(y: offset)
             }
+            .animation(.default, value: offset)
             .onAppear {
                 screenHeight = geo.size.height
                 gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
