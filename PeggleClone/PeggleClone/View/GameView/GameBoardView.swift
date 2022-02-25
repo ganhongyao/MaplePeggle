@@ -6,11 +6,46 @@
 //
 
 import SwiftUI
+import PhysicsEngine
 
 struct GameBoardView: View {
     @StateObject var gameBoardViewModel: GameBoardViewModel
 
+    @State var screenHeight: CGFloat = .zero
+
     @State var isAiming = false
+
+    private var boardHeight: CGFloat {
+        gameBoardViewModel.boardSize.height
+    }
+
+    private var ballYCoordinate: CGFloat? {
+        gameBoardViewModel.gameBall?.center.y
+    }
+
+    private var offset: CGFloat {
+        let preferredBallPlacement = ViewConstants.gameBallPreferredPlacement * screenHeight
+
+        guard let ballYCoordinate = ballYCoordinate,
+              ballYCoordinate > preferredBallPlacement else {
+            return 0
+        }
+
+        guard !(boardHeight - ballYCoordinate < screenHeight) else {
+            return -(boardHeight - screenHeight - preferredBallPlacement)
+        }
+
+        return -(ballYCoordinate - preferredBallPlacement)
+    }
+
+    private var bucketOffset: CGFloat {
+        guard let ballYCoordinate = ballYCoordinate,
+              boardHeight - ballYCoordinate < screenHeight else {
+            return 0
+        }
+
+        return -(boardHeight - screenHeight)
+    }
 
     var body: some View {
         // swiftlint:disable:next closure_body_length
@@ -19,18 +54,22 @@ struct GameBoardView: View {
                 Image(ViewConstants.coralBackgroundImage).resizable()
 
                 GameCannonView(gameCannonViewModel: gameBoardViewModel.cannonViewModel, isAiming: $isAiming)
+                    .offset(y: offset)
                     .modifier(TranslucentViewModifier(shouldBeTranslucent: gameBoardViewModel.hasBallWithinBoard))
                     .animation(.easeInOut(duration: ViewConstants.gameBoardCannonAnimationDuration),
                                value: isAiming || gameBoardViewModel.hasBallWithinBoard)
 
                 gameBoardViewModel.gameBall.map({ ball in
-                    GameBallView(gameBallViewModel: GameBallViewModel(gameBall: ball)) })
+                    GameBallView(gameBallViewModel: GameBallViewModel(gameBall: ball))
+                        .offset(y: offset)
+                })
 
                 ZStack {
                     ForEach(gameBoardViewModel.gamePegs, id: \.id) { gamePeg in
                         GamePegView(gamePegViewModel: GamePegViewModel(gamePeg: gamePeg))
-                            .transition(.scale(scale: ViewConstants.gameBoardObjectScaleOnRemoval)
-                                            .combined(with: .opacity))
+                            .offset(y: offset)
+                            .transition(.scaleAndOpacityOnRemove(scaleFactor:
+                                                                    ViewConstants.gameBoardObjectScaleOnRemoval))
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gamePegs)
@@ -38,19 +77,19 @@ struct GameBoardView: View {
                 ZStack {
                     ForEach(gameBoardViewModel.gameBlocks, id: \.id) { gameBlock in
                         GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock))
-                            .transition(.scale(scale: ViewConstants.gameBoardObjectScaleOnRemoval)
-                                            .combined(with: .opacity))
+                            .transition(.scaleAndOpacityOnRemove(scaleFactor:
+                                                                    ViewConstants.gameBoardObjectScaleOnRemoval))
                     }
                 }.animation(.easeInOut(duration: ViewConstants.gameBoardObjectAnimationDuration),
                             value: gameBoardViewModel.gameBlocks)
 
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
+                    .offset(y: bucketOffset)
             }
             .onAppear {
-                let spareHeight = geo.size.height - gameBoardViewModel.boardSize.height
-                let halfSpareHeight = spareHeight / 2
-                gameBoardViewModel.setCannonHeight(halfSpareHeight)
-                gameBoardViewModel.setBucketHeight(halfSpareHeight)
+                screenHeight = geo.size.height
+                gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
+                gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
             }
             .onDisappear(perform: gameBoardViewModel.deinitialiseDisplayLink)
             .gesture(DragGesture(minimumDistance: 0).onChanged { value in
