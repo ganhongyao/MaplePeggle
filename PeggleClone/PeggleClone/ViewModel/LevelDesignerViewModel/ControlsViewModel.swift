@@ -28,6 +28,14 @@ class ControlsViewModel: ObservableObject {
         self.levelDesignerViewModel = levelDesignerViewModel
     }
 
+    func trimAddedButUnusedHeightFromBoard() {
+        levelDesignerViewModel.boardViewModel?.trimAddedButUnusedHeight()
+    }
+
+    func addBackTrimmedHeightForEditing() {
+        levelDesignerViewModel.boardViewModel?.addBackTrimmedHeightForEditing()
+    }
+
     func save() {
         levelDesignerViewModel.saveBoard()
     }

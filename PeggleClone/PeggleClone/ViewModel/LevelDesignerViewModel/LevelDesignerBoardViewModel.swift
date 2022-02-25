@@ -66,10 +66,12 @@ class LevelDesignerBoardViewModel: ObservableObject {
         }
     }
 
+    private var trimmedHeight: CGFloat = .zero
+
     var amountScrolledDownwards: CGFloat = .zero {
         didSet {
-            let unscrolledAmount = amountScrolledDownwards - oldValue
-            unscrolledHeight -= unscrolledAmount
+            let amountUnscrolled = amountScrolledDownwards - oldValue
+            unscrolledHeight = max(unscrolledHeight - amountUnscrolled, 0)
 
             objectWillChange.send()
         }
@@ -222,5 +224,23 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.removeAllBlocks()
 
         objectWillChange.send()
+    }
+
+    func trimAddedButUnusedHeight() {
+        let totalAddedHeight = amountScrolledDownwards + unscrolledHeight
+
+        let unusedHeight = boardSize.height - board.maxObjectYCoordinate
+
+        trimmedHeight = min(unusedHeight, totalAddedHeight)
+
+        if unusedHeight < totalAddedHeight {
+            boardSize.height -= unusedHeight
+        } else {
+            boardSize.height -= totalAddedHeight
+        }
+    }
+
+    func addBackTrimmedHeightForEditing() {
+        boardSize.height += trimmedHeight
     }
 }

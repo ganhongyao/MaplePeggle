@@ -30,6 +30,18 @@ class Board {
         pegs.map({ $0 as BoardObject }) + blocks.map({ $0 as BoardObject })
     }
 
+    var maxObjectYCoordinate: CGFloat {
+        let maxPegYCoordinate = pegs.reduce(0.0, { currMax, peg in
+            max(currMax, peg.center.y + peg.radius)
+        })
+
+        let maxBlockYCoordinate = blocks.reduce(0.0, { currMax, block in
+            max(currMax, block.maxY)
+        })
+
+        return max(maxPegYCoordinate, maxBlockYCoordinate)
+    }
+
     required init(id: UUID?, name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
                   dateCreated: Date? = Date()) {
         self.id = id

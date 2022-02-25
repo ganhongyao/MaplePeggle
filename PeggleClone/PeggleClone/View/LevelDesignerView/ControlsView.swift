@@ -33,8 +33,10 @@ struct ControlsView: View {
             }
 
             Button {
+                controlsViewModel.trimAddedButUnusedHeightFromBoard()
                 snapshotCallback()
                 controlsViewModel.save()
+                controlsViewModel.addBackTrimmedHeightForEditing()
             } label: {
                 Text(ViewConstants.controlsSaveButtonText)
             }

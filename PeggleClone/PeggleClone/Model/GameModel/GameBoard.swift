@@ -11,6 +11,7 @@ import PhysicsEngine
 
 class GameBoard: Board, PhysicsWorld {
     private static let maxCollisionsBeforeForceRemoval = 50
+
     private static let numInitialBalls = 10
 
     var physicsBodies: [PhysicsBody] = []
