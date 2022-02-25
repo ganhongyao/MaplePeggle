@@ -66,6 +66,21 @@ class LevelDesignerBoardViewModel: ObservableObject {
         }
     }
 
+    var amountScrolledDownwards: CGFloat = .zero {
+        didSet {
+            let unscrolledAmount = amountScrolledDownwards - oldValue
+            unscrolledHeight -= unscrolledAmount
+
+            objectWillChange.send()
+        }
+    }
+
+    var unscrolledHeight: CGFloat = .zero {
+        didSet {
+            objectWillChange.send()
+        }
+    }
+
     var blockCount: Int {
         board.blocks.count
     }
@@ -138,12 +153,18 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
+    private func getActualBoardPosition(point: CGPoint) -> CGPoint {
+        point.offset(y: amountScrolledDownwards)
+    }
+
     func addPeg(center: CGPoint) {
         guard let selectedPegColor = levelDesignerViewModel.pegSelectorViewModel?.selectedPegColor else {
             return
         }
 
-        let newPeg = Peg(center: center, radius: Peg.defaultRadius, color: selectedPegColor)
+        let actualCenter = getActualBoardPosition(point: center)
+
+        let newPeg = Peg(center: actualCenter, radius: Peg.defaultRadius, color: selectedPegColor)
 
         board.addPeg(newPeg)
 
@@ -151,7 +172,9 @@ class LevelDesignerBoardViewModel: ObservableObject {
     }
 
     func addBlock(center: CGPoint) {
-        let newBlock = Block(center: center)
+        let actualCenter = getActualBoardPosition(point: center)
+
+        let newBlock = Block(center: actualCenter)
 
         board.addBlock(newBlock)
 
@@ -159,19 +182,25 @@ class LevelDesignerBoardViewModel: ObservableObject {
     }
 
     func movePeg(peg: Peg, to newCenter: CGPoint) {
-        board.movePeg(peg: peg, to: newCenter)
+        let actualNewCenter = getActualBoardPosition(point: newCenter)
+
+        board.movePeg(peg: peg, to: actualNewCenter)
 
         objectWillChange.send()
     }
 
     func moveBlock(block: Block, to newCentroid: CGPoint) {
-        board.moveBlock(block: block, to: newCentroid)
+        let actualNewCentroid = getActualBoardPosition(point: newCentroid)
+
+        board.moveBlock(block: block, to: actualNewCentroid)
 
         objectWillChange.send()
     }
 
     func moveBlockVertex(block: Block, vertexIdx: Int, to newLocation: CGPoint) {
-        board.moveBlockVertex(block: block, vertexIdx: vertexIdx, to: newLocation)
+        let actualNewLocation = getActualBoardPosition(point: newLocation)
+
+        board.moveBlockVertex(block: block, vertexIdx: vertexIdx, to: actualNewLocation)
 
         objectWillChange.send()
     }

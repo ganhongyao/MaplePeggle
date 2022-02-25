@@ -28,10 +28,6 @@ struct PegView: View {
                     .position(pegViewModel.center)
             }
         }
-        .gesture(DragGesture().onChanged { value in
-            pegViewModel.selectPeg()
-            pegViewModel.movePeg(to: value.location)
-        })
         .onLongPressGesture {
             pegViewModel.removePeg()
         }

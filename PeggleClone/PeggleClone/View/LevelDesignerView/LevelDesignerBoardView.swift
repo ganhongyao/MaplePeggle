@@ -14,26 +14,76 @@ struct LevelDesignerBoardView: View {
 
     @State var lastAngle: Angle = .zero
 
-    private var mainBoardView: some View {
+    @State var screenHeight: CGFloat = .zero {
+        didSet {
+            levelDesignerBoardViewModel.unscrolledHeight = levelDesignerBoardViewModel.boardSize.height - screenHeight
+        }
+    }
+
+    /// Used for snapshots.
+    var fullBoardView: some View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
 
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
                 PegView(pegViewModel: pegViewModel)
-                    .onTapGesture {
-                        levelDesignerBoardViewModel.isInDeleteMode
-                            ? pegViewModel.removePeg()
-                            : pegViewModel.selectPeg()
-                    }
             }
 
             ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
                 BlockView(blockViewModel: blockViewModel)
-                    .highPriorityGesture(TapGesture().onEnded {
-                        levelDesignerBoardViewModel.isInDeleteMode
-                            ? blockViewModel.removeBlock()
-                            : blockViewModel.selectBlock()
-                    })
+            }
+        }
+        .frame(width: levelDesignerBoardViewModel.boardSize.width,
+               height: levelDesignerBoardViewModel.boardSize.height)
+    }
+
+    private var mainBoardView: some View {
+        ZStack {
+            Image(ViewConstants.coralBackgroundImage).resizable()
+
+            ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
+                let exceededTop = pegViewModel.center.y - pegViewModel.radius -
+                    levelDesignerBoardViewModel.amountScrolledDownwards < 0
+                let exceededBottom = pegViewModel.center.y + pegViewModel.radius -
+                    levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
+                let shouldBeDisplayed = !exceededTop && !exceededBottom
+
+                if shouldBeDisplayed {
+                    PegView(pegViewModel: pegViewModel)
+                        .offset(y: -levelDesignerBoardViewModel.amountScrolledDownwards)
+                        .highPriorityGesture(TapGesture().onEnded {
+                            levelDesignerBoardViewModel.isInDeleteMode
+                                ? pegViewModel.removePeg()
+                                : pegViewModel.selectPeg()
+                        })
+                        .gesture(DragGesture().onChanged { value in
+                            pegViewModel.selectPeg()
+                            pegViewModel.movePeg(to: value.location)
+                        })
+
+                }
+            }
+
+            ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
+                let exceededTop = blockViewModel.minYCoordinate -
+                    levelDesignerBoardViewModel.amountScrolledDownwards < 0
+                let exceededBottom = blockViewModel.maxYCoordinate -
+                    levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
+                let shouldBeDisplayed = !exceededTop && !exceededBottom
+
+                if shouldBeDisplayed {
+                    BlockView(blockViewModel: blockViewModel,
+                              yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
+                        .highPriorityGesture(TapGesture().onEnded {
+                            levelDesignerBoardViewModel.isInDeleteMode
+                                ? blockViewModel.removeBlock()
+                                : blockViewModel.selectBlock()
+                        })
+                        .gesture(DragGesture().onChanged { value in
+                            blockViewModel.selectBlock()
+                            blockViewModel.moveBlock(to: value.location)
+                        })
+                }
             }
         }
     }
@@ -62,20 +112,15 @@ struct LevelDesignerBoardView: View {
                     lastAngle = .zero
                 }))
                 // If the board is new, let GeoReader propose a size and set the board's size to the proposed size.
-                .onAppear {
-                    if levelDesignerBoardViewModel.isNewBoard {
-                        levelDesignerBoardViewModel.boardSize = geo.size
-                    }
-                }
                 .onChange(of: geo.size) { _ in
                     if levelDesignerBoardViewModel.isNewBoard {
                         levelDesignerBoardViewModel.boardSize = geo.size
                     }
+                    screenHeight = geo.size.height
                 }
         }
         // If the board is not new, set the frame to the board's native size as saved in storage.
-        .frame(width: levelDesignerBoardViewModel.isNewBoard ? nil : levelDesignerBoardViewModel.boardSize.width,
-               height: levelDesignerBoardViewModel.isNewBoard ? nil : levelDesignerBoardViewModel.boardSize.height)
+        .frame(width: levelDesignerBoardViewModel.isNewBoard ? nil : levelDesignerBoardViewModel.boardSize.width)
         .alert(isPresented: $levelDesignerBoardViewModel.isShowingError, error: levelDesignerBoardViewModel.error) {}
     }
 }

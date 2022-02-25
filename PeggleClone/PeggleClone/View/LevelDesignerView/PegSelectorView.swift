@@ -49,6 +49,37 @@ struct PegSelectorView: View {
             Spacer()
 
             Button(action: {
+                withAnimation {
+                    let canScrollUp = boardViewModel.amountScrolledDownwards >= ViewConstants.levelDesignerScrollAmount
+                    guard canScrollUp else {
+                        return
+                    }
+
+                    boardViewModel.amountScrolledDownwards -= ViewConstants.levelDesignerScrollAmount
+                }
+            }, label: {
+                Image(systemName: ViewConstants.pegSelectorScrollUpImage)
+                    .resizable()
+                    .scaledToFit()
+            })
+
+            Button(action: {
+                withAnimation {
+                    if boardViewModel.unscrolledHeight <= 0 {
+                        boardViewModel.boardSize.height += ViewConstants.levelDesignerScrollAmount
+                    }
+
+                    boardViewModel.amountScrolledDownwards += ViewConstants.levelDesignerScrollAmount
+                }
+            }, label: {
+                Image(systemName: ViewConstants.pegSelectorScrollDownImage)
+                    .resizable()
+                    .scaledToFit()
+            })
+
+            Spacer()
+
+            Button(action: {
                 pegSelectorViewModel.enterDeleteMode()
             }, label: {
                 Image(ViewConstants.deleteImage)

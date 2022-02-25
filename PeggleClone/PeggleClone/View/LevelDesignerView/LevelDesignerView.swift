@@ -10,13 +10,30 @@ import SwiftUI
 struct LevelDesignerView: View {
     @ObservedObject var levelDesignerViewModel: LevelDesignerViewModel
 
-    private var boardView: some View {
-        levelDesignerViewModel.boardViewModel.map({ LevelDesignerBoardView(levelDesignerBoardViewModel: $0) })
-    }
-
     private var controlsView: some View {
         levelDesignerViewModel.controlsViewModel.map({ ControlsView(snapshotCallback: snapshotCallback,
                                                                     controlsViewModel: $0) })
+    }
+
+    private var boardView: LevelDesignerBoardView? {
+        levelDesignerViewModel.boardViewModel.map({ LevelDesignerBoardView(levelDesignerBoardViewModel: $0) })
+    }
+
+    private var fullBoardView: some View {
+        levelDesignerViewModel.boardViewModel.map({ boardViewModel in
+            ZStack {
+                Image(ViewConstants.coralBackgroundImage).resizable()
+
+                ForEach(boardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
+                    PegView(pegViewModel: pegViewModel)
+                }
+
+                ForEach(boardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
+                    BlockView(blockViewModel: blockViewModel)
+                }
+            }
+            .frame(width: boardViewModel.boardSize.width, height: boardViewModel.boardSize.height)
+        })
     }
 
     @ViewBuilder
@@ -28,11 +45,15 @@ struct LevelDesignerView: View {
     }
 
     private func snapshotCallback() {
+        guard let fullBoardView = boardView?.fullBoardView else {
+            return
+        }
+
         // Temporarily unselect any selected object so that editing circles do not appear in SS, will set it back later
         let selectedObject = levelDesignerViewModel.unselectBoardObject()
 
         let capturingRect = CGRect(origin: .zero, size: levelDesignerViewModel.boardSize)
-        let snapshotImage = boardView.snapshot(capturingRect: capturingRect)
+        let snapshotImage = fullBoardView.snapshot(capturingRect: capturingRect)
         levelDesignerViewModel.setBoardSnapshot(snapshotImage: snapshotImage)
 
         levelDesignerViewModel.reselectBoardObject(selectedObject: selectedObject)

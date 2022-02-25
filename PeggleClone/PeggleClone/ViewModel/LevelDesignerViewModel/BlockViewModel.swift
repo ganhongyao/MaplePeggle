@@ -26,6 +26,14 @@ class BlockViewModel: ObservableObject {
         block.vertices
     }
 
+    var minYCoordinate: CGFloat {
+        block.minY
+    }
+
+    var maxYCoordinate: CGFloat {
+        block.maxY
+    }
+
     var isSelected: Bool {
         levelDesignerBoardViewModel.selectedObject === block
     }

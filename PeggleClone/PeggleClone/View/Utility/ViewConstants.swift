@@ -39,6 +39,11 @@ struct ViewConstants {
 
     /// LevelDesignerView
     static let levelDesignerPegSelectorHeightRatio = 0.1
+    static let levelDesignerScrollAmount = 50.0
+
+    /// PegSelectorView
+    static let pegSelectorScrollUpImage = "arrow.up.circle.fill"
+    static let pegSelectorScrollDownImage = "arrow.down.circle.fill"
 
     /// PegView
     static let pegNumTapsToSelect = 2

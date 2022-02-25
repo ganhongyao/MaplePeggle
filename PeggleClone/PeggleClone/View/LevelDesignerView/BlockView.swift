@@ -10,36 +10,44 @@ import SwiftUI
 struct BlockView: View {
     @ObservedObject var blockViewModel: BlockViewModel
 
-    private var shape: Path {
+    var yOffset: CGFloat = 0
+
+    private var verticesWithOffset: [CGPoint] {
+        blockViewModel.vertices.map { $0.offset(y: yOffset) }
+    }
+
+    private var blockShapeView: Path {
         Path { path in
-            path.addLines(blockViewModel.vertices)
+            path.addLines(verticesWithOffset)
             path.closeSubpath()
+        }
+    }
+
+    private var mainBlockView: some View {
+        ZStack {
+            blockShapeView.fill(.brown)
+            blockShapeView.stroke(.black, lineWidth: ViewConstants.blockOutlineLineWidth)
         }
     }
 
     var body: some View {
         ZStack {
-            shape.fill(.brown)
-            shape.stroke(.black, lineWidth: ViewConstants.blockOutlineLineWidth)
+            mainBlockView
 
             if blockViewModel.isSelected {
-                ForEach(blockViewModel.vertices.indices) { idx in
-                    let vertex = blockViewModel.vertices[idx]
+                ForEach(verticesWithOffset.indices) { idx in
+                    let vertex = verticesWithOffset[idx]
                     Circle()
                         .fill(.blue)
                         .frame(width: ViewConstants.blockVertexCircleDiameter,
                                height: ViewConstants.blockVertexCircleDiameter)
-                        .position(x: vertex.x, y: vertex.y)
+                        .position(vertex)
                         .gesture(DragGesture().onChanged { value in
                             blockViewModel.moveVertex(vertexIdx: idx, to: value.location)
                         })
                 }
             }
         }
-        .gesture(DragGesture().onChanged { value in
-            blockViewModel.selectBlock()
-            blockViewModel.moveBlock(to: value.location)
-        })
         .onLongPressGesture {
             blockViewModel.removeBlock()
         }
