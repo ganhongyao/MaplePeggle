@@ -10,9 +10,15 @@ import SwiftUI
 struct GameBlockView: View {
     @ObservedObject var gameBlockViewModel: GameBlockViewModel
 
+    let yOffset: CGFloat
+
+    private var verticesWithOffset: [CGPoint] {
+        gameBlockViewModel.vertices.map { $0.offset(y: yOffset) }
+    }
+
     private var shape: Path {
         Path { path in
-            path.addLines(gameBlockViewModel.vertices)
+            path.addLines(verticesWithOffset)
             path.closeSubpath()
         }
     }

@@ -69,7 +69,7 @@ struct GameBoardView: View {
 
                 ZStack {
                     ForEach(gameBoardViewModel.gameBlocks, id: \.id) { gameBlock in
-                        GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock))
+                        GameBlockView(gameBlockViewModel: GameBlockViewModel(gameBlock: gameBlock), yOffset: offset)
                             .transition(.scaleAndOpacityOnRemove(scaleFactor:
                                                                     ViewConstants.gameBoardObjectScaleOnRemoval))
                             .clipped()
