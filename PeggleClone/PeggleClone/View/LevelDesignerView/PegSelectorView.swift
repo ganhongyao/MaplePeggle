@@ -12,6 +12,10 @@ struct PegSelectorView: View {
 
     @ObservedObject var pegSelectorViewModel: PegSelectorViewModel
 
+    private var canScrollBoardUpwards: Bool {
+        boardViewModel.amountScrolledDownwards >= ViewConstants.levelDesignerScrollAmount
+    }
+
     var body: some View {
         HStack {
             ForEach(pegSelectorViewModel.pegColors, id: \.rawValue) { color in
@@ -50,8 +54,7 @@ struct PegSelectorView: View {
 
             Button(action: {
                 withAnimation {
-                    let canScrollUp = boardViewModel.amountScrolledDownwards >= ViewConstants.levelDesignerScrollAmount
-                    guard canScrollUp else {
+                    guard canScrollBoardUpwards else {
                         return
                     }
 
@@ -61,7 +64,7 @@ struct PegSelectorView: View {
                 Image(systemName: ViewConstants.pegSelectorScrollUpImage)
                     .resizable()
                     .scaledToFit()
-            })
+            }).disabled(!canScrollBoardUpwards)
 
             Button(action: {
                 withAnimation {

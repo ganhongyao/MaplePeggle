@@ -37,53 +37,60 @@ struct LevelDesignerBoardView: View {
                height: levelDesignerBoardViewModel.boardSize.height)
     }
 
+    private func makePegView(pegViewModel: PegViewModel) -> some View {
+        let exceededTop = pegViewModel.center.y - pegViewModel.radius -
+            levelDesignerBoardViewModel.amountScrolledDownwards < 0
+        let exceededBottom = pegViewModel.center.y + pegViewModel.radius -
+            levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
+        let canDisplayInFull = !exceededTop && !exceededBottom
+
+        return PegView(pegViewModel: pegViewModel)
+            .offset(y: -levelDesignerBoardViewModel.amountScrolledDownwards)
+            .highPriorityGesture(TapGesture().onEnded {
+                levelDesignerBoardViewModel.isInDeleteMode
+                    ? pegViewModel.removePeg()
+                    : pegViewModel.selectPeg()
+            })
+            .gesture(DragGesture().onChanged { value in
+                pegViewModel.selectPeg()
+                pegViewModel.movePeg(to: value.location)
+            })
+            .modifier(TranslucentViewModifier(shouldBeTranslucent: !canDisplayInFull))
+            .clipped()
+    }
+
+    private func makeBlockView(blockViewModel: BlockViewModel) -> some View {
+        let exceededTop = blockViewModel.minYCoordinate -
+            levelDesignerBoardViewModel.amountScrolledDownwards < 0
+        let exceededBottom = blockViewModel.maxYCoordinate -
+            levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
+        let canDisplayInFull = !exceededTop && !exceededBottom
+
+        return BlockView(blockViewModel: blockViewModel,
+                  yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
+            .highPriorityGesture(TapGesture().onEnded {
+                levelDesignerBoardViewModel.isInDeleteMode
+                    ? blockViewModel.removeBlock()
+                    : blockViewModel.selectBlock()
+            })
+            .gesture(DragGesture().onChanged { value in
+                blockViewModel.selectBlock()
+                blockViewModel.moveBlock(to: value.location)
+            })
+            .modifier(TranslucentViewModifier(shouldBeTranslucent: !canDisplayInFull))
+            .clipped()
+    }
+
     private var mainBoardView: some View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
 
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
-                let exceededTop = pegViewModel.center.y - pegViewModel.radius -
-                    levelDesignerBoardViewModel.amountScrolledDownwards < 0
-                let exceededBottom = pegViewModel.center.y + pegViewModel.radius -
-                    levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
-                let shouldBeDisplayed = !exceededTop && !exceededBottom
-
-                if shouldBeDisplayed {
-                    PegView(pegViewModel: pegViewModel)
-                        .offset(y: -levelDesignerBoardViewModel.amountScrolledDownwards)
-                        .highPriorityGesture(TapGesture().onEnded {
-                            levelDesignerBoardViewModel.isInDeleteMode
-                                ? pegViewModel.removePeg()
-                                : pegViewModel.selectPeg()
-                        })
-                        .gesture(DragGesture().onChanged { value in
-                            pegViewModel.selectPeg()
-                            pegViewModel.movePeg(to: value.location)
-                        })
-
-                }
+                makePegView(pegViewModel: pegViewModel)
             }
 
             ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
-                let exceededTop = blockViewModel.minYCoordinate -
-                    levelDesignerBoardViewModel.amountScrolledDownwards < 0
-                let exceededBottom = blockViewModel.maxYCoordinate -
-                    levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
-                let shouldBeDisplayed = !exceededTop && !exceededBottom
-
-                if shouldBeDisplayed {
-                    BlockView(blockViewModel: blockViewModel,
-                              yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
-                        .highPriorityGesture(TapGesture().onEnded {
-                            levelDesignerBoardViewModel.isInDeleteMode
-                                ? blockViewModel.removeBlock()
-                                : blockViewModel.selectBlock()
-                        })
-                        .gesture(DragGesture().onChanged { value in
-                            blockViewModel.selectBlock()
-                            blockViewModel.moveBlock(to: value.location)
-                        })
-                }
+                makeBlockView(blockViewModel: blockViewModel)
             }
         }
     }
