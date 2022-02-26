@@ -29,7 +29,7 @@ struct ViewConstants {
     static let levelSelectorRowSpacing = 20.0
     static let levelSelectorColumnSpacing = 30.0
     static let levelSelectorItemsPerRow = 3
-    static let levelSelectorCreateButtonText = "Create New Level"
+    static let levelSelectorCreateButtonText = "Design New Level"
     static let levelSelectorCreateButtonImage = "plus.circle"
     static let levelSelectorPlayButtonText = "PLAY"
     static let levelSelectorPlayButtonImage = "play.fill"
@@ -45,6 +45,7 @@ struct ViewConstants {
     static let boardCardShadowRadius = 5.0
 
     /// LevelDesignerView
+    static let levelDesignerNavTitle = "Design Level"
     static let levelDesignerPegSelectorHeightRatio = 0.1
     static let levelDesignerScrollAmount = 50.0
 

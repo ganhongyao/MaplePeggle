@@ -26,6 +26,7 @@ struct MainMenuView: View {
                 }
             }
             .navigationBarHidden(true)
+            .navigationTitle(ViewConstants.mainMenuNavTitle)
         }
         .navigationViewStyle(.stack)
     }

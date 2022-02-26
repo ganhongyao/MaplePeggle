@@ -72,6 +72,7 @@ struct LevelDesignerView: View {
                     .frame(height: geo.size.height * ViewConstants.levelDesignerPegSelectorHeightRatio,
                            alignment: .bottom)
             }
+            .navigationTitle(ViewConstants.levelDesignerNavTitle)
         }
         .ignoresSafeArea(.keyboard) // Prevents board view from being compressed vertically when keyboard is displayed
         .alert(isPresented: $levelDesignerViewModel.isShowingError, error: levelDesignerViewModel.error) {}
