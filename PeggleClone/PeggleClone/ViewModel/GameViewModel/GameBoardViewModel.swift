@@ -13,6 +13,36 @@ import PhysicsEngine
 class GameBoardViewModel: ObservableObject {
     @Published private var gameBoard: GameBoard
 
+    @Published private(set) var score = 0
+
+    private var currentBallScore = 0
+
+    private var pegsHitWithCurrentBall: [GamePeg] = []
+
+    private var scoreMultiplier: Int {
+        let numInitialOrangePegs = gameBoard.pegs.filter { $0.color == .orange }.count
+        let numUnhitOrangePegs = gameBoard.gamePegs.filter { $0.color == .orange && !$0.hasCollided }.count
+        let numClearedOrangePegs = numInitialOrangePegs - numUnhitOrangePegs
+        let percentageOfOrangePegsCleared = Double(numClearedOrangePegs) / Double(numInitialOrangePegs) * 100
+
+        switch percentageOfOrangePegsCleared {
+        case 0..<40:
+            return 1
+        case 40..<60:
+            return 2
+        case 60..<72:
+            return 3
+        case 72..<88:
+            return 5
+        case 88..<100:
+            return 10
+        case 100:
+            return 100
+        default:
+            return 1
+        }
+    }
+
     private unowned var gameViewModel: GameViewModel
 
     private(set) var cannonViewModel: GameCannonViewModel
@@ -29,6 +59,15 @@ class GameBoardViewModel: ObservableObject {
 
     var pegColors: [Peg.Color] {
         Peg.Color.allCases
+    }
+
+    var pegColorsScoreWhenHit: [Peg.Color: Int] {
+        [
+            .blue: 10,
+            .green: 10,
+            .orange: 100,
+            .purple: 500
+        ]
     }
 
     var gamePegs: [GamePeg] {
@@ -110,23 +149,18 @@ class GameBoardViewModel: ObservableObject {
         let collisions = gameBoard.simulate(deltaTime: deltaTime)
 
         for collision in collisions {
-            if isBallEnteringBucket(collision: collision) {
-                gameBoard.handleBallEnteredBucket()
-                continue
-            }
-
-            if isPegGettingLit(collision: collision) {
-                AudioPlayer.sharedInstance.play(sound: .bounce)
-            }
-
-            collision.resolveCollision()
+            handleCollision(collision: collision)
         }
 
         gameBoard.activatePowerups(gameMaster: gameViewModel.chosenGameMaster)
 
         gameBoard.applyPowerups()
 
-        gameBoard.handleBallLeftBoard()
+        if !hasBallWithinBoard {
+            gameBoard.handleBallLeftBoard()
+
+            addScore()
+        }
 
         gameBoard.removeBoardObjectsExceedingMaxCollisions()
 
@@ -135,6 +169,21 @@ class GameBoardViewModel: ObservableObject {
         }
 
         objectWillChange.send()
+    }
+
+    private func handleCollision(collision: Collision) {
+        if isBallEnteringBucket(collision: collision) {
+            gameBoard.handleBallEnteredBucket()
+            return
+        }
+
+        if let litPeg = getLitPeg(collision: collision) {
+            AudioPlayer.sharedInstance.play(sound: .bounce)
+            pegsHitWithCurrentBall.append(litPeg)
+            currentBallScore += (pegColorsScoreWhenHit[litPeg.color] ?? 0) * scoreMultiplier
+        }
+
+        collision.resolveCollision()
     }
 
     private func isBallEnteringBucket(collision: Collision) -> Bool {
@@ -150,18 +199,18 @@ class GameBoardViewModel: ObservableObject {
         return collision.collisionAngle == -.pi / 2
     }
 
-    private func isPegGettingLit(collision: Collision) -> Bool {
+    private func getLitPeg(collision: Collision) -> GamePeg? {
         let (bodyA, bodyB) = collision.bodies
 
         if let bodyAPeg = bodyA as? GamePeg, bodyAPeg.collisionCount == 1 {
-            return true
+            return bodyAPeg
         }
 
         if let bodyBPeg = bodyB as? GamePeg, bodyBPeg.collisionCount == 1 {
-            return true
+            return bodyBPeg
         }
 
-        return false
+        return nil
     }
 
     func scaleBoard(isFirstRender: Bool = true) {
@@ -227,10 +276,18 @@ class GameBoardViewModel: ObservableObject {
     }
 
     func restart() {
+        score = 0
         gameBoard.resetToInitialState()
         scaleBoard(isFirstRender: false)
         gameViewModel.chosenGameMaster = nil
         objectWillChange.send()
+    }
+
+    private func addScore() {
+        score += currentBallScore * pegsHitWithCurrentBall.count
+
+        currentBallScore = 0
+        pegsHitWithCurrentBall = []
     }
 
     private func handleGameEnded() {

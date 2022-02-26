@@ -52,8 +52,11 @@ struct GameControlsView: View {
             Spacer()
 
             VStack {
-                Text("Score")
-                Text("12301")
+                Text(ViewConstants.gameControlsScoreLabel)
+                    .bold()
+                    .font(.headline)
+
+                Text(String(boardViewModel.score))
             }
 
             Spacer()

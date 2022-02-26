@@ -93,6 +93,7 @@ struct ViewConstants {
     static let gameRestartButtonText = "Restart Level"
     static let gameRestartButtonImage = "arrow.uturn.forward.circle"
     static let gameBallThresholdForWarning = 3
+    static let gameControlsScoreLabel = "Score"
 
     /// GameBoardView
     static let gameBoardCannonAnimationDuration = 1.0
