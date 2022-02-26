@@ -14,33 +14,30 @@ struct LevelSelectorView: View {
                                 count: ViewConstants.levelSelectorItemsPerRow)
 
     var body: some View {
-        NavigationView {
-            VStack(alignment: .leading) {
-                NavigationLink(destination: LevelDesignerView(levelDesignerViewModel: LevelDesignerViewModel())) {
-                    Label(ViewConstants.levelSelectorCreateButtonText,
-                          systemImage: ViewConstants.levelSelectorCreateButtonImage)
-                }.buttonStyle(.bordered)
+        VStack(alignment: .leading) {
+            NavigationLink(destination: LevelDesignerView(levelDesignerViewModel: LevelDesignerViewModel())) {
+                Label(ViewConstants.levelSelectorCreateButtonText,
+                      systemImage: ViewConstants.levelSelectorCreateButtonImage)
+            }.buttonStyle(.bordered)
 
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: ViewConstants.levelSelectorRowSpacing) {
-                        ForEach(levelSelectorViewModel.boards) { board in
-                            let boardCardViewModel = BoardCardViewModel(
-                                board: board,
-                                levelSelectorViewModel: levelSelectorViewModel
-                            )
-                            BoardCardView(boardCardViewModel: boardCardViewModel)
-                        }
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: ViewConstants.levelSelectorRowSpacing) {
+                    ForEach(levelSelectorViewModel.boards) { board in
+                        let boardCardViewModel = BoardCardViewModel(
+                            board: board,
+                            levelSelectorViewModel: levelSelectorViewModel
+                        )
+                        BoardCardView(boardCardViewModel: boardCardViewModel)
                     }
-                }.padding(.top)
-            }
-            .padding(.horizontal)
-            .navigationTitle(ViewConstants.levelSelectorNavTitle)
-            .onAppear {
-                levelSelectorViewModel.fetchAllBoards()
-            }
-            .alert(isPresented: $levelSelectorViewModel.isShowingError, error: levelSelectorViewModel.error) {}
+                }
+            }.padding(.top)
         }
-        .navigationViewStyle(.stack)
+        .padding(.horizontal)
+        .navigationTitle(ViewConstants.levelSelectorNavTitle)
+        .onAppear {
+            levelSelectorViewModel.fetchAllBoards()
+        }
+        .alert(isPresented: $levelSelectorViewModel.isShowingError, error: levelSelectorViewModel.error) {}
     }
 }
 

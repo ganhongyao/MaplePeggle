@@ -19,8 +19,13 @@ struct ViewConstants {
     static let ballImage = "ball"
     static let bucketImage = "bucket"
 
+    /// MainMenuView
+    static let mainMenuNavTitle = "Main Menu"
+    static let mainMenuCreateLevelText = "Create New Level"
+    static let mainMenuLoadLevelText = "Load Existing Level"
+
     /// LevelSelectorView
-    static let levelSelectorNavTitle = "Main Menu"
+    static let levelSelectorNavTitle = "Levels"
     static let levelSelectorRowSpacing = 20.0
     static let levelSelectorColumnSpacing = 30.0
     static let levelSelectorItemsPerRow = 3

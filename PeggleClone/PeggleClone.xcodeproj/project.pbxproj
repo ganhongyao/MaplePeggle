@@ -65,6 +65,7 @@
 		F3D0DF6227A54EBA00740A26 /* CGPoint+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6127A54EBA00740A26 /* CGPoint+Hashable.swift */; };
 		F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */; };
 		F3D0DF6827A5ADA000740A26 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */; };
+		F3E13C6A27CA49A800E5E376 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E13C6927CA49A700E5E376 /* MainMenuView.swift */; };
 		F3E1D8F1279EDB87005DCEEA /* PegViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */; };
 		F3E1D8FA279EE50C005DCEEA /* PeggleClone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F8279EE50C005DCEEA /* PeggleClone.xcdatamodeld */; };
 		F3E1D8FE279EEB61005DCEEA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */; };
@@ -158,6 +159,7 @@
 		F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceError.swift; sourceTree = "<group>"; };
 		F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		F3D6040427ACC2910066809C /* PhysicsEngine */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PhysicsEngine; path = ../PhysicsEngine; sourceTree = "<group>"; };
+		F3E13C6927CA49A700E5E376 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegViewModel.swift; sourceTree = "<group>"; };
 		F3E1D8F9279EE50C005DCEEA /* PeggleClone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PeggleClone.xcdatamodel; sourceTree = "<group>"; };
 		F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				F3CB759027A464100053B675 /* Utility */,
 				F3B6D0FB27980F390069BED7 /* LevelDesignerView */,
 				F3F6408F27ACF1990063B64A /* GameView */,
+				F3E13C6927CA49A700E5E376 /* MainMenuView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -590,6 +593,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3E13C6A27CA49A800E5E376 /* MainMenuView.swift in Sources */,
 				F392E42327B2C95B00FEDB3A /* GameCannonView.swift in Sources */,
 				F34A671C27C7965700B9CABE /* GameState.swift in Sources */,
 				F3C0411127C65E5800DB1112 /* GameMasterSelectorView.swift in Sources */,

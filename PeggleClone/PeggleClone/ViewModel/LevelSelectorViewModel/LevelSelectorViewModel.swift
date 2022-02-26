@@ -18,7 +18,7 @@ class LevelSelectorViewModel: ObservableObject {
         let sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
 
         // TODO: Comment this out
-        UserDefaults.standard.removeObject(forKey: "isAppAlreadyLaunchedOnce")
+//        UserDefaults.standard.removeObject(forKey: "isAppAlreadyLaunchedOnce")
 
         if !CoreDataManager.sharedInstance.isAppAlreadyLaunchedOnce {
             do {
