@@ -13,9 +13,13 @@ struct GameBoardView: View {
 
     @State var screenHeight: CGFloat = .zero
 
+    @State var gameplayHeight: CGFloat = .zero
+
     @State var isAiming = false
 
-    @State var horizontalOffset: CGFloat = .zero
+    @State var horizontalBoardOffset: CGFloat = .zero
+
+    @State var verticalBoardOffset: CGFloat = .zero
 
     private var boardHeight: CGFloat {
         gameBoardViewModel.boardSize.height
@@ -30,14 +34,54 @@ struct GameBoardView: View {
 
         guard let ballYCoordinate = ballYCoordinate,
               ballYCoordinate > preferredBallPlacement else {
+
             return 0
         }
 
-        if boardHeight - ballYCoordinate < (1 - ViewConstants.gameBallPreferredPlacement) * screenHeight {
-            return -(boardHeight - screenHeight)
+        let screenHeightInUse = screenHeight - verticalBoardOffset * 2
+
+        if boardHeight - ballYCoordinate < (1 - ViewConstants.gameBallPreferredPlacement) * screenHeightInUse {
+            return -(boardHeight - screenHeightInUse)
         }
 
         return -ballYCoordinate + preferredBallPlacement
+    }
+
+    private func letterbox(screenSize: CGSize) {
+        let boardGameplaySize = gameBoardViewModel.boardSize
+        let screenGameplaySize = CGSize(
+            width: screenSize.width,
+            height: (1 - ViewConstants.cannonHeightRatio - ViewConstants.bucketHeightRatio) * screenSize.height
+        )
+
+        gameplayHeight = screenGameplaySize.height
+
+        let boardGameplayAspectRatio = boardGameplaySize.aspectRatio
+        let screenGameplayAspectRatio = screenGameplaySize.aspectRatio
+
+        if screenGameplayAspectRatio > boardGameplayAspectRatio {
+            scaleBoardToMatchScreenHeight(boardGameplaySize: boardGameplaySize,
+                                          screenGameplaySize: screenGameplaySize)
+        } else {
+            scaleBoardToMatchScreenWidth(boardGameplaySize: boardGameplaySize,
+                                         screenGameplaySize: screenGameplaySize)
+        }
+    }
+
+    private func scaleBoardToMatchScreenHeight(boardGameplaySize: CGSize,
+                                               screenGameplaySize: CGSize) {
+        gameBoardViewModel.scaleFactor = screenGameplaySize.height / boardGameplaySize.height
+        gameBoardViewModel.scaleBoard()
+        let spareWidth = screenGameplaySize.width - gameBoardViewModel.boardSize.width
+        horizontalBoardOffset = spareWidth / 2
+    }
+
+    private func scaleBoardToMatchScreenWidth(boardGameplaySize: CGSize,
+                                              screenGameplaySize: CGSize) {
+        gameBoardViewModel.scaleFactor = screenGameplaySize.width / boardGameplaySize.width
+        gameBoardViewModel.scaleBoard()
+        let spareHeight = screenGameplaySize.height - gameBoardViewModel.boardSize.height
+        verticalBoardOffset = spareHeight / 2
     }
 
     var body: some View {
@@ -56,6 +100,7 @@ struct GameBoardView: View {
                 gameBoardViewModel.gameBall.map({ ball in
                     GameBallView(gameBallViewModel: GameBallViewModel(gameBall: ball))
                         .offset(y: offset)
+                        .clipped()
                 })
 
                 ZStack {
@@ -82,35 +127,18 @@ struct GameBoardView: View {
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
                     .offset(y: offset)
             }
-            .offset(x: horizontalOffset)
-            .frame(width: gameBoardViewModel.boardSize.width, height: gameBoardViewModel.boardSize.height, alignment: .top)
+            .offset(x: horizontalBoardOffset, y: verticalBoardOffset)
+            .frame(width: gameBoardViewModel.boardSize.width, height: gameBoardViewModel.boardSize.height)
             .animation(.default, value: offset)
             .onAppear {
-                screenHeight = geo.size.height
+                let screenSize = geo.size
 
-                let boardGameplaySize = gameBoardViewModel.boardSize
-                let screenGameplaySize = CGSize(
-                    width: geo.size.width,
-                    height: (1 - ViewConstants.cannonHeightRatio - ViewConstants.bucketHeightRatio) * geo.size.height
-                )
+                screenHeight = screenSize.height
 
-                let boardGameplayAspectRatio = boardGameplaySize.aspectRatio
-                let screenGameplayAspectRatio = screenGameplaySize.aspectRatio
+                letterbox(screenSize: screenSize)
 
-                if screenGameplayAspectRatio > boardGameplayAspectRatio {
-                    gameBoardViewModel.scaleFactor = screenGameplaySize.height / boardGameplaySize.height
-
-                    gameBoardViewModel.scaleBoard()
-
-                    gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
-                    gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
-
-                    let spareWidth = screenGameplaySize.width - gameBoardViewModel.boardSize.width
-                    horizontalOffset = spareWidth / 2
-                }
-
-//                gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
-//                gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
+                gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
+                gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
             }
             .onDisappear(perform: gameBoardViewModel.deinitialiseDisplayLink)
             .gesture(DragGesture(minimumDistance: 0).onChanged { value in
