@@ -27,8 +27,15 @@ struct MainMenuView: View {
             }
             .navigationBarHidden(true)
             .navigationTitle(ViewConstants.mainMenuNavTitle)
+            .onAppear {
+                AudioPlayer.sharedInstance.play(sound: .title)
+            }
+            .onDisappear {
+                AudioPlayer.sharedInstance.stop(sound: .title)
+            }
         }
         .navigationViewStyle(.stack)
+
     }
 }
 

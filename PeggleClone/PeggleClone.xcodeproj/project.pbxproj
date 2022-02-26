@@ -66,6 +66,9 @@
 		F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */; };
 		F3D0DF6827A5ADA000740A26 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */; };
 		F3E13C6A27CA49A800E5E376 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E13C6927CA49A700E5E376 /* MainMenuView.swift */; };
+		F3E13C7127CA6AB300E5E376 /* title.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C7027CA6AB200E5E376 /* title.mp3 */; };
+		F3E13C7327CA6B7100E5E376 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E13C7227CA6B7100E5E376 /* AudioPlayer.swift */; };
+		F3E13C7527CA6EEB00E5E376 /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E13C7427CA6EEB00E5E376 /* Sound.swift */; };
 		F3E1D8F1279EDB87005DCEEA /* PegViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */; };
 		F3E1D8FA279EE50C005DCEEA /* PeggleClone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F8279EE50C005DCEEA /* PeggleClone.xcdatamodeld */; };
 		F3E1D8FE279EEB61005DCEEA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */; };
@@ -160,6 +163,9 @@
 		F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		F3D6040427ACC2910066809C /* PhysicsEngine */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PhysicsEngine; path = ../PhysicsEngine; sourceTree = "<group>"; };
 		F3E13C6927CA49A700E5E376 /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		F3E13C7027CA6AB200E5E376 /* title.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = title.mp3; path = ../../../../../assets/title.mp3; sourceTree = "<group>"; };
+		F3E13C7227CA6B7100E5E376 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		F3E13C7427CA6EEB00E5E376 /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegViewModel.swift; sourceTree = "<group>"; };
 		F3E1D8F9279EE50C005DCEEA /* PeggleClone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PeggleClone.xcdatamodel; sourceTree = "<group>"; };
 		F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -278,6 +284,7 @@
 		F3B6D0F5279803C30069BED7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F3E13C6D27CA6A4B00E5E376 /* AudioManager */,
 				F3F6409227ACF3420063B64A /* GameViewModel */,
 				F3CB759127A464D30053B675 /* LevelDesignerViewModel */,
 				F3CB759227A464DE0053B675 /* LevelSelectorViewModel */,
@@ -391,6 +398,24 @@
 				F3F13BD227B80F3300EFC7F4 /* CGVectorOperationsTests.swift */,
 			);
 			path = UtilityTests;
+			sourceTree = "<group>";
+		};
+		F3E13C6D27CA6A4B00E5E376 /* AudioManager */ = {
+			isa = PBXGroup;
+			children = (
+				F3E13C6F27CA6A6900E5E376 /* Sounds */,
+				F3E13C7227CA6B7100E5E376 /* AudioPlayer.swift */,
+				F3E13C7427CA6EEB00E5E376 /* Sound.swift */,
+			);
+			path = AudioManager;
+			sourceTree = "<group>";
+		};
+		F3E13C6F27CA6A6900E5E376 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				F3E13C7027CA6AB200E5E376 /* title.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		F3E1D8F2279EE3D1005DCEEA /* Persistence */ = {
@@ -556,6 +581,7 @@
 			files = (
 				F398144B27969B8B0032536A /* Preview Assets.xcassets in Resources */,
 				F398144827969B8B0032536A /* Assets.xcassets in Resources */,
+				F3E13C7127CA6AB300E5E376 /* title.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +646,7 @@
 				F398144627969B7B0032536A /* LevelDesignerView.swift in Sources */,
 				F3F6409127ACF25E0063B64A /* GameBoardView.swift in Sources */,
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
+				F3E13C7327CA6B7100E5E376 /* AudioPlayer.swift in Sources */,
 				F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */,
 				F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */,
 				F3B62E3827C916920090DD5A /* SeedData.swift in Sources */,
@@ -638,6 +665,7 @@
 				F3A981E227A034D400E40428 /* LevelSelectorView.swift in Sources */,
 				F3C7708C27C36A340030F7BE /* BlockView.swift in Sources */,
 				F3F6409A27AD700E0063B64A /* GameBallViewModel.swift in Sources */,
+				F3E13C7527CA6EEB00E5E376 /* Sound.swift in Sources */,
 				F3F6409627AD0D9D0063B64A /* GamePegView.swift in Sources */,
 				F3CB758627A3C3D40053B675 /* BoardCardViewModel.swift in Sources */,
 				F3C0410D27C62D7A00DB1112 /* CircularExplosionPowerup.swift in Sources */,
