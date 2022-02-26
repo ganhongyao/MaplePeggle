@@ -20,6 +20,8 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     private(set) var selectedObject: BoardObject?
 
+    var scaleFactor: CGFloat = 1.0
+
     private unowned var levelDesignerViewModel: LevelDesignerViewModel
 
     init(boardId: UUID?, levelDesignerViewModel: LevelDesignerViewModel) {
@@ -131,6 +133,27 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     func select(object: BoardObject?) {
         selectedObject = object
+
+        objectWillChange.send()
+    }
+
+    func scaleBoard() {
+        board.baseSize = CGSize(width: board.baseSize.width * scaleFactor,
+                                height: board.baseSize.height * scaleFactor)
+        board.size = CGSize(width: board.size.width * scaleFactor,
+                            height: board.size.height * scaleFactor)
+
+        for block in board.blocks {
+            let newCentroid = CGPoint(x: block.centroid.x * scaleFactor, y: block.centroid.y * scaleFactor)
+            block.scale(factor: scaleFactor)
+            block.move(to: newCentroid)
+        }
+
+        for peg in board.pegs {
+            let newCenter = CGPoint(x: peg.center.x * scaleFactor, y: peg.center.y * scaleFactor)
+            peg.scale(factor: scaleFactor)
+            peg.move(to: newCenter)
+        }
 
         objectWillChange.send()
     }

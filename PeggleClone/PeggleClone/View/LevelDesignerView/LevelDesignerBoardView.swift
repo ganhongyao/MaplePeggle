@@ -14,10 +14,47 @@ struct LevelDesignerBoardView: View {
 
     @State var lastAngle: Angle = .zero
 
+    @State var isLetterboxed = false
+
     @State var screenHeight: CGFloat = .zero {
         didSet {
             levelDesignerBoardViewModel.unscrolledHeight = levelDesignerBoardViewModel.boardSize.height - screenHeight
         }
+    }
+
+    @State var horizontalBoardOffset: CGFloat = .zero
+
+    @State var verticalBoardOffset: CGFloat = .zero
+
+    private func letterbox(screenSize: CGSize) {
+        let boardSize = levelDesignerBoardViewModel.boardBaseSize
+
+        let boardAspectRatio = boardSize.aspectRatio
+        let screenAspectRatio = screenSize.aspectRatio
+
+        if screenAspectRatio > boardAspectRatio {
+            scaleBoardToMatchScreenHeight(boardSize: boardSize,
+                                          screenSize: screenSize)
+        } else {
+            scaleBoardToMatchScreenWidth(boardSize: boardSize,
+                                         screenSize: screenSize)
+        }
+    }
+
+    private func scaleBoardToMatchScreenHeight(boardSize: CGSize,
+                                               screenSize: CGSize) {
+        levelDesignerBoardViewModel.scaleFactor = screenSize.height / boardSize.height
+        levelDesignerBoardViewModel.scaleBoard()
+        let spareWidth = screenSize.width - levelDesignerBoardViewModel.boardBaseSize.width
+        horizontalBoardOffset = spareWidth / 2
+    }
+
+    private func scaleBoardToMatchScreenWidth(boardSize: CGSize,
+                                              screenSize: CGSize) {
+        levelDesignerBoardViewModel.scaleFactor = screenSize.width / boardSize.width
+        levelDesignerBoardViewModel.scaleBoard()
+        let spareHeight = screenSize.height - levelDesignerBoardViewModel.boardBaseSize.height
+        verticalBoardOffset = spareHeight / 2
     }
 
     /// Used for snapshots.
@@ -118,17 +155,22 @@ struct LevelDesignerBoardView: View {
                 }.onEnded { _ in
                     lastAngle = .zero
                 }))
-                // If the board is new, let GeoReader propose a size and set the board's size to the proposed size.
-                .onChange(of: geo.size) { _ in
-                    if levelDesignerBoardViewModel.isNewBoard {
-                        levelDesignerBoardViewModel.boardBaseSize = geo.size
-                        levelDesignerBoardViewModel.boardSize = geo.size
+                .onChange(of: geo.size) { size in
+                    screenHeight = size.height
+
+                    guard levelDesignerBoardViewModel.isNewBoard else {
+                        letterbox(screenSize: geo.size)
+                        isLetterboxed = true
+                        return
                     }
-                    screenHeight = geo.size.height
+
+                    levelDesignerBoardViewModel.boardBaseSize = size
+                    levelDesignerBoardViewModel.boardSize = size
                 }
         }
-        // If the board is not new, set the frame to the board's native size as saved in storage.
-        .frame(width: levelDesignerBoardViewModel.isNewBoard ? nil : levelDesignerBoardViewModel.boardSize.width)
+        .offset(y: verticalBoardOffset)
+        .frame(width: !isLetterboxed ? nil : levelDesignerBoardViewModel.boardBaseSize.width,
+               height: !isLetterboxed ? nil : levelDesignerBoardViewModel.boardBaseSize.height)
         .alert(isPresented: $levelDesignerBoardViewModel.isShowingError, error: levelDesignerBoardViewModel.error) {}
     }
 }

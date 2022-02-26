@@ -84,8 +84,8 @@ import CoreGraphics
 
          let board = Board(id: UUID(),
                                name: "Cocktail",
-                               baseSize: CGSize(width: 1000, height: 650),
-                               size: CGSize(width: 1000, height: 650),
+                               baseSize: CGSize(width: 500, height: 650),
+                               size: CGSize(width: 500, height: 650),
                                snapshot: nil,
                                pegs: pegs,
                                blocks: [],

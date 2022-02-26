@@ -122,6 +122,7 @@ struct GameBoardView: View {
 
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
                     .offset(y: offset)
+                    .clipped()
             }
             .offset(x: horizontalBoardOffset, y: verticalBoardOffset)
             .frame(width: gameBoardViewModel.boardBaseSize.width,
