@@ -26,6 +26,8 @@ struct ViewConstants {
     static let levelSelectorItemsPerRow = 3
     static let levelSelectorCreateButtonText = "Create New Level"
     static let levelSelectorCreateButtonImage = "plus.circle"
+    static let levelSelectorPlayButtonText = "PLAY"
+    static let levelSelectorPlayButtonImage = "play.fill"
 
     /// BoardCardView
     static let boardCardLineLimit = 1

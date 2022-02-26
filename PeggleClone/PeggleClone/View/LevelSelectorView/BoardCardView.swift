@@ -48,8 +48,15 @@ struct BoardCardView: View {
                         .font(.system(size: ViewConstants.boardCardIconButtonSize))
                 }
             }
-            .padding(.bottom)
             .padding(.horizontal)
+
+            NavigationLink(destination: GameView(gameViewModel: boardCardViewModel.gameViewModel)) {
+                Label(ViewConstants.levelSelectorPlayButtonText,
+                      systemImage: ViewConstants.levelSelectorPlayButtonImage)
+                    .frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal)
+            .buttonStyle(.bordered)
         }
         .padding(.bottom)
         .background(Color.yellow)

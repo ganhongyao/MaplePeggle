@@ -23,6 +23,10 @@ class BoardCardViewModel: ObservableObject {
         self.levelSelectorViewModel = levelSelectorViewModel
     }
 
+    var gameViewModel: GameViewModel {
+        GameViewModel(board: board)
+    }
+
     var boardId: UUID? {
         board.id
     }
