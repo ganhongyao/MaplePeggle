@@ -111,6 +111,10 @@ class GameBoardViewModel: ObservableObject {
                 continue
             }
 
+            if isPegGettingLit(collision: collision) {
+                AudioPlayer.sharedInstance.play(sound: .bounce)
+            }
+
             collision.resolveCollision()
         }
 
@@ -140,6 +144,20 @@ class GameBoardViewModel: ObservableObject {
         }
 
         return collision.collisionAngle == -.pi / 2
+    }
+
+    private func isPegGettingLit(collision: Collision) -> Bool {
+        let (bodyA, bodyB) = collision.bodies
+
+        if let bodyAPeg = bodyA as? GamePeg, bodyAPeg.collisionCount == 1 {
+            return true
+        }
+
+        if let bodyBPeg = bodyB as? GamePeg, bodyBPeg.collisionCount == 1 {
+            return true
+        }
+
+        return false
     }
 
     func scaleBoard(isFirstRender: Bool = true) {
@@ -213,6 +231,10 @@ class GameBoardViewModel: ObservableObject {
 
     private func handleGameEnded() {
         guard hasEnded else {
+            return
+        }
+
+        guard gameViewModel.currentGameState == .inProgress else {
             return
         }
 

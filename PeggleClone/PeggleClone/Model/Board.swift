@@ -82,21 +82,23 @@ class Board {
         return Board(name: "", baseSize: board.baseSize, size: board.size, snapshot: board.snapshot, pegs: Set(pegs), blocks: Set(blocks))
     }
 
-    func addPeg(_ peg: Peg) {
+    @discardableResult func addPeg(_ peg: Peg) -> Bool {
         guard isAtLegalPosition(peg) else {
-            return
+            return false
         }
 
         peg.parentBoard = self
         pegs.insert(peg)
+        return true
     }
 
-    func addBlock(_ block: Block) {
+    @discardableResult func addBlock(_ block: Block) -> Bool {
         guard isAtLegalPosition(block) else {
-            return
+            return false
         }
 
         blocks.insert(block)
+        return true
     }
 
     func movePeg(peg: Peg, to newCenter: CGPoint) {

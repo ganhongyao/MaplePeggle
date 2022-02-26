@@ -17,14 +17,22 @@ class AudioPlayer {
     private var goPicnicPlayer: AVAudioPlayer?
     private var restNPeacePlayer: AVAudioPlayer?
 
+    private var bouncePlayer: AVAudioPlayer?
     private var tapPlayer: AVAudioPlayer?
+    private var victoryPlayer: AVAudioPlayer?
+    private var defeatPlayer: AVAudioPlayer?
 
     private var soundToPlayerMap: [Sound: AVAudioPlayer?] {
         [
             .title: titlePlayer,
             .floralLife: floralLifePlayer,
             .goPicnic: goPicnicPlayer,
-            .restNPeace: restNPeacePlayer
+            .restNPeace: restNPeacePlayer,
+
+            .bounce: bouncePlayer,
+            .tap: tapPlayer,
+            .victory: victoryPlayer,
+            .defeat: defeatPlayer
         ]
     }
 
@@ -33,6 +41,11 @@ class AudioPlayer {
         floralLifePlayer = initializePlayerForSound(sound: .floralLife)
         goPicnicPlayer = initializePlayerForSound(sound: .goPicnic)
         restNPeacePlayer = initializePlayerForSound(sound: .restNPeace)
+
+        bouncePlayer = initializePlayerForSound(sound: .bounce, soundWillLoop: false)
+        tapPlayer = initializePlayerForSound(sound: .tap, soundWillLoop: false)
+        victoryPlayer = initializePlayerForSound(sound: .victory, soundWillLoop: false)
+        defeatPlayer = initializePlayerForSound(sound: .defeat, soundWillLoop: false)
     }
 
     private func initializePlayerForSound(sound: Sound, soundWillLoop: Bool = true) -> AVAudioPlayer? {
@@ -62,6 +75,9 @@ class AudioPlayer {
               let player = optionalPlayer else {
                   return
               }
+
+        // Cancel any current plays
+        player.stop()
 
         let initialVolume = player.volume
 

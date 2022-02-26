@@ -203,7 +203,11 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
         let newPeg = Peg(center: actualCenter, radius: Peg.defaultRadius, color: selectedPegColor)
 
-        board.addPeg(newPeg)
+        let isAdded = board.addPeg(newPeg)
+
+        if isAdded {
+            AudioPlayer.sharedInstance.play(sound: .tap)
+        }
 
         objectWillChange.send()
     }
@@ -213,7 +217,11 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
         let newBlock = Block(center: actualCenter)
 
-        board.addBlock(newBlock)
+        let isAdded = board.addBlock(newBlock)
+
+        if isAdded {
+            AudioPlayer.sharedInstance.play(sound: .tap)
+        }
 
         objectWillChange.send()
     }

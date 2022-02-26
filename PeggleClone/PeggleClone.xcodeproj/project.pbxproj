@@ -72,6 +72,10 @@
 		F3E13C7727CA7BA200E5E376 /* floralLife.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C7627CA7BA200E5E376 /* floralLife.mp3 */; };
 		F3E13C7927CA7CAC00E5E376 /* goPicnic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C7827CA7CAB00E5E376 /* goPicnic.mp3 */; };
 		F3E13C7D27CA89D900E5E376 /* restNPeace.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C7C27CA89D800E5E376 /* restNPeace.mp3 */; };
+		F3E13C8127CA8F2D00E5E376 /* bounce.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C8027CA8F2D00E5E376 /* bounce.mp3 */; };
+		F3E13C8327CA925D00E5E376 /* victory.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C8227CA925D00E5E376 /* victory.mp3 */; };
+		F3E13C8527CA926900E5E376 /* defeat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C8427CA926900E5E376 /* defeat.mp3 */; };
+		F3E13C8727CA927D00E5E376 /* tap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3E13C8627CA927D00E5E376 /* tap.mp3 */; };
 		F3E1D8F1279EDB87005DCEEA /* PegViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */; };
 		F3E1D8FA279EE50C005DCEEA /* PeggleClone.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8F8279EE50C005DCEEA /* PeggleClone.xcdatamodeld */; };
 		F3E1D8FE279EEB61005DCEEA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */; };
@@ -172,6 +176,10 @@
 		F3E13C7627CA7BA200E5E376 /* floralLife.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = floralLife.mp3; path = ../../../../../assets/floralLife.mp3; sourceTree = "<group>"; };
 		F3E13C7827CA7CAB00E5E376 /* goPicnic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = goPicnic.mp3; path = ../../../../../assets/goPicnic.mp3; sourceTree = "<group>"; };
 		F3E13C7C27CA89D800E5E376 /* restNPeace.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = restNPeace.mp3; path = ../../../../../assets/restNPeace.mp3; sourceTree = "<group>"; };
+		F3E13C8027CA8F2D00E5E376 /* bounce.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bounce.mp3; path = ../../../../../assets/bounce.mp3; sourceTree = "<group>"; };
+		F3E13C8227CA925D00E5E376 /* victory.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = victory.mp3; path = ../../../../../assets/victory.mp3; sourceTree = "<group>"; };
+		F3E13C8427CA926900E5E376 /* defeat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = defeat.mp3; path = ../../../../../assets/defeat.mp3; sourceTree = "<group>"; };
+		F3E13C8627CA927D00E5E376 /* tap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = tap.mp3; path = ../../../../../assets/tap.mp3; sourceTree = "<group>"; };
 		F3E1D8F0279EDB87005DCEEA /* PegViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegViewModel.swift; sourceTree = "<group>"; };
 		F3E1D8F9279EE50C005DCEEA /* PeggleClone.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PeggleClone.xcdatamodel; sourceTree = "<group>"; };
 		F3E1D8FD279EEB61005DCEEA /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -419,10 +427,14 @@
 		F3E13C6F27CA6A6900E5E376 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F3E13C8027CA8F2D00E5E376 /* bounce.mp3 */,
+				F3E13C8427CA926900E5E376 /* defeat.mp3 */,
 				F3E13C7627CA7BA200E5E376 /* floralLife.mp3 */,
 				F3E13C7827CA7CAB00E5E376 /* goPicnic.mp3 */,
 				F3E13C7C27CA89D800E5E376 /* restNPeace.mp3 */,
+				F3E13C8627CA927D00E5E376 /* tap.mp3 */,
 				F3E13C7027CA6AB200E5E376 /* title.mp3 */,
+				F3E13C8227CA925D00E5E376 /* victory.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -589,11 +601,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3E13C7D27CA89D900E5E376 /* restNPeace.mp3 in Resources */,
+				F3E13C8327CA925D00E5E376 /* victory.mp3 in Resources */,
 				F398144B27969B8B0032536A /* Preview Assets.xcassets in Resources */,
 				F398144827969B8B0032536A /* Assets.xcassets in Resources */,
+				F3E13C8127CA8F2D00E5E376 /* bounce.mp3 in Resources */,
 				F3E13C7927CA7CAC00E5E376 /* goPicnic.mp3 in Resources */,
+				F3E13C8727CA927D00E5E376 /* tap.mp3 in Resources */,
 				F3E13C7727CA7BA200E5E376 /* floralLife.mp3 in Resources */,
 				F3E13C7127CA6AB300E5E376 /* title.mp3 in Resources */,
+				F3E13C8527CA926900E5E376 /* defeat.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

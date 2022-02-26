@@ -10,9 +10,12 @@ import Foundation
 class GameViewModel: ObservableObject {
     @Published var currentGameState = GameState.inProgress {
         didSet {
-            if currentGameState != .inProgress {
-                isShowingDialog = true
+            guard currentGameState == .won || currentGameState == .lost else {
+                return
             }
+
+            isShowingDialog = true
+            AudioPlayer.sharedInstance.play(sound: currentGameState == .won ? .victory : .defeat)
         }
     }
 
