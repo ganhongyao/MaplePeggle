@@ -26,9 +26,9 @@ struct ViewConstants {
 
     /// LevelSelectorView
     static let levelSelectorNavTitle = "Levels"
-    static let levelSelectorRowSpacing = 20.0
-    static let levelSelectorColumnSpacing = 30.0
-    static let levelSelectorItemsPerRow = 3
+    static let levelSelectorRowSpacing = 10.0
+    static let levelSelectorColumnSpacing = 10.0
+    static let levelSelectorNumColumns = 3
     static let levelSelectorCreateButtonText = "Design New Level"
     static let levelSelectorCreateButtonImage = "plus.circle"
     static let levelSelectorPlayButtonText = "PLAY"

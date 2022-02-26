@@ -10,8 +10,17 @@ import SwiftUI
 struct LevelSelectorView: View {
     @StateObject var levelSelectorViewModel = LevelSelectorViewModel()
 
-    private let columns = Array(repeating: GridItem(.flexible(), spacing: ViewConstants.levelSelectorColumnSpacing),
-                                count: ViewConstants.levelSelectorItemsPerRow)
+    private var columns: [[Board]] {
+        Array(0..<ViewConstants.levelSelectorNumColumns).map { colIdx in
+            let boardIndicesForColumn = stride(from: colIdx,
+                                               to: levelSelectorViewModel.boards.count,
+                                               by: ViewConstants.levelSelectorNumColumns)
+
+            return boardIndicesForColumn.map { boardIdx in
+                levelSelectorViewModel.boards[boardIdx]
+            }
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,13 +30,18 @@ struct LevelSelectorView: View {
             }.buttonStyle(.bordered)
 
             ScrollView {
-                LazyVGrid(columns: columns, spacing: ViewConstants.levelSelectorRowSpacing) {
-                    ForEach(levelSelectorViewModel.boards) { board in
-                        let boardCardViewModel = BoardCardViewModel(
-                            board: board,
-                            levelSelectorViewModel: levelSelectorViewModel
-                        )
-                        BoardCardView(boardCardViewModel: boardCardViewModel)
+                HStack(alignment: .top, spacing: ViewConstants.levelSelectorColumnSpacing) {
+                    ForEach(columns.indices) { colIdx in
+                        let boardsInColumn = columns[colIdx]
+                        VStack(spacing: ViewConstants.levelSelectorRowSpacing) {
+                            ForEach(boardsInColumn) { board in
+                                let boardCardViewModel = BoardCardViewModel(
+                                    board: board,
+                                    levelSelectorViewModel: levelSelectorViewModel
+                                )
+                                BoardCardView(boardCardViewModel: boardCardViewModel)
+                            }
+                        }
                     }
                 }
             }.padding(.top)

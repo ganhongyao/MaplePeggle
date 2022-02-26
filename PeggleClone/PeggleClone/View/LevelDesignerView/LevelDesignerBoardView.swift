@@ -27,6 +27,7 @@ struct LevelDesignerBoardView: View {
     @State var verticalBoardOffset: CGFloat = .zero
 
     private func letterbox(screenSize: CGSize) {
+        isLetterboxed = true
         let boardSize = levelDesignerBoardViewModel.boardBaseSize
 
         let boardAspectRatio = boardSize.aspectRatio
@@ -156,16 +157,18 @@ struct LevelDesignerBoardView: View {
                     lastAngle = .zero
                 }))
                 .onChange(of: geo.size) { size in
+                    if levelDesignerBoardViewModel.isNewBoard {
+                        levelDesignerBoardViewModel.boardBaseSize = size
+                        levelDesignerBoardViewModel.boardSize = size
+                    }
+
                     screenHeight = size.height
 
-                    guard levelDesignerBoardViewModel.isNewBoard else {
-                        letterbox(screenSize: geo.size)
-                        isLetterboxed = true
+                    guard !levelDesignerBoardViewModel.isNewBoard else {
                         return
                     }
 
-                    levelDesignerBoardViewModel.boardBaseSize = size
-                    levelDesignerBoardViewModel.boardSize = size
+                    letterbox(screenSize: geo.size)
                 }
         }
         .offset(y: verticalBoardOffset)
