@@ -54,6 +54,18 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.blocks.map({ BlockViewModel(block: $0, levelDesignerBoardViewModel: self)})
     }
 
+    var boardBaseSize: CGSize {
+        get {
+            board.baseSize
+        }
+
+        set {
+            board.baseSize = newValue
+
+            objectWillChange.send()
+        }
+    }
+
     var boardSize: CGSize {
         get {
             board.size

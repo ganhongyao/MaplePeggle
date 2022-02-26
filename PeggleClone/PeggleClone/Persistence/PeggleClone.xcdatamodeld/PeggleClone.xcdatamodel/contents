@@ -11,6 +11,8 @@
         <relationship name="parentBoard" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BoardEntity" inverseName="blocks" inverseEntity="BoardEntity"/>
     </entity>
     <entity name="BoardEntity" representedClassName="BoardEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="baseHeight" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="baseWidth" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="dateCreated" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -32,7 +34,7 @@
     </entity>
     <elements>
         <element name="BlockEntity" positionX="-45" positionY="72" width="128" height="149"/>
-        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="164"/>
+        <element name="BoardEntity" positionX="-63" positionY="18" width="128" height="194"/>
         <element name="PegEntity" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

@@ -43,6 +43,10 @@ class GameBoardViewModel: ObservableObject {
         gameBoard.hasBallWithinBoard
     }
 
+    var boardBaseSize: CGSize {
+        gameBoard.baseSize
+    }
+
     var boardSize: CGSize {
         gameBoard.size
     }
@@ -140,6 +144,8 @@ class GameBoardViewModel: ObservableObject {
 
     func scaleBoard(isFirstRender: Bool = true) {
         if isFirstRender {
+            gameBoard.baseSize = CGSize(width: gameBoard.baseSize.width * scaleFactor,
+                                        height: gameBoard.baseSize.height * scaleFactor)
             gameBoard.size = CGSize(width: gameBoard.size.width * scaleFactor,
                                     height: gameBoard.size.height * scaleFactor)
         }
@@ -164,6 +170,7 @@ class GameBoardViewModel: ObservableObject {
         cannonViewModel.cannonPosition = CGPoint(x: gameBoard.size.width / 2,
                                                  y: height / 2)
 
+        gameBoard.baseSize.height += height
         gameBoard.size.height += height
 
         gameBoard.offsetPegsByCannonHeight()
@@ -177,6 +184,7 @@ class GameBoardViewModel: ObservableObject {
         bucketViewModel.bucketPosition = CGPoint(x: gameBoard.size.width / 2,
                                                  y: gameBoard.size.height + height / 2)
 
+        gameBoard.baseSize.height += height
         gameBoard.size.height += height
 
         objectWillChange.send()

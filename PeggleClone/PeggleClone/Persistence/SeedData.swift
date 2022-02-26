@@ -55,6 +55,7 @@ import CoreGraphics
 
          let board = Board(id: UUID(),
                                name: "Trident",
+                               baseSize: CGSize(width: 700, height: 800),
                                size: CGSize(width: 700, height: 800),
                                snapshot: nil,
                                pegs: pegs,
@@ -83,6 +84,7 @@ import CoreGraphics
 
          let board = Board(id: UUID(),
                                name: "Cocktail",
+                               baseSize: CGSize(width: 1000, height: 650),
                                size: CGSize(width: 1000, height: 650),
                                snapshot: nil,
                                pegs: pegs,
@@ -128,6 +130,7 @@ import CoreGraphics
 
          let board = Board(id: UUID(),
                                name: "Diamond",
+                               baseSize: CGSize(width: 700, height: 800),
                                size: CGSize(width: 700, height: 800),
                                snapshot: nil,
                                pegs: pegs,

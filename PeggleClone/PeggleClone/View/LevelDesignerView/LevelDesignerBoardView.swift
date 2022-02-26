@@ -121,6 +121,7 @@ struct LevelDesignerBoardView: View {
                 // If the board is new, let GeoReader propose a size and set the board's size to the proposed size.
                 .onChange(of: geo.size) { _ in
                     if levelDesignerBoardViewModel.isNewBoard {
+                        levelDesignerBoardViewModel.boardBaseSize = geo.size
                         levelDesignerBoardViewModel.boardSize = geo.size
                     }
                     screenHeight = geo.size.height

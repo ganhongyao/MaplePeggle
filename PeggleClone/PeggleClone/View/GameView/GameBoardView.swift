@@ -13,8 +13,6 @@ struct GameBoardView: View {
 
     @State var screenHeight: CGFloat = .zero
 
-    @State var gameplayHeight: CGFloat = .zero
-
     @State var isAiming = false
 
     @State var horizontalBoardOffset: CGFloat = .zero
@@ -48,13 +46,11 @@ struct GameBoardView: View {
     }
 
     private func letterbox(screenSize: CGSize) {
-        let boardGameplaySize = gameBoardViewModel.boardSize
+        let boardGameplaySize = gameBoardViewModel.boardBaseSize
         let screenGameplaySize = CGSize(
             width: screenSize.width,
             height: (1 - ViewConstants.cannonHeightRatio - ViewConstants.bucketHeightRatio) * screenSize.height
         )
-
-        gameplayHeight = screenGameplaySize.height
 
         let boardGameplayAspectRatio = boardGameplaySize.aspectRatio
         let screenGameplayAspectRatio = screenGameplaySize.aspectRatio
@@ -72,7 +68,7 @@ struct GameBoardView: View {
                                                screenGameplaySize: CGSize) {
         gameBoardViewModel.scaleFactor = screenGameplaySize.height / boardGameplaySize.height
         gameBoardViewModel.scaleBoard()
-        let spareWidth = screenGameplaySize.width - gameBoardViewModel.boardSize.width
+        let spareWidth = screenGameplaySize.width - gameBoardViewModel.boardBaseSize.width
         horizontalBoardOffset = spareWidth / 2
     }
 
@@ -80,7 +76,7 @@ struct GameBoardView: View {
                                               screenGameplaySize: CGSize) {
         gameBoardViewModel.scaleFactor = screenGameplaySize.width / boardGameplaySize.width
         gameBoardViewModel.scaleBoard()
-        let spareHeight = screenGameplaySize.height - gameBoardViewModel.boardSize.height
+        let spareHeight = screenGameplaySize.height - gameBoardViewModel.boardBaseSize.height
         verticalBoardOffset = spareHeight / 2
     }
 
@@ -128,8 +124,8 @@ struct GameBoardView: View {
                     .offset(y: offset)
             }
             .offset(x: horizontalBoardOffset, y: verticalBoardOffset)
-            .frame(width: gameBoardViewModel.boardSize.width, height: gameBoardViewModel.boardSize.height)
-            .animation(.default, value: offset)
+            .frame(width: gameBoardViewModel.boardBaseSize.width,
+                   height: gameBoardViewModel.boardBaseSize.height)
             .onAppear {
                 let screenSize = geo.size
 

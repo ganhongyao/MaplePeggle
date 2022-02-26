@@ -16,6 +16,9 @@ class Board {
 
     var name: String
 
+    /// Size of the board before extra height was added through scrolling
+    var baseSize: CGSize
+
     var size: CGSize
 
     let dateCreated: Date?
@@ -44,10 +47,15 @@ class Board {
         return max(maxPegYCoordinate, maxBlockYCoordinate)
     }
 
-    required init(id: UUID? = UUID(), name: String, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
+    var isScrollable: Bool {
+        size.height > baseSize.height
+    }
+
+    required init(id: UUID? = UUID(), name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
                   dateCreated: Date? = Date(), isSeedData: Bool = false) {
         self.id = id
         self.name = name
+        self.baseSize = baseSize
         self.size = size
         self.dateCreated = dateCreated
         self.snapshot = snapshot
@@ -59,7 +67,7 @@ class Board {
     }
 
     convenience init(name: String, size: CGSize) {
-        self.init(id: UUID(), name: name, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
+        self.init(id: UUID(), name: name, baseSize: size, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
     }
 
     static func makeBoardFromSeedData(board: Board) -> Board {
@@ -71,7 +79,7 @@ class Board {
             Block(vertices: block.vertices)
         }
 
-        return Board(name: "", size: board.size, snapshot: board.snapshot, pegs: Set(pegs), blocks: Set(blocks))
+        return Board(name: "", baseSize: board.baseSize, size: board.size, snapshot: board.snapshot, pegs: Set(pegs), blocks: Set(blocks))
     }
 
     func addPeg(_ peg: Peg) {
@@ -266,6 +274,7 @@ extension Board: Persistable {
 
         let board = Self(id: managedObject.id,
                          name: managedObject.name ?? "",
+                         baseSize: CGSize(width: managedObject.baseWidth, height: managedObject.baseHeight),
                          size: CGSize(width: managedObject.width, height: managedObject.height),
                          snapshot: managedObject.snapshot,
                          pegs: pegs,
@@ -281,6 +290,8 @@ extension Board: Persistable {
         let entity = CoreDataManager.sharedInstance.makeCoreDataEntity(class: Board.self)
         entity.id = id
         entity.name = name
+        entity.baseWidth = baseSize.width
+        entity.baseHeight = baseSize.height
         entity.width = size.width
         entity.height = size.height
         let pegEntities: [PegEntity] = pegs.map({ peg in
