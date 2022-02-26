@@ -9,4 +9,7 @@ import Foundation
 
 enum Sound: String {
     case title
+    case floralLife
+    case goPicnic
+    case restNPeace
 }

@@ -28,10 +28,10 @@ struct MainMenuView: View {
             .navigationBarHidden(true)
             .navigationTitle(ViewConstants.mainMenuNavTitle)
             .onAppear {
-                AudioPlayer.sharedInstance.play(sound: .title)
+                AudioPlayer.sharedInstance.play(sound: .title, withFadeDuration: ViewConstants.audioFadeDuration)
             }
             .onDisappear {
-                AudioPlayer.sharedInstance.stop(sound: .title)
+                AudioPlayer.sharedInstance.stop(sound: .title, withFadeDuration: ViewConstants.audioFadeDuration)
             }
         }
         .navigationViewStyle(.stack)

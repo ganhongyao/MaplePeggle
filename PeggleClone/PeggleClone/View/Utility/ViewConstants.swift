@@ -19,6 +19,10 @@ struct ViewConstants {
     static let ballImage = "ball"
     static let bucketImage = "bucket"
 
+    /// Audio
+    static let audioFadeDuration = 10.0
+    static let gameMusicFadeDuration = 4.0
+
     /// MainMenuView
     static let mainMenuNavTitle = "Main Menu"
     static let mainMenuCreateLevelText = "Create New Level"

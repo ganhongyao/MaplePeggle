@@ -13,16 +13,29 @@ class AudioPlayer {
     static let sharedInstance = AudioPlayer()
 
     private var titlePlayer: AVAudioPlayer?
+    private var floralLifePlayer: AVAudioPlayer?
+    private var goPicnicPlayer: AVAudioPlayer?
+    private var restNPeacePlayer: AVAudioPlayer?
+
+    private var tapPlayer: AVAudioPlayer?
 
     private var soundToPlayerMap: [Sound: AVAudioPlayer?] {
-        [.title: titlePlayer]
+        [
+            .title: titlePlayer,
+            .floralLife: floralLifePlayer,
+            .goPicnic: goPicnicPlayer,
+            .restNPeace: restNPeacePlayer
+        ]
     }
 
     private init() {
         titlePlayer = initializePlayerForSound(sound: .title)
+        floralLifePlayer = initializePlayerForSound(sound: .floralLife)
+        goPicnicPlayer = initializePlayerForSound(sound: .goPicnic)
+        restNPeacePlayer = initializePlayerForSound(sound: .restNPeace)
     }
 
-    private func initializePlayerForSound(sound: Sound) -> AVAudioPlayer? {
+    private func initializePlayerForSound(sound: Sound, soundWillLoop: Bool = true) -> AVAudioPlayer? {
         let path = Bundle.main.path(forResource: sound.rawValue, ofType: AudioPlayer.mp3FileExtension)
 
         guard let path = path else {
@@ -37,15 +50,39 @@ class AudioPlayer {
             return nil
         }
 
+        if soundWillLoop {
+            player.numberOfLoops = -1
+        }
+
         return player
     }
 
-    func play(sound: Sound) {
-        soundToPlayerMap[sound]??.play()
+    func play(sound: Sound, withFadeDuration fadeDuration: Double = 0.0) {
+        guard let optionalPlayer = soundToPlayerMap[sound],
+              let player = optionalPlayer else {
+                  return
+              }
+
+        let initialVolume = player.volume
+
+        player.volume = .zero
+        player.play()
+        player.setVolume(initialVolume, fadeDuration: fadeDuration)
     }
 
-    func stop(sound: Sound) {
-        soundToPlayerMap[sound]??.stop()
+    func stop(sound: Sound, withFadeDuration fadeDuration: Double = 0.0) {
+        guard let optionalPlayer = soundToPlayerMap[sound],
+              let player = optionalPlayer else {
+                  return
+              }
+
+        let initialVolume = player.volume
+
+        player.setVolume(.zero, fadeDuration: fadeDuration)
+        player.stop()
+        player.currentTime = 0
+
+        player.volume = initialVolume
     }
 
 }

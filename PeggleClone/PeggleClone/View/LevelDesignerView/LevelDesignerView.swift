@@ -73,6 +73,12 @@ struct LevelDesignerView: View {
                            alignment: .bottom)
             }
             .navigationTitle(ViewConstants.levelDesignerNavTitle)
+            .onAppear {
+                AudioPlayer.sharedInstance.play(sound: .floralLife, withFadeDuration: ViewConstants.audioFadeDuration)
+            }
+            .onDisappear {
+                AudioPlayer.sharedInstance.stop(sound: .floralLife, withFadeDuration: ViewConstants.audioFadeDuration)
+            }
         }
         .ignoresSafeArea(.keyboard) // Prevents board view from being compressed vertically when keyboard is displayed
         .alert(isPresented: $levelDesignerViewModel.isShowingError, error: levelDesignerViewModel.error) {}

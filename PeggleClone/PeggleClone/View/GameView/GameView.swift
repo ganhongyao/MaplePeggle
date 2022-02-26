@@ -54,6 +54,14 @@ struct GameView: View {
                 }
             })
             .navigationBarHidden(true)
+            .onAppear {
+                AudioPlayer.sharedInstance.play(sound: gameViewModel.soundToPlay,
+                                                withFadeDuration: ViewConstants.gameMusicFadeDuration)
+            }
+            .onDisappear {
+                AudioPlayer.sharedInstance.stop(sound: gameViewModel.soundToPlay,
+                                                withFadeDuration: ViewConstants.gameMusicFadeDuration)
+            }
         }
 
     }

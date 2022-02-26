@@ -49,7 +49,12 @@ struct LevelSelectorView: View {
         .padding(.horizontal)
         .navigationTitle(ViewConstants.levelSelectorNavTitle)
         .onAppear {
+            AudioPlayer.sharedInstance.play(sound: .goPicnic, withFadeDuration: ViewConstants.audioFadeDuration)
+
             levelSelectorViewModel.fetchAllBoards()
+        }
+        .onDisappear {
+            AudioPlayer.sharedInstance.stop(sound: .goPicnic, withFadeDuration: ViewConstants.audioFadeDuration)
         }
         .alert(isPresented: $levelSelectorViewModel.isShowingError, error: levelSelectorViewModel.error) {}
     }
