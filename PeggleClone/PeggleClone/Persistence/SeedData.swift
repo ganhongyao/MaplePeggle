@@ -36,8 +36,8 @@ import CoreGraphics
                                Peg(center: CGPoint(x: 335, y: 500.7), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 335, y: 550.8), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 335, y: 600.9), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 650.0), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 700.1), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 651.0), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 701.1), radius: 25, color: .blue),
 
                                Peg(center: CGPoint(x: 545, y: 150.0), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 545, y: 200.1), radius: 25, color: .blue),
@@ -94,26 +94,29 @@ import CoreGraphics
 
      private static var diamondBoard: Board {
          let pegs: Set<Peg> = [
-            Peg(center: CGPoint(x: 340, y: 189.0), radius: 25.0, color: .blue),
             Peg(center: CGPoint(x: 60.5, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 340, y: 553.5), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 742.5), radius: 25.0, color: .orange),
-            Peg(center: CGPoint(x: 186.5, y: 415), radius: 25.0, color: .green),
             Peg(center: CGPoint(x: 129.0, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 340, y: 619.5), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 250.0), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 307.0), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 513.0, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 340, y: 60.0), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 489.0), radius: 25.0, color: .blue),
-            Peg(center: CGPoint(x: 340, y: 131.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 186.5, y: 415), radius: 25.0, color: .green),
             Peg(center: CGPoint(x: 254.0, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 340, y: 415), radius: 25.0, color: .green),
+
             Peg(center: CGPoint(x: 444.0, y: 415), radius: 25.0, color: .green),
+            Peg(center: CGPoint(x: 513.0, y: 415), radius: 25.0, color: .green),
             Peg(center: CGPoint(x: 584.5, y: 415), radius: 25.0, color: .green),
             Peg(center: CGPoint(x: 650, y: 415), radius: 25.0, color: .green),
-            Peg(center: CGPoint(x: 340, y: 688.5), radius: 25.0, color: .blue)
+
+            Peg(center: CGPoint(x: 340, y: 60.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 131.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 189.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 250.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 307.0), radius: 25.0, color: .blue),
+
+            Peg(center: CGPoint(x: 340, y: 489.0), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 553.5), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 619.5), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 688.5), radius: 25.0, color: .blue),
+            Peg(center: CGPoint(x: 340, y: 742.5), radius: 25.0, color: .orange),
+
+            Peg(center: CGPoint(x: 340, y: 415), radius: 25.0, color: .green)
          ]
 
          let blocks: Set<Block> =  [
