@@ -27,6 +27,10 @@ class GameBoardViewModel: ObservableObject {
         displayLink != nil
     }
 
+    var pegColors: [Peg.Color] {
+        Peg.Color.allCases
+    }
+
     var gamePegs: [GamePeg] {
         gameBoard.gamePegs
     }

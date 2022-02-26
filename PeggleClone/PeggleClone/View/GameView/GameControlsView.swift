@@ -26,13 +26,16 @@ struct GameControlsView: View {
 
             Spacer()
 
-            getPegImage(color: .orange)
-                .resizable()
-                .scaledToFit()
-                .overlay(
-                    Text(String(boardViewModel.numPegsRemaining(color: .orange)))
-                        .bold()
-                )
+            ForEach(boardViewModel.pegColors, id: \.rawValue) { color in
+                getPegImage(color: color)
+                    .resizable()
+                    .scaledToFit()
+                    .overlay(
+                        Text(String(boardViewModel.numPegsRemaining(color: color)))
+                            .bold()
+                            .foregroundColor(.black)
+                    )
+            }
 
             Image(ViewConstants.ballImage)
                 .resizable()

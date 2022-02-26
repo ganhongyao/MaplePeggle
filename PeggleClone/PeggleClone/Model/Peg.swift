@@ -14,6 +14,7 @@ class Peg: Circular, BoardObject {
         case blue
         case orange
         case green
+        case purple
     }
 
     static let defaultRadius: CGFloat = 25
