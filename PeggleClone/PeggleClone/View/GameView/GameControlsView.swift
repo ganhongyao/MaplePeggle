@@ -37,6 +37,8 @@ struct GameControlsView: View {
                     )
             }
 
+            Spacer()
+
             Image(ViewConstants.ballImage)
                 .resizable()
                 .scaledToFit()
@@ -46,6 +48,13 @@ struct GameControlsView: View {
                         .foregroundColor(boardViewModel.numBallsRemaining <=
                                          ViewConstants.gameBallThresholdForWarning ? .red : .black)
                 )
+
+            Spacer()
+
+            VStack {
+                Text("Score")
+                Text("12301")
+            }
 
             Spacer()
 
