@@ -20,12 +20,7 @@ class GameCannon {
 
     private var aimedLocation: CGPoint
 
-    /// The x-coordinate of the cannon is fixed, but the y-coordinate depends on the height of the cannon
-    private var xCoordinate: CGFloat
-
-    var center: CGPoint {
-        CGPoint(x: xCoordinate, y: height / 2)
-    }
+    var center: CGPoint
 
     private var ballStartingPosition: CGPoint {
         center
@@ -58,7 +53,7 @@ class GameCannon {
     }
 
     init(xCoordinate: CGFloat, initialAimedLocation: CGPoint) {
-        self.xCoordinate = xCoordinate
+        self.center = CGPoint(x: xCoordinate, y: height / 2)
         aimedLocation = initialAimedLocation
         lastValidAimedLocation = aimedLocation
     }

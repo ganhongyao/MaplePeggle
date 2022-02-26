@@ -15,6 +15,8 @@ struct GameBoardView: View {
 
     @State var isAiming = false
 
+    @State var horizontalOffset: CGFloat = .zero
+
     private var boardHeight: CGFloat {
         gameBoardViewModel.boardSize.height
     }
@@ -80,11 +82,35 @@ struct GameBoardView: View {
                 GameBucketView(gameBucketViewModel: gameBoardViewModel.bucketViewModel)
                     .offset(y: offset)
             }
+            .offset(x: horizontalOffset)
+            .frame(width: gameBoardViewModel.boardSize.width, height: gameBoardViewModel.boardSize.height, alignment: .top)
             .animation(.default, value: offset)
             .onAppear {
                 screenHeight = geo.size.height
-                gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
-                gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
+
+                let boardGameplaySize = gameBoardViewModel.boardSize
+                let screenGameplaySize = CGSize(
+                    width: geo.size.width,
+                    height: (1 - ViewConstants.cannonHeightRatio - ViewConstants.bucketHeightRatio) * geo.size.height
+                )
+
+                let boardGameplayAspectRatio = boardGameplaySize.aspectRatio
+                let screenGameplayAspectRatio = screenGameplaySize.aspectRatio
+
+                if screenGameplayAspectRatio > boardGameplayAspectRatio {
+                    gameBoardViewModel.scaleFactor = screenGameplaySize.height / boardGameplaySize.height
+
+                    gameBoardViewModel.scaleBoard()
+
+                    gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
+                    gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
+
+                    let spareWidth = screenGameplaySize.width - gameBoardViewModel.boardSize.width
+                    horizontalOffset = spareWidth / 2
+                }
+
+//                gameBoardViewModel.setCannonHeight(screenHeight * ViewConstants.cannonHeightRatio)
+//                gameBoardViewModel.setBucketHeight(screenHeight * ViewConstants.bucketHeightRatio)
             }
             .onDisappear(perform: gameBoardViewModel.deinitialiseDisplayLink)
             .gesture(DragGesture(minimumDistance: 0).onChanged { value in

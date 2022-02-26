@@ -29,7 +29,15 @@ class GameBucketViewModel: ObservableObject {
     }
 
     var bucketPosition: CGPoint {
-        gameBucket.center
+        get {
+            gameBucket.center
+        }
+
+        set {
+            gameBucket.initialPosition = newValue
+
+            objectWillChange.send()
+        }
     }
 
     init(gameBucket: GameBucket) {

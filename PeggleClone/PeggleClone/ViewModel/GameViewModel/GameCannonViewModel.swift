@@ -28,7 +28,15 @@ class GameCannonViewModel: ObservableObject {
     }
 
     var cannonPosition: CGPoint {
-        gameCannon.center
+        get {
+            gameCannon.center
+        }
+
+        set {
+            gameCannon.center = newValue
+
+            objectWillChange.send()
+        }
     }
 
     var rotationAngle: CGFloat {

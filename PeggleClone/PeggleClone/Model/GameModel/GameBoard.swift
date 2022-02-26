@@ -59,7 +59,7 @@ class GameBoard: Board, PhysicsWorld {
                   dateCreated: Date? = Date(), isSeedData: Bool = false) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
-        gameBucket = GameBucket(initialXCoordinate: boardCenter.x, minYCoordinate: size.height)
+        gameBucket = GameBucket(initialPosition: CGPoint(x: boardCenter.x, y: size.height))
 
         super.init(id: id, name: name, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
 

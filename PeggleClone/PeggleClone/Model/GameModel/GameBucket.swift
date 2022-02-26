@@ -12,17 +12,15 @@ import PhysicsEngine
 class GameBucket: PolygonalPhysicsBody {
     private static let defaultHeight = 100.0
 
-    private var initialXCoordinate: CGFloat
-
-    var minYCoordinate: CGFloat
+    var initialPosition: CGPoint {
+        didSet {
+            center = initialPosition
+        }
+    }
 
     var width: CGFloat = defaultHeight
 
-    var height: CGFloat = defaultHeight {
-        didSet {
-            center = CGPoint(x: center.x, y: minYCoordinate + height / 2)
-        }
-    }
+    var height: CGFloat = defaultHeight
 
     var center: CGPoint
 
@@ -55,13 +53,12 @@ class GameBucket: PolygonalPhysicsBody {
 
     var collisionCount = 0
 
-    init(initialXCoordinate: CGFloat, minYCoordinate: CGFloat) {
-        self.initialXCoordinate = initialXCoordinate
-        self.minYCoordinate = minYCoordinate
-        center = CGPoint(x: initialXCoordinate, y: minYCoordinate + GameBucket.defaultHeight / 2)
+    init(initialPosition: CGPoint) {
+        self.initialPosition = initialPosition
+        center = initialPosition
     }
 
     func centralize() {
-        center.x = initialXCoordinate
+        center = initialPosition
     }
 }

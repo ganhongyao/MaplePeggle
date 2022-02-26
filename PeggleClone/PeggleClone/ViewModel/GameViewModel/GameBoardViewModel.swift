@@ -21,6 +21,8 @@ class GameBoardViewModel: ObservableObject {
 
     var displayLink: CADisplayLink?
 
+    var scaleFactor: CGFloat = 1.0
+
     private var hasGameStarted: Bool {
         displayLink != nil
     }
@@ -136,11 +138,33 @@ class GameBoardViewModel: ObservableObject {
         return collision.collisionAngle == -.pi / 2
     }
 
+    func scaleBoard(isFirstRender: Bool = true) {
+        if isFirstRender {
+            gameBoard.size = CGSize(width: gameBoard.size.width * scaleFactor,
+                                    height: gameBoard.size.height * scaleFactor)
+        }
+
+        for gameBlock in gameBlocks {
+            let newCentroid = CGPoint(x: gameBlock.centroid.x * scaleFactor, y: gameBlock.centroid.y * scaleFactor)
+            gameBlock.scale(factor: scaleFactor)
+            gameBlock.move(to: newCentroid)
+        }
+
+        for gamePeg in gamePegs {
+            let newCenter = CGPoint(x: gamePeg.center.x * scaleFactor, y: gamePeg.center.y * scaleFactor)
+            gamePeg.scale(factor: scaleFactor)
+            gamePeg.move(to: newCenter)
+        }
+
+        objectWillChange.send()
+    }
+
     func setCannonHeight(_ height: CGFloat) {
         cannonViewModel.cannonHeight = height
+        cannonViewModel.cannonPosition = CGPoint(x: gameBoard.size.width / 2,
+                                                 y: height / 2)
 
         gameBoard.size.height += height
-        gameBoard.gameBucket.minYCoordinate += height
 
         gameBoard.offsetPegsByCannonHeight()
         gameBoard.offsetBlocksByCannonHeight()
@@ -150,6 +174,8 @@ class GameBoardViewModel: ObservableObject {
 
     func setBucketHeight(_ height: CGFloat) {
         bucketViewModel.bucketHeight = height
+        bucketViewModel.bucketPosition = CGPoint(x: gameBoard.size.width / 2,
+                                                 y: gameBoard.size.height + height / 2)
 
         gameBoard.size.height += height
 
@@ -172,6 +198,7 @@ class GameBoardViewModel: ObservableObject {
 
     func restart() {
         gameBoard.resetToInitialState()
+        scaleBoard(isFirstRender: false)
         gameViewModel.chosenGameMaster = nil
         objectWillChange.send()
     }

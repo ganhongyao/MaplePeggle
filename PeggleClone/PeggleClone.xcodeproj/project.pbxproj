@@ -29,6 +29,7 @@
 		F3B2967427AFD2E300BA25D5 /* CGVector+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B2967327AFD2E300BA25D5 /* CGVector+Operations.swift */; };
 		F3B2967827AFE96900BA25D5 /* GameCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B2967727AFE96800BA25D5 /* GameCannon.swift */; };
 		F3B62E3827C916920090DD5A /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B62E3727C916920090DD5A /* SeedData.swift */; };
+		F3B62E3A27C9F5DA0090DD5A /* CGSize+AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B62E3927C9F5DA0090DD5A /* CGSize+AspectRatio.swift */; };
 		F3B6D0F7279803E20069BED7 /* LevelDesignerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6D0F6279803E20069BED7 /* LevelDesignerViewModel.swift */; };
 		F3B6D0F9279805330069BED7 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6D0F8279805320069BED7 /* ControlsView.swift */; };
 		F3B6E68427A13524004A82A1 /* View+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B6E68327A13524004A82A1 /* View+Snapshot.swift */; };
@@ -119,6 +120,7 @@
 		F3B2967327AFD2E300BA25D5 /* CGVector+Operations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Operations.swift"; sourceTree = "<group>"; };
 		F3B2967727AFE96800BA25D5 /* GameCannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCannon.swift; sourceTree = "<group>"; };
 		F3B62E3727C916920090DD5A /* SeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
+		F3B62E3927C9F5DA0090DD5A /* CGSize+AspectRatio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+AspectRatio.swift"; sourceTree = "<group>"; };
 		F3B6D0F6279803E20069BED7 /* LevelDesignerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignerViewModel.swift; sourceTree = "<group>"; };
 		F3B6D0F8279805320069BED7 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		F3B6E68327A13524004A82A1 /* View+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snapshot.swift"; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				F37F248A27A6E14900B56E8D /* TranslucentViewModifier.swift */,
 				F3B6E68327A13524004A82A1 /* View+Snapshot.swift */,
 				F34A671F27C89CE500B9CABE /* ScaleAndOpacityOnRemove.swift */,
+				F3B62E3927C9F5DA0090DD5A /* CGSize+AspectRatio.swift */,
 				F3BECEA727B8E50A00247D9D /* ViewConstants.swift */,
 			);
 			path = Utility;
@@ -597,6 +600,7 @@
 				F3D0DF6227A54EBA00740A26 /* CGPoint+Hashable.swift in Sources */,
 				F34A671627C6ABCC00B9CABE /* GameBucket.swift in Sources */,
 				F3F6409427ACF3550063B64A /* GameBoardViewModel.swift in Sources */,
+				F3B62E3A27C9F5DA0090DD5A /* CGSize+AspectRatio.swift in Sources */,
 				F3E1D8FE279EEB61005DCEEA /* CoreDataManager.swift in Sources */,
 				F3C7709627C4CAC70030F7BE /* GameBlockViewModel.swift in Sources */,
 				F3CB758427A3C27B0053B675 /* BoardCardView.swift in Sources */,
