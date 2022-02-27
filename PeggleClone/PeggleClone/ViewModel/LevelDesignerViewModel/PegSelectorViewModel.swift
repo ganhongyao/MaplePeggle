@@ -13,10 +13,6 @@ class PegSelectorViewModel: ObservableObject {
     @Published private(set) var isInAddBlockMode = false
     @Published private(set) var isInMultiselectMode = false {
         didSet {
-            guard !isInMultiselectMode else {
-                return
-            }
-
             levelDesignerViewModel.boardViewModel?.unselectAllObjects()
         }
     }

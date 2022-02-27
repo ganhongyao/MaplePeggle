@@ -28,6 +28,35 @@ struct LevelDesignerBoardView: View {
 
     @State var verticalBoardOffset: CGFloat = .zero
 
+    @State var selectedRectStart: CGPoint?
+
+    @State var selectedRectEnd: CGPoint?
+
+    private var selectedRect: CGRect? {
+        guard let rectStart = selectedRectStart,
+              let rectEnd = selectedRectEnd else {
+                  return nil
+              }
+
+        let origin = CGPoint(x: min(rectStart.x, rectEnd.x),
+                             y: min(rectStart.y, rectEnd.y))
+
+        let size = CGSize(width: abs(rectStart.x - rectEnd.x),
+                          height: abs(rectStart.y - rectEnd.y))
+
+        return CGRect(origin: origin, size: size)
+    }
+
+    @ViewBuilder
+    private var selectedRectShape: some View {
+        if let selectedRect = selectedRect {
+            Path(selectedRect)
+                .stroke(ViewConstants.levelDesignerSelectionColor,
+                        style: StrokeStyle(lineWidth: ViewConstants.levelDesignerBoardSelectionStrokeWidth,
+                                           dash: [ViewConstants.levelDesignerBoardSelectionStrokeDash]))
+        }
+    }
+
     private func letterbox(screenSize: CGSize) {
         isLetterboxed = true
         let boardSize = levelDesignerBoardViewModel.boardBaseSize
@@ -129,6 +158,8 @@ struct LevelDesignerBoardView: View {
         ZStack {
             Image(ViewConstants.coralBackgroundImage).resizable()
 
+            selectedRectShape
+
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
                 makePegView(pegViewModel: pegViewModel)
             }
@@ -141,63 +172,78 @@ struct LevelDesignerBoardView: View {
 
     var body: some View {
         GeometryReader { geo in
-            mainBoardView
-                .gesture(
-                    DragGesture(minimumDistance: .zero, coordinateSpace: .local)
-                        .onChanged { value in
-                            guard levelDesignerBoardViewModel.isInMultiselectMode else {
-                                return
-                            }
+            ZStack {
+                mainBoardView
+                    .gesture(
+                        DragGesture(minimumDistance: .zero, coordinateSpace: .local)
+                            .onChanged { value in
+                                guard levelDesignerBoardViewModel.isInMultiselectMode else {
+                                    return
+                                }
 
-                            let currentLocation = value.location
+                                guard levelDesignerBoardViewModel.hasSelectedObjects else {
+                                    selectedRectStart = value.startLocation
+                                    selectedRectEnd = value.location
+                                    return
+                                }
 
-                            guard let lastPositionForCurrentDrag = lastPositionForCurrentDrag else {
-                                lastPositionForCurrentDrag = currentLocation
-                                return
-                            }
+                                let currentLocation = value.location
 
-                            let movementOffset = CGVector(from: currentLocation)
-                                .subtract(CGVector(from: lastPositionForCurrentDrag))
+                                guard let lastPositionForCurrentDrag = lastPositionForCurrentDrag else {
+                                    lastPositionForCurrentDrag = currentLocation
+                                    return
+                                }
 
-                            self.lastPositionForCurrentDrag = currentLocation
+                                let movementOffset = CGVector(from: currentLocation)
+                                    .subtract(CGVector(from: lastPositionForCurrentDrag))
 
-                            levelDesignerBoardViewModel.moveBoardObjects(offset: movementOffset)
-                        }.onEnded { value in
-                            if levelDesignerBoardViewModel.isInAddPegMode {
-                                levelDesignerBoardViewModel.addPeg(center: value.location)
-                            } else if levelDesignerBoardViewModel.isInAddBlockMode {
-                                levelDesignerBoardViewModel.addBlock(center: value.location)
-                            }
+                                self.lastPositionForCurrentDrag = currentLocation
 
-                            lastPositionForCurrentDrag = nil
-                })
-                .gesture(MagnificationGesture().onChanged { value in
-                    let scaleFactor = value / lastScale
-                    lastScale = value
-                    levelDesignerBoardViewModel.scaleBoardObjects(factor: scaleFactor)
-                }.onEnded { _ in
-                    lastScale = 1.0
-                }.simultaneously(with: RotationGesture().onChanged { angle in
-                    let delta = angle - lastAngle
-                    lastAngle = angle
-                    levelDesignerBoardViewModel.rotateBoardObjects(angle: delta.radians)
-                }.onEnded { _ in
-                    lastAngle = .zero
-                }))
-                .onChange(of: geo.size) { size in
-                    if levelDesignerBoardViewModel.isNewBoard {
-                        levelDesignerBoardViewModel.boardBaseSize = size
-                        levelDesignerBoardViewModel.boardSize = size
+                                levelDesignerBoardViewModel.moveBoardObjects(offset: movementOffset)
+                            }.onEnded { value in
+                                if levelDesignerBoardViewModel.isInAddPegMode {
+                                    levelDesignerBoardViewModel.addPeg(center: value.location)
+                                } else if levelDesignerBoardViewModel.isInAddBlockMode {
+                                    levelDesignerBoardViewModel.addBlock(center: value.location)
+                                }
+
+                                if let selectedRect = selectedRect {
+                                    levelDesignerBoardViewModel.selectObjects(inRectangle: selectedRect)
+                                    selectedRectStart = nil
+                                    selectedRectEnd = nil
+                                }
+
+                                lastPositionForCurrentDrag = nil
+                    })
+                    .gesture(MagnificationGesture().onChanged { value in
+                        let scaleFactor = value / lastScale
+                        lastScale = value
+                        levelDesignerBoardViewModel.scaleBoardObjects(factor: scaleFactor)
+                    }.onEnded { _ in
+                        lastScale = 1.0
+                    }.simultaneously(with: RotationGesture().onChanged { angle in
+                        let delta = angle - lastAngle
+                        lastAngle = angle
+                        levelDesignerBoardViewModel.rotateBoardObjects(angle: delta.radians)
+                    }.onEnded { _ in
+                        lastAngle = .zero
+                    }))
+                    .onChange(of: geo.size) { size in
+                        if levelDesignerBoardViewModel.isNewBoard {
+                            levelDesignerBoardViewModel.boardBaseSize = size
+                            levelDesignerBoardViewModel.boardSize = size
+                        }
+
+                        screenHeight = size.height
+
+                        guard !levelDesignerBoardViewModel.isNewBoard else {
+                            return
+                        }
+
+                        letterbox(screenSize: geo.size)
                     }
+            }
 
-                    screenHeight = size.height
-
-                    guard !levelDesignerBoardViewModel.isNewBoard else {
-                        return
-                    }
-
-                    letterbox(screenSize: geo.size)
-                }
         }
         .offset(y: verticalBoardOffset)
         .frame(width: !isLetterboxed ? nil : levelDesignerBoardViewModel.boardBaseSize.width,

@@ -5,6 +5,8 @@
 //  Created by Hong Yao on 13/2/22.
 //
 
+import SwiftUI
+
 struct ViewConstants {
     // TODO: Remove
     static let loremIpsum = """
@@ -52,6 +54,11 @@ struct ViewConstants {
     static let levelDesignerNavTitle = "Design Level"
     static let levelDesignerPegSelectorHeightRatio = 0.1
     static let levelDesignerScrollAmount = 50.0
+    static let levelDesignerSelectionColor = Color.orange
+
+    /// LevelDesignerBoardView
+    static let levelDesignerBoardSelectionStrokeWidth = 5.0
+    static let levelDesignerBoardSelectionStrokeDash = 5.0
 
     /// PegSelectorView
     static let pegSelectorScrollUpImage = "arrow.up.circle.fill"

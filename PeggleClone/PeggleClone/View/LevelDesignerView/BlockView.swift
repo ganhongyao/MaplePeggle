@@ -38,7 +38,7 @@ struct BlockView: View {
                 ForEach(verticesWithOffset.indices) { idx in
                     let vertex = verticesWithOffset[idx]
                     Circle()
-                        .fill(.blue)
+                        .fill(ViewConstants.levelDesignerSelectionColor)
                         .frame(width: ViewConstants.blockVertexCircleDiameter,
                                height: ViewConstants.blockVertexCircleDiameter)
                         .position(vertex)

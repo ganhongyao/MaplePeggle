@@ -127,6 +127,10 @@ class LevelDesignerBoardViewModel: ObservableObject {
         levelDesignerViewModel.pegSelectorViewModel?.isInDeleteMode ?? false
     }
 
+    var hasSelectedObjects: Bool {
+        !selectedObjects.isEmpty
+    }
+
     func setSnapshot(snapshotImage: UIImage) {
         board.snapshot = snapshotImage.pngData()
     }
@@ -161,6 +165,16 @@ class LevelDesignerBoardViewModel: ObservableObject {
         }
 
         selectedObjects.append(object)
+
+        objectWillChange.send()
+    }
+
+    func selectObjects(inRectangle rect: CGRect) {
+        let rectangle = GenericPolygon(from: rect)
+
+        for object in board.boardObjects where object.overlaps(with: rectangle) {
+            select(object: object)
+        }
 
         objectWillChange.send()
     }
