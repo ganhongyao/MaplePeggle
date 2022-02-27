@@ -41,19 +41,49 @@ ball destination because of the effects of gravity.
 For a more detailed guide on aiming, refer to [this section](#aiming).
 
 ### Win and Lose Conditions
-Please explain how the player wins/loses the game.
+
+(Same as original peggle game, copied from CS3217 website)
+
+To win, clear all orange pegs.
+
+You start with 10 balls. Every time you shoot a ball, the number of balls get subtracted. You lose if you run out of balls and there are still orange pegs remaining in the game.
 
 ## Level Designer Additional Features
 
 ### Peg Rotation
-Please explain how the player rotates the triangular pegs.
+Use two fingers to do a rotation gesture (see https://docs-assets.developer.apple.com/published/7c21d852b9/0d8b92d2-dbfc-4316-97fd-aa2f6ee22db3.png)
 
 ### Peg Resizing
-Please explain how the player resizes the pegs.
+Tap on a peg to select it (orange dot should appear in the middle), then use two fingers to pinch the screen.
+
+### Block rotation
+Same as peg rotation.
+
+### Block Resizing
+To resize the whole block centered at the current center, tap on the block to select it then use two fingers to pinch the screen.
+
+To move the individual vertices, drag the orange circle on the desired vertex to the desired location.
 
 ## Bells and Whistles
 Please write all of the additional features that you have implemented so that
 your grader can award you credit.
+
+- Score system
+- Sound and music
+- Display the number of pegs remaining
+- Display the number of pegs placed in the level designer
+- Game masters
+- Additional powerups
+  - Increase bucket width
+  - Horizontal and vertical "zapper" that lights up pegs in its path
+- Multiselect in level designer (Click the multiselect button beside the scroll buttons to enter multi-select mode)
+  - Moving selected objects together in a single drag gesture
+    - Note: drag gesture must begin at an empty location. If the drag gesture begins from a peg/block, it is assumed that the user is trying to move that object only
+  - Rotating selected objects together in a single rotation gesture
+  - Resizing selected objects together in a single magnification gesture
+  - Note: in the above features, whether an object actually moves/rotates/resizes is independent of other objects - e.g. if only 1 peg is blocked but the other selected objects are not, the other unblocked ones will move without the blocked peg
+  - Rectangular select 
+    - User can draw a rectangle and any objects partly/wholly in the rectangle will be selected (same as the selection tool in Notability)
 
 ## Tests
 
