@@ -23,9 +23,11 @@ class GameViewModel: ObservableObject {
 
     @Published var chosenGameMaster: GameMaster? {
         didSet {
-            if chosenGameMaster != nil {
-                boardViewModel?.initialiseDisplayLink()
+            guard chosenGameMaster != nil else {
+                return
             }
+
+            boardViewModel?.initialiseDisplayLink()
         }
     }
 

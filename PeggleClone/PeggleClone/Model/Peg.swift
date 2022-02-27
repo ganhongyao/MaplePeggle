@@ -54,10 +54,6 @@ class Peg: Circular, BoardObject {
     func rotate(angle: CGFloat) {
         facingAngle += angle
     }
-
-    func move(to newCenter: CGPoint) {
-        center = newCenter
-    }
 }
 
 extension Peg: CustomStringConvertible {

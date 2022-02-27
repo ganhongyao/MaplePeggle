@@ -50,6 +50,14 @@ struct PegSelectorView: View {
                     )
             })
 
+            Button(action: {
+                pegSelectorViewModel.enterMultiselectMode()
+            }, label: {
+                Image(systemName: ViewConstants.pegSelectorMultiselectImage)
+                    .resizable()
+                    .scaledToFit()
+            })
+
             Spacer()
 
             Button(action: {

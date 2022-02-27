@@ -18,6 +18,16 @@ extension Circular {
         radius * 2
     }
 
+    public func move(to newCenter: CGPoint) {
+        center = newCenter
+    }
+
+    public func move(offset: CGVector) {
+        let newCenter = CGPoint(from: CGVector(from: center).add(offset))
+
+        move(to: newCenter)
+    }
+
     public func scale(factor: CGFloat) {
         radius *= factor
     }

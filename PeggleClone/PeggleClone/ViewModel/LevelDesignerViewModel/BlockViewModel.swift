@@ -35,7 +35,7 @@ class BlockViewModel: ObservableObject {
     }
 
     var isSelected: Bool {
-        levelDesignerBoardViewModel.selectedObject === block
+        levelDesignerBoardViewModel.selectedObjects.contains { $0 === block }
     }
 
     func moveBlock(to newCentroid: CGPoint) {
@@ -50,8 +50,16 @@ class BlockViewModel: ObservableObject {
         objectWillChange.send()
     }
 
+    func toggleSelected() {
+        isSelected ? unselectBlock() : selectBlock()
+    }
+
     func selectBlock() {
         levelDesignerBoardViewModel.select(object: block)
+    }
+
+    func unselectBlock() {
+        levelDesignerBoardViewModel.unselect(object: block)
     }
 
     func removeBlock() {

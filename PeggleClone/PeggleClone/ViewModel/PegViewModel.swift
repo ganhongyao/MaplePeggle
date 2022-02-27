@@ -43,11 +43,19 @@ class PegViewModel: ObservableObject {
     }
 
     var isSelected: Bool {
-        levelDesignerBoardViewModel.selectedObject === peg
+        levelDesignerBoardViewModel.selectedObjects.contains { $0 === peg }
+    }
+
+    func toggleSelected() {
+        isSelected ? unselectPeg() : selectPeg()
     }
 
     func selectPeg() {
         levelDesignerBoardViewModel.select(object: peg)
+    }
+
+    func unselectPeg() {
+        levelDesignerBoardViewModel.unselect(object: peg)
     }
 
     func movePeg(to newCenter: CGPoint) {

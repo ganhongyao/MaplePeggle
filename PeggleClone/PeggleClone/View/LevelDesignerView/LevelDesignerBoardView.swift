@@ -14,6 +14,8 @@ struct LevelDesignerBoardView: View {
 
     @State var lastAngle: Angle = .zero
 
+    @State var lastPositionForCurrentDrag: CGPoint?
+
     @State var isLetterboxed = false
 
     @State var screenHeight: CGFloat = .zero {
@@ -87,9 +89,12 @@ struct LevelDesignerBoardView: View {
             .highPriorityGesture(TapGesture().onEnded {
                 levelDesignerBoardViewModel.isInDeleteMode
                     ? pegViewModel.removePeg()
-                    : pegViewModel.selectPeg()
+                    : pegViewModel.toggleSelected()
             })
             .gesture(DragGesture().onChanged { value in
+                if !levelDesignerBoardViewModel.isInMultiselectMode {
+                    levelDesignerBoardViewModel.unselectAllObjects()
+                }
                 pegViewModel.selectPeg()
                 pegViewModel.movePeg(to: value.location)
             })
@@ -109,9 +114,10 @@ struct LevelDesignerBoardView: View {
             .highPriorityGesture(TapGesture().onEnded {
                 levelDesignerBoardViewModel.isInDeleteMode
                     ? blockViewModel.removeBlock()
-                    : blockViewModel.selectBlock()
+                    : blockViewModel.toggleSelected()
             })
             .gesture(DragGesture().onChanged { value in
+                levelDesignerBoardViewModel.unselectAllObjects()
                 blockViewModel.selectBlock()
                 blockViewModel.moveBlock(to: value.location)
             })
@@ -136,23 +142,45 @@ struct LevelDesignerBoardView: View {
     var body: some View {
         GeometryReader { geo in
             mainBoardView
-                .gesture(DragGesture(minimumDistance: .zero, coordinateSpace: .local).onEnded { value in
-                    if levelDesignerBoardViewModel.isInAddPegMode {
-                        levelDesignerBoardViewModel.addPeg(center: value.location)
-                    } else if levelDesignerBoardViewModel.isInAddBlockMode {
-                        levelDesignerBoardViewModel.addBlock(center: value.location)
-                    }
+                .gesture(
+                    DragGesture(minimumDistance: .zero, coordinateSpace: .local)
+                        .onChanged { value in
+                            guard levelDesignerBoardViewModel.isInMultiselectMode else {
+                                return
+                            }
+
+                            let currentLocation = value.location
+
+                            guard let lastPositionForCurrentDrag = lastPositionForCurrentDrag else {
+                                lastPositionForCurrentDrag = currentLocation
+                                return
+                            }
+
+                            let movementOffset = CGVector(from: currentLocation)
+                                .subtract(CGVector(from: lastPositionForCurrentDrag))
+
+                            self.lastPositionForCurrentDrag = currentLocation
+
+                            levelDesignerBoardViewModel.moveBoardObjects(offset: movementOffset)
+                        }.onEnded { value in
+                            if levelDesignerBoardViewModel.isInAddPegMode {
+                                levelDesignerBoardViewModel.addPeg(center: value.location)
+                            } else if levelDesignerBoardViewModel.isInAddBlockMode {
+                                levelDesignerBoardViewModel.addBlock(center: value.location)
+                            }
+
+                            lastPositionForCurrentDrag = nil
                 })
                 .gesture(MagnificationGesture().onChanged { value in
                     let scaleFactor = value / lastScale
                     lastScale = value
-                    levelDesignerBoardViewModel.scaleBoardObject(factor: scaleFactor)
+                    levelDesignerBoardViewModel.scaleBoardObjects(factor: scaleFactor)
                 }.onEnded { _ in
                     lastScale = 1.0
                 }.simultaneously(with: RotationGesture().onChanged { angle in
                     let delta = angle - lastAngle
                     lastAngle = angle
-                    levelDesignerBoardViewModel.rotateBoardObject(angle: delta.radians)
+                    levelDesignerBoardViewModel.rotateBoardObjects(angle: delta.radians)
                 }.onEnded { _ in
                     lastAngle = .zero
                 }))

@@ -9,8 +9,18 @@ import Foundation
 
 class PegSelectorViewModel: ObservableObject {
     @Published private(set) var selectedPegColor: Peg.Color = .blue
-    @Published private(set) var isInDeleteMode = false
+
     @Published private(set) var isInAddBlockMode = false
+    @Published private(set) var isInMultiselectMode = false {
+        didSet {
+            guard !isInMultiselectMode else {
+                return
+            }
+
+            levelDesignerViewModel.boardViewModel?.unselectAllObjects()
+        }
+    }
+    @Published private(set) var isInDeleteMode = false
 
     private var levelDesignerViewModel: LevelDesignerViewModel
 
@@ -19,7 +29,7 @@ class PegSelectorViewModel: ObservableObject {
     }
 
     var isInAddPegMode: Bool {
-        !isInDeleteMode && !isInAddBlockMode
+        !isInDeleteMode && !isInAddBlockMode && !isInMultiselectMode
     }
 
     var pegColors: [Peg.Color] {
@@ -33,16 +43,25 @@ class PegSelectorViewModel: ObservableObject {
 
     func enterAddPegMode() {
         isInAddBlockMode = false
+        isInMultiselectMode = false
         isInDeleteMode = false
     }
 
     func enterAddBlockMode() {
         isInAddBlockMode = true
+        isInMultiselectMode = false
+        isInDeleteMode = false
+    }
+
+    func enterMultiselectMode() {
+        isInAddBlockMode = false
+        isInMultiselectMode = true
         isInDeleteMode = false
     }
 
     func enterDeleteMode() {
-        isInDeleteMode = true
         isInAddBlockMode = false
+        isInMultiselectMode = false
+        isInDeleteMode = true
     }
 }

@@ -12,4 +12,8 @@ extension CGPoint {
     func offset(x: CGFloat = 0, y: CGFloat = 0) -> CGPoint {
         CGPoint(x: self.x + x, y: self.y + y)
     }
+
+    func offset(vector: CGVector) -> CGPoint {
+        CGPoint(x: x + vector.dx, y: y + vector.dy)
+    }
 }

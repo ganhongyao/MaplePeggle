@@ -115,6 +115,12 @@ class Board {
         peg.move(to: newCenter)
     }
 
+    func movePeg(peg: Peg, offset: CGVector) {
+        let newCenter = peg.center.offset(vector: offset)
+
+        movePeg(peg: peg, to: newCenter)
+    }
+
     func moveBlock(block: Block, to newCentroid: CGPoint) {
         guard blocks.contains(block) else {
             return
@@ -128,6 +134,12 @@ class Board {
         }
 
         block.move(to: newCentroid)
+    }
+
+    func moveBlock(block: Block, offset: CGVector) {
+        let newCentroid = block.centroid.offset(vector: offset)
+
+        moveBlock(block: block, to: newCentroid)
     }
 
     func moveBlockVertex(block: Block, vertexIdx: Int, to newLocation: CGPoint) {

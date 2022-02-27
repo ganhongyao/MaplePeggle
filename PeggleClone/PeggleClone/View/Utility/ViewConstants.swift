@@ -56,6 +56,7 @@ struct ViewConstants {
     /// PegSelectorView
     static let pegSelectorScrollUpImage = "arrow.up.circle.fill"
     static let pegSelectorScrollDownImage = "arrow.down.circle.fill"
+    static let pegSelectorMultiselectImage = "cursorarrow.and.square.on.square.dashed"
 
     /// PegView
     static let pegNumTapsToSelect = 2

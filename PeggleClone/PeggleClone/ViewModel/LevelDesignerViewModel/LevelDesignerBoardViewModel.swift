@@ -18,7 +18,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     @Published var error: PersistenceError?
 
-    private(set) var selectedObject: BoardObject?
+    var selectedObjects: [BoardObject] = []
 
     var scaleFactor: CGFloat = 1.0
 
@@ -119,6 +119,10 @@ class LevelDesignerBoardViewModel: ObservableObject {
         levelDesignerViewModel.pegSelectorViewModel?.isInAddBlockMode ?? false
     }
 
+    var isInMultiselectMode: Bool {
+        levelDesignerViewModel.pegSelectorViewModel?.isInMultiselectMode ?? false
+    }
+
     var isInDeleteMode: Bool {
         levelDesignerViewModel.pegSelectorViewModel?.isInDeleteMode ?? false
     }
@@ -131,8 +135,32 @@ class LevelDesignerBoardViewModel: ObservableObject {
         board.pegs.filter { $0.color == color }.count
     }
 
-    func select(object: BoardObject?) {
-        selectedObject = object
+    func unselectAllObjects() {
+        selectedObjects = []
+
+        objectWillChange.send()
+    }
+
+    func unselect(object: BoardObject) {
+        guard selectedObjects.contains(where: { $0 === object }) else {
+            return
+        }
+
+        selectedObjects.removeAll { $0 === object }
+
+        objectWillChange.send()
+    }
+
+    func select(object: BoardObject) {
+        guard !selectedObjects.contains(where: { $0 === object }) else {
+            return
+        }
+
+        if !isInMultiselectMode {
+            unselectAllObjects()
+        }
+
+        selectedObjects.append(object)
 
         objectWillChange.send()
     }
@@ -158,32 +186,48 @@ class LevelDesignerBoardViewModel: ObservableObject {
         objectWillChange.send()
     }
 
-    func scaleBoardObject(factor: CGFloat) {
-        guard let selectedObject = selectedObject else {
-            return
+    func moveBoardObjects(offset: CGVector) {
+        selectedObjects.forEach { moveBoardObject(object: $0, offset: offset) }
+    }
+
+    func moveBoardObject(object: BoardObject, offset: CGVector) {
+        if let selectedPeg = object as? Peg {
+            board.movePeg(peg: selectedPeg, offset: offset)
         }
 
-        if let selectedPeg = selectedObject as? Peg {
+        if let selectedBlock = object as? Block {
+            board.moveBlock(block: selectedBlock, offset: offset)
+        }
+
+        objectWillChange.send()
+    }
+
+    func scaleBoardObjects(factor: CGFloat) {
+        selectedObjects.forEach { scaleBoardObject(object: $0, factor: factor) }
+    }
+
+    func scaleBoardObject(object: BoardObject, factor: CGFloat) {
+        if let selectedPeg = object as? Peg {
             board.scalePeg(peg: selectedPeg, scaleFactor: factor)
         }
 
-        if let selectedBlock = selectedObject as? Block {
+        if let selectedBlock = object as? Block {
             board.scaleBlock(block: selectedBlock, scaleFactor: factor)
         }
 
         objectWillChange.send()
     }
 
-    func rotateBoardObject(angle: CGFloat) {
-        guard let selectedObject = selectedObject else {
-            return
-        }
+    func rotateBoardObjects(angle: CGFloat) {
+        selectedObjects.forEach { rotateBoardObject(object: $0, angle: angle) }
+    }
 
-        if let selectedPeg = selectedObject as? Peg {
+    func rotateBoardObject(object: BoardObject, angle: CGFloat) {
+        if let selectedPeg = object as? Peg {
             board.rotatePeg(peg: selectedPeg, angle: angle)
         }
 
-        if let selectedBlock = selectedObject as? Block {
+        if let selectedBlock = object as? Block {
             board.rotateBlock(block: selectedBlock, angle: angle)
         }
 

@@ -62,6 +62,12 @@ extension Polygonal {
         }
     }
 
+    public func move(offset: CGVector) {
+        let newCentroid = CGPoint(from: CGVector(from: centroid).add(offset))
+
+        move(to: newCentroid)
+    }
+
     public func scale(factor: CGFloat) {
         for idx in vertices.indices {
             let originalVertex = vertices[idx]

@@ -33,14 +33,18 @@ class LevelDesignerViewModel: ObservableObject {
         boardViewModel?.boardSize ?? .zero
     }
 
-    func unselectBoardObject() -> BoardObject? {
-        let selectedObject = boardViewModel?.selectedObject
-        boardViewModel?.select(object: nil)
-        return selectedObject
+    func unselectBoardObjects() -> [BoardObject] {
+        guard let boardViewModel = boardViewModel else {
+            return []
+        }
+
+        let selectedObjects = boardViewModel.selectedObjects
+        boardViewModel.selectedObjects = []
+        return selectedObjects
     }
 
-    func reselectBoardObject(selectedObject: BoardObject?) {
-        boardViewModel?.select(object: selectedObject)
+    func reselectBoardObjects(selectedObjects: [BoardObject]) {
+        boardViewModel?.selectedObjects = selectedObjects
     }
 
     func saveBoard() {
