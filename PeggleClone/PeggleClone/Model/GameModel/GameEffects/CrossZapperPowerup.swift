@@ -8,7 +8,7 @@
 import CoreGraphics
 
 class CrossZapperPowerup: Powerup {
-    private static let thicknessProportionOfPeg = 1.0
+    private static let thicknessProportionOfPegDiameter = 1.0
 
     var center: CGPoint
 
@@ -20,7 +20,7 @@ class CrossZapperPowerup: Powerup {
     }
 
     convenience init(from gamePeg: GamePeg) {
-        self.init(center: gamePeg.center, thickness: gamePeg.diameter * CrossZapperPowerup.thicknessProportionOfPeg)
+        self.init(center: gamePeg.center, thickness: gamePeg.diameter * CrossZapperPowerup.thicknessProportionOfPegDiameter)
     }
 
     func apply(gameBoard: GameBoard) -> Bool {

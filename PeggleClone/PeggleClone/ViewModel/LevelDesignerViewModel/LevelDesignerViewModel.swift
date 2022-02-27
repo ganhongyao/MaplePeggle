@@ -14,11 +14,11 @@ class LevelDesignerViewModel: ObservableObject {
 
     @Published var error: PersistenceError?
 
+    @Published private(set) var boardViewModel: LevelDesignerBoardViewModel?
+
     private(set) var pegSelectorViewModel: PegSelectorViewModel?
 
     private(set) var controlsViewModel: ControlsViewModel?
-
-    @Published private(set) var boardViewModel: LevelDesignerBoardViewModel?
 
     private let boardId: UUID?
 

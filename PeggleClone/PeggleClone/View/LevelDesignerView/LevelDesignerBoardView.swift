@@ -97,25 +97,25 @@ struct LevelDesignerBoardView: View {
                 .blur(radius: ViewConstants.backgroundBlurRadius)
 
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
-                PegView(pegViewModel: pegViewModel)
+                LevelSelectorPegView(pegViewModel: pegViewModel)
             }
 
             ForEach(levelDesignerBoardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
-                BlockView(blockViewModel: blockViewModel)
+                LevelDesignerBlockView(blockViewModel: blockViewModel)
             }
         }
         .frame(width: levelDesignerBoardViewModel.boardSize.width,
                height: levelDesignerBoardViewModel.boardSize.height)
     }
 
-    private func makePegView(pegViewModel: PegViewModel) -> some View {
+    private func makePegView(pegViewModel: LevelDesignerPegViewModel) -> some View {
         let exceededTop = pegViewModel.center.y - pegViewModel.radius -
             levelDesignerBoardViewModel.amountScrolledDownwards < 0
         let exceededBottom = pegViewModel.center.y + pegViewModel.radius -
             levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
         let canDisplayInFull = !exceededTop && !exceededBottom
 
-        return PegView(pegViewModel: pegViewModel)
+        return LevelSelectorPegView(pegViewModel: pegViewModel)
             .offset(y: -levelDesignerBoardViewModel.amountScrolledDownwards)
             .highPriorityGesture(TapGesture().onEnded {
                 levelDesignerBoardViewModel.isInDeleteMode
@@ -133,14 +133,14 @@ struct LevelDesignerBoardView: View {
             .clipped()
     }
 
-    private func makeBlockView(blockViewModel: BlockViewModel) -> some View {
+    private func makeBlockView(blockViewModel: LevelDesignerBlockViewModel) -> some View {
         let exceededTop = blockViewModel.minYCoordinate -
             levelDesignerBoardViewModel.amountScrolledDownwards < 0
         let exceededBottom = blockViewModel.maxYCoordinate -
             levelDesignerBoardViewModel.amountScrolledDownwards > screenHeight
         let canDisplayInFull = !exceededTop && !exceededBottom
 
-        return BlockView(blockViewModel: blockViewModel,
+        return LevelDesignerBlockView(blockViewModel: blockViewModel,
                   yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
             .highPriorityGesture(TapGesture().onEnded {
                 levelDesignerBoardViewModel.isInDeleteMode
@@ -198,8 +198,8 @@ struct LevelDesignerBoardView: View {
                                     return
                                 }
 
-                                let movementOffset = CGVector(from: currentLocation)
-                                    .subtract(CGVector(from: lastPositionForCurrentDrag))
+                                let movementOffset = CGVector(from: currentLocation) -
+                                    CGVector(from: lastPositionForCurrentDrag)
 
                                 self.lastPositionForCurrentDrag = currentLocation
 

@@ -9,7 +9,7 @@ import PhysicsEngine
 import CoreGraphics
 
 class CircularExplosionPowerup: Circular, Powerup {
-    private static let sizeProportionOfPeg = 3.0
+    private static let radiusProportionOfPeg = 3.0
 
     var radius: CGFloat
 
@@ -21,7 +21,7 @@ class CircularExplosionPowerup: Circular, Powerup {
     }
 
     convenience init(from gamePeg: GamePeg) {
-        gamePeg.radius *= CircularExplosionPowerup.sizeProportionOfPeg
+        gamePeg.radius *= CircularExplosionPowerup.radiusProportionOfPeg
         self.init(blastRadius: gamePeg.radius, blastCenter: gamePeg.center)
     }
 

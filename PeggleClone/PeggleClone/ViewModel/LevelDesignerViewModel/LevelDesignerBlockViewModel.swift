@@ -1,5 +1,5 @@
 //
-//  BlockViewModel.swift
+//  LevelDesignerBlockViewModel.swift
 //  PeggleClone
 //
 //  Created by Hong Yao on 21/2/22.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-class BlockViewModel: ObservableObject {
+class LevelDesignerBlockViewModel: ObservableObject {
     @Published private var block: Block
 
     private unowned var levelDesignerBoardViewModel: LevelDesignerBoardViewModel

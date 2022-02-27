@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-class PegViewModel: ObservableObject {
+class LevelDesignerPegViewModel: ObservableObject {
     @Published private var peg: Peg
 
     private unowned var levelDesignerBoardViewModel: LevelDesignerBoardViewModel

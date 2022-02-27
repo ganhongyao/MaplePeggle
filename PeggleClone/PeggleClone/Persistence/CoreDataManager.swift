@@ -13,22 +13,23 @@ class CoreDataManager: PersistenceManager {
 
     private let container: NSPersistentContainer
 
-    private static let isAppAlreadyLaunchedOnceKey = "isAppAlreadyLaunchedOnce"
+    private static let containerName = "PeggleClone"
 
-    /// Useful when we need to determine whether to populate the database with seed data.
-    var isAppAlreadyLaunchedOnce: Bool {
+    private static let isSeededKey = "isSeeded"
+
+    var isSeeded: Bool {
         let defaults = UserDefaults.standard
 
-        guard defaults.string(forKey: CoreDataManager.isAppAlreadyLaunchedOnceKey) == nil else {
+        guard defaults.string(forKey: CoreDataManager.isSeededKey) == nil else {
             return true
         }
 
-        defaults.set(true, forKey: CoreDataManager.isAppAlreadyLaunchedOnceKey)
+        defaults.set(true, forKey: CoreDataManager.isSeededKey)
         return false
     }
 
     private init() {
-        container = NSPersistentContainer(name: "PeggleClone")
+        container = NSPersistentContainer(name: CoreDataManager.containerName)
         container.loadPersistentStores { _, error in
             if let error = error {
                 print("Error loading Core Data: \(error)")

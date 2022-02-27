@@ -25,11 +25,11 @@ struct LevelDesignerView: View {
                 Image(ViewConstants.coralBackgroundImage).resizable()
 
                 ForEach(boardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
-                    PegView(pegViewModel: pegViewModel)
+                    LevelSelectorPegView(pegViewModel: pegViewModel)
                 }
 
                 ForEach(boardViewModel.blockViewModels, id: \.blockId) { blockViewModel in
-                    BlockView(blockViewModel: blockViewModel)
+                    LevelDesignerBlockView(blockViewModel: blockViewModel)
                 }
             }
             .frame(width: boardViewModel.boardSize.width, height: boardViewModel.boardSize.height)

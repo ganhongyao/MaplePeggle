@@ -8,6 +8,10 @@
 import CoreGraphics
 
 extension CGVector {
+    static func -(lhs: CGVector, rhs: CGVector) -> CGVector {
+        CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)
+    }
+
     init(from point: CGPoint) {
         self.init(dx: point.x, dy: point.y)
     }
@@ -18,9 +22,5 @@ extension CGVector {
 
     func scale(by factor: CGFloat) -> CGVector {
         CGVector(dx: dx * factor, dy: dy * factor)
-    }
-
-    func subtract(_ other: CGVector) -> CGVector {
-        CGVector(dx: dx - other.dx, dy: dy - other.dy)
     }
 }

@@ -32,13 +32,6 @@ import CoreGraphics
                                Peg(center: CGPoint(x: 335, y: 350.4), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 335, y: 400.5), radius: 25, color: .orange),
 
-                               Peg(center: CGPoint(x: 335, y: 450.6), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 500.7), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 550.8), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 600.9), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 651.0), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 701.1), radius: 25, color: .blue),
-
                                Peg(center: CGPoint(x: 545, y: 150.0), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 545, y: 200.1), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 545, y: 250.2), radius: 25, color: .blue),
@@ -51,12 +44,25 @@ import CoreGraphics
                                Peg(center: CGPoint(x: 284, y: 400.5), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 388, y: 400.5), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 441, y: 400.5), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 494, y: 400.5), radius: 25, color: .blue)]
+                               Peg(center: CGPoint(x: 494, y: 400.5), radius: 25, color: .blue),
+
+                               Peg(center: CGPoint(x: 335, y: 450.6), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 500.7), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 550.8), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 600.9), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 651.0), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 701.1), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 751.2), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 801.3), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 851.4), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 901.5), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 951.6), radius: 25, color: .blue),
+                               Peg(center: CGPoint(x: 335, y: 1001.7), radius: 25, color: .blue)]
 
          let board = Board(id: UUID(),
                                name: "Trident",
                                baseSize: CGSize(width: 700, height: 800),
-                               size: CGSize(width: 700, height: 800),
+                               size: CGSize(width: 700, height: 1100),
                                snapshot: nil,
                                pegs: pegs,
                                blocks: [],

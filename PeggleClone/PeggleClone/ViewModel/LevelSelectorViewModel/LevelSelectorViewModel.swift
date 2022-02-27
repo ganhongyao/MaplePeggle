@@ -8,6 +8,8 @@
 import Foundation
 
 class LevelSelectorViewModel: ObservableObject {
+    private static let sortDescriptorKey = "name"
+
     @Published var boards: [Board] = []
 
     @Published var isShowingError = false
@@ -15,18 +17,15 @@ class LevelSelectorViewModel: ObservableObject {
     @Published var error: PersistenceError?
 
     func fetchAllBoards() {
-        let sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        let sortDescriptors = [NSSortDescriptor(key: LevelSelectorViewModel.sortDescriptorKey, ascending: true)]
 
-        // TODO: Comment this out
-//        UserDefaults.standard.removeObject(forKey: "isAppAlreadyLaunchedOnce")
-
-        if !CoreDataManager.sharedInstance.isAppAlreadyLaunchedOnce {
+//        if !CoreDataManager.sharedInstance.isSeeded {
             do {
                 try SeedData.seedAllBoards(database: CoreDataManager.sharedInstance)
             } catch {
                 print("Error seeding boards: \(error)")
             }
-        }
+//        }
 
         do {
             let fetchedBoards: [Board] = try CoreDataManager.sharedInstance.fetchAll(sortDescriptors: sortDescriptors)

@@ -19,7 +19,7 @@ class GameBoardViewModel: ObservableObject {
 
     private(set) var bucketViewModel: GameBucketViewModel
 
-    var displayLink: CADisplayLink?
+    private var displayLink: CADisplayLink?
 
     var scaleFactor: CGFloat = 1.0
 
@@ -149,6 +149,8 @@ class GameBoardViewModel: ObservableObject {
             gameBoard.size = CGSize(width: gameBoard.size.width * scaleFactor,
                                     height: gameBoard.size.height * scaleFactor)
         }
+
+        gameBoard.gameCannon.ballRadius = GameBall.defaultRadius * scaleFactor
 
         for gameBlock in gameBlocks {
             let newCentroid = CGPoint(x: gameBlock.centroid.x * scaleFactor, y: gameBlock.centroid.y * scaleFactor)

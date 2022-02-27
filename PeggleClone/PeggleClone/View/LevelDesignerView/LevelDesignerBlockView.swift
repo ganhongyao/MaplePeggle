@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct BlockView: View {
-    @ObservedObject var blockViewModel: BlockViewModel
+struct LevelDesignerBlockView: View {
+    @ObservedObject var blockViewModel: LevelDesignerBlockViewModel
 
     var yOffset: CGFloat = 0
 

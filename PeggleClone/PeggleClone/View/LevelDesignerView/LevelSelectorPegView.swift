@@ -1,5 +1,5 @@
 //
-//  PegView.swift
+//  LevelSelectorPegView.swift
 //  PeggleClone
 //
 //  Created by Hong Yao on 18/1/22.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PegView: View {
-    @ObservedObject var pegViewModel: PegViewModel
+struct LevelSelectorPegView: View {
+    @ObservedObject var pegViewModel: LevelDesignerPegViewModel
 
     @State var rotation: CGFloat = .zero
 

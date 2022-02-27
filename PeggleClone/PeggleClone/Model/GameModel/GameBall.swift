@@ -9,7 +9,7 @@ import CoreGraphics
 import PhysicsEngine
 
 class GameBall: CircularPhysicsBody {
-    private static let defaultRadius: CGFloat = 25
+    static let defaultRadius: CGFloat = 25
 
     let isMovable = true
 
@@ -39,7 +39,8 @@ class GameBall: CircularPhysicsBody {
         subtotalScore * numPegsHit
     }
 
-    init(center: CGPoint) {
+    init(center: CGPoint, radius: CGFloat) {
         self.center = center
+        self.radius = radius
     }
 }

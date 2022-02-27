@@ -16,6 +16,8 @@ class GameCannon {
 
     var height = defaultHeight
 
+    var ballRadius: CGFloat = GameBall.defaultRadius
+
     private var lastValidAimedLocation: CGPoint
 
     private var aimedLocation: CGPoint
@@ -43,7 +45,7 @@ class GameCannon {
     }
 
     var ballToLaunch: GameBall {
-        let ball = GameBall(center: center)
+        let ball = GameBall(center: center, radius: ballRadius)
 
         let scaleFactor = GameCannon.ballLaunchVelocity / ballLaunchDirectionVector.norm
 
@@ -79,6 +81,6 @@ class GameCannon {
     }
 
     private func computeBallLaunchDirectionVector(referencePoint: CGPoint) -> CGVector {
-        CGVector(from: referencePoint).subtract(CGVector(from: ballStartingPosition))
+        CGVector(from: referencePoint) - CGVector(from: ballStartingPosition)
     }
 }
