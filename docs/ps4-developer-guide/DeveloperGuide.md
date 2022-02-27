@@ -24,8 +24,6 @@ games to be built on the same physics engine.
 
 <img src="images/ViewClassDiagram.png" />
 
-<img src="images/GameViewScreenshot.png" />
-
 - The views are responsible for rendering the placement and positions of the game objects.
 - Graphical effects such as animating the removal of a peg are done within the view layer.
 - The **Observer** pattern is used, where a view would observe changes in the view model to update its components.
