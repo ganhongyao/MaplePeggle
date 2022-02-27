@@ -19,14 +19,16 @@ struct PegSelectorView: View {
     var body: some View {
         HStack {
             ForEach(pegSelectorViewModel.pegColors, id: \.rawValue) { color in
+                let isSelected = pegSelectorViewModel.isInAddPegMode &&
+                    color == pegSelectorViewModel.selectedPegColor
+
                 Button(action: {
                     pegSelectorViewModel.setSelectedPegColor(color: color)
                 }, label: {
                     getPegImage(color: color)
                         .resizable()
                         .scaledToFit()
-                        .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddPegMode
-                                                && color == pegSelectorViewModel.selectedPegColor)
+                        .modifier(TranslucentViewModifier(shouldBeTranslucent: !isSelected)
                         )
                         .overlay(
                             Text(String(boardViewModel.getPegCount(color: color)))
@@ -42,7 +44,7 @@ struct PegSelectorView: View {
                 Image("peg-blue-triangle") // FIXME: replace image
                     .resizable()
                     .scaledToFit()
-                    .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInAddBlockMode))
+                    .modifier(TranslucentViewModifier(shouldBeTranslucent: !pegSelectorViewModel.isInAddBlockMode))
                     .overlay(
                         Text(String(boardViewModel.blockCount))
                             .bold()
@@ -50,12 +52,15 @@ struct PegSelectorView: View {
                     )
             })
 
+            Spacer()
+
             Button(action: {
                 pegSelectorViewModel.enterMultiselectMode()
             }, label: {
                 Image(systemName: ViewConstants.pegSelectorMultiselectImage)
                     .resizable()
                     .scaledToFit()
+                    .modifier(TranslucentViewModifier(shouldBeTranslucent: !pegSelectorViewModel.isInMultiselectMode))
             })
 
             Spacer()
@@ -96,7 +101,7 @@ struct PegSelectorView: View {
                 Image(ViewConstants.deleteImage)
                     .resizable()
                     .scaledToFit()
-                    .modifier(TranslucentViewModifier(shouldBeTranslucent: pegSelectorViewModel.isInDeleteMode))
+                    .modifier(TranslucentViewModifier(shouldBeTranslucent: !pegSelectorViewModel.isInDeleteMode))
             })
         }
         .padding()
