@@ -40,7 +40,7 @@ extension Polygonal {
 
     public var edgeVectors: [CGVector] {
         edges.map { pointA, pointB in
-            CGVector(from: pointB.subtract(pointA))
+            CGVector(from: pointB - pointA)
         }
     }
 
@@ -63,7 +63,7 @@ extension Polygonal {
     }
 
     public func move(offset: CGVector) {
-        let newCentroid = CGPoint(from: CGVector(from: centroid).add(offset))
+        let newCentroid = centroid + CGPoint(from: offset)
 
         move(to: newCentroid)
     }
@@ -86,12 +86,12 @@ extension Polygonal {
     }
 
     private func rotatePoint(point: CGPoint, angle: CGFloat, anchor: CGPoint) -> CGPoint {
-        let anchoredPoint = point.subtract(anchor)
+        let anchoredPoint = point - anchor
 
         let rotatedPoint = CGPoint(x: anchoredPoint.x * cos(angle) - anchoredPoint.y * sin(angle),
                                    y: anchoredPoint.x * sin(angle) + anchoredPoint.y * cos(angle))
 
-        let unanchoredPoint = rotatedPoint.add(anchor)
+        let unanchoredPoint = rotatedPoint + anchor
 
         return unanchoredPoint
     }
@@ -100,7 +100,7 @@ extension Polygonal {
         var axes = edgeVectors.map { $0.perpendicular() }
 
         if let closestVertex = closestVertex(to: circle.center) {
-            axes.append(CGVector(from: closestVertex.subtract(circle.center)))
+            axes.append(CGVector(from: closestVertex - circle.center))
         }
 
         return axes.allSatisfy { axis in

@@ -72,7 +72,6 @@
 		F3D0DF5C27A5255200740A26 /* DummyCircularObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF5B27A5255200740A26 /* DummyCircularObject.swift */; };
 		F3D0DF5E27A52ADC00740A26 /* PegTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF5D27A52ADC00740A26 /* PegTests.swift */; };
 		F3D0DF6027A5434100740A26 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF5F27A5434000740A26 /* BoardTests.swift */; };
-		F3D0DF6227A54EBA00740A26 /* CGPoint+Hashable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6127A54EBA00740A26 /* CGPoint+Hashable.swift */; };
 		F3D0DF6627A59B9F00740A26 /* PersistenceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */; };
 		F3D0DF6827A5ADA000740A26 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */; };
 		F3E13C6A27CA49A800E5E376 /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E13C6927CA49A700E5E376 /* MainMenuView.swift */; };
@@ -93,7 +92,7 @@
 		F3F13BD627B811C900EFC7F4 /* GameBoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F13BD527B811C900EFC7F4 /* GameBoardTests.swift */; };
 		F3F13BD827B8186B00EFC7F4 /* GameCannonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F13BD727B8186B00EFC7F4 /* GameCannonTests.swift */; };
 		F3F6408027ACC3B10063B64A /* PhysicsEngine in Frameworks */ = {isa = PBXBuildFile; productRef = F3F6407F27ACC3B10063B64A /* PhysicsEngine */; };
-		F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6408127ACC67F0063B64A /* CGRect+FromCircularObject.swift */; };
+		F3F6408227ACC67F0063B64A /* CGRect+FromBoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6408127ACC67F0063B64A /* CGRect+FromBoardObject.swift */; };
 		F3F6408827ACE8DA0063B64A /* GamePeg.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6408727ACE8DA0063B64A /* GamePeg.swift */; };
 		F3F6408A27ACE9790063B64A /* GameBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6408927ACE9790063B64A /* GameBall.swift */; };
 		F3F6408C27ACE9A70063B64A /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3F6408B27ACE9A70063B64A /* GameBoard.swift */; };
@@ -185,7 +184,6 @@
 		F3D0DF5B27A5255200740A26 /* DummyCircularObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyCircularObject.swift; sourceTree = "<group>"; };
 		F3D0DF5D27A52ADC00740A26 /* PegTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegTests.swift; sourceTree = "<group>"; };
 		F3D0DF5F27A5434000740A26 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
-		F3D0DF6127A54EBA00740A26 /* CGPoint+Hashable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Hashable.swift"; sourceTree = "<group>"; };
 		F3D0DF6527A59B9F00740A26 /* PersistenceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceError.swift; sourceTree = "<group>"; };
 		F3D0DF6727A5ADA000740A26 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		F3D6040427ACC2910066809C /* PhysicsEngine */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PhysicsEngine; path = ../PhysicsEngine; sourceTree = "<group>"; };
@@ -206,7 +204,7 @@
 		F3F13BD227B80F3300EFC7F4 /* CGVectorOperationsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGVectorOperationsTests.swift; sourceTree = "<group>"; };
 		F3F13BD527B811C900EFC7F4 /* GameBoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoardTests.swift; sourceTree = "<group>"; };
 		F3F13BD727B8186B00EFC7F4 /* GameCannonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCannonTests.swift; sourceTree = "<group>"; };
-		F3F6408127ACC67F0063B64A /* CGRect+FromCircularObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+FromCircularObject.swift"; sourceTree = "<group>"; };
+		F3F6408127ACC67F0063B64A /* CGRect+FromBoardObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+FromBoardObject.swift"; sourceTree = "<group>"; };
 		F3F6408727ACE8DA0063B64A /* GamePeg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePeg.swift; sourceTree = "<group>"; };
 		F3F6408927ACE9790063B64A /* GameBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBall.swift; sourceTree = "<group>"; };
 		F3F6408B27ACE9A70063B64A /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
@@ -359,8 +357,7 @@
 		F3CB758F27A463FB0053B675 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				F3F6408127ACC67F0063B64A /* CGRect+FromCircularObject.swift */,
-				F3D0DF6127A54EBA00740A26 /* CGPoint+Hashable.swift */,
+				F3F6408127ACC67F0063B64A /* CGRect+FromBoardObject.swift */,
 				F34A672327C8A97A00B9CABE /* CGPoint+Offset.swift */,
 				F3C9F75A27CB3B210089241A /* GenericPolygon.swift */,
 				F3B2967327AFD2E300BA25D5 /* CGVector+Operations.swift */,
@@ -688,7 +685,6 @@
 				F31F5A872796FE7B0031EA60 /* Peg.swift in Sources */,
 				F3E1D8F1279EDB87005DCEEA /* PegViewModel.swift in Sources */,
 				F3C7709427C4CA9A0030F7BE /* GameBlockView.swift in Sources */,
-				F3D0DF6227A54EBA00740A26 /* CGPoint+Hashable.swift in Sources */,
 				F34A671627C6ABCC00B9CABE /* GameBucket.swift in Sources */,
 				F3F6409427ACF3550063B64A /* GameBoardViewModel.swift in Sources */,
 				F3B62E3A27C9F5DA0090DD5A /* CGSize+AspectRatio.swift in Sources */,
@@ -710,7 +706,7 @@
 				F3F6409127ACF25E0063B64A /* GameBoardView.swift in Sources */,
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
 				F3E13C7327CA6B7100E5E376 /* AudioPlayer.swift in Sources */,
-				F3F6408227ACC67F0063B64A /* CGRect+FromCircularObject.swift in Sources */,
+				F3F6408227ACC67F0063B64A /* CGRect+FromBoardObject.swift in Sources */,
 				F3C80C2D27A2DDFE000770FB /* PegSelectorView.swift in Sources */,
 				F3B62E3827C916920090DD5A /* SeedData.swift in Sources */,
 				F3C0411527C68A7600DB1112 /* PowerupDescriptor.swift in Sources */,

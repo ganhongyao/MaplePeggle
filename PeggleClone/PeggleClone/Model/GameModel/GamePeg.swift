@@ -10,6 +10,8 @@ import CoreGraphics
 import PhysicsEngine
 
 class GamePeg: Peg, CircularPhysicsBody {
+    static let maxCollisionsBeforeForceRemoval = 50
+
     let isMovable = false
 
     let isKnockable = false
@@ -32,14 +34,12 @@ class GamePeg: Peg, CircularPhysicsBody {
         isPowerup && hasCollided && !hasActivatedPowerup
     }
 
-    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
-                  parentBoard: Board? = nil) {
-        super.init(id: id, center: center, radius: radius, facingAngle: facingAngle, color: color,
-                   parentBoard: parentBoard)
+    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color
+                  ) {
+        super.init(id: id, center: center, radius: radius, facingAngle: facingAngle, color: color)
     }
 
     convenience init(from peg: Peg) {
-        self.init(id: peg.id, center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color,
-                  parentBoard: peg.parentBoard)
+        self.init(id: peg.id, center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color)
     }
 }

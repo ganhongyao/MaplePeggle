@@ -38,7 +38,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
                 return
             }
 
-            board = fetchedBoard.isSeedData ? Board.makeBoardFromSeedData(board: fetchedBoard) : fetchedBoard
+            board = fetchedBoard.isSeedData ? Board.makeBoardFromTemplate(templateBoard: fetchedBoard) : fetchedBoard
 
         } catch let persistenceError as PersistenceError {
             isShowingError = true
@@ -331,7 +331,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
     func trimAddedButUnusedHeight() {
         let totalAddedHeight = amountScrolledDownwards + unscrolledHeight
 
-        let unusedHeight = boardSize.height - board.maxObjectYCoordinate
+        let unusedHeight = board.unusedHeightAtBottom
 
         trimmedHeight = min(unusedHeight, totalAddedHeight)
 

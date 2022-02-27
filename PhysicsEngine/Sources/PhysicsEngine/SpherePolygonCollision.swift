@@ -44,7 +44,7 @@ public struct SpherePolygonCollision: Collision {
 
         var axes = polygon.edgeVectors.map { $0.perpendicular() }
         if let closestVertex = polygon.closestVertex(to: circle.center) {
-            axes.append(CGVector(from: closestVertex.subtract(circle.center)))
+            axes.append(CGVector(from: closestVertex - circle.center))
         }
 
         for axis in axes {

@@ -8,22 +8,20 @@
 import CoreGraphics
 
 extension CGVector {
+    static func +(lhs: CGVector, rhs: CGVector) -> CGVector {
+        CGVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy)
+    }
+
+    static func -(lhs: CGVector, rhs: CGVector) -> CGVector {
+        CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)
+    }
+
+    static func *(vector: CGVector, factor: CGFloat) -> CGVector {
+        CGVector(dx: vector.dx * factor, dy: vector.dy * factor)
+    }
+
     init(from point: CGPoint) {
         self.init(dx: point.x, dy: point.y)
-    }
-
-    func add(_ other: CGVector) -> CGVector {
-        let dx = dx + other.dx
-        let dy = dy + other.dy
-
-        return CGVector(dx: dx, dy: dy)
-    }
-
-    func subtract(_ other: CGVector) -> CGVector {
-        let dx = dx - other.dx
-        let dy = dy - other.dy
-
-        return CGVector(dx: dx, dy: dy)
     }
 
     func rotate(by angle: CGFloat) -> CGVector {
@@ -33,12 +31,8 @@ extension CGVector {
         return CGVector(dx: dx, dy: dy)
     }
 
-    func scale(factor: CGFloat) -> CGVector {
-        CGVector(dx: dx * factor, dy: dy * factor)
-    }
-
     func normalized() -> CGVector {
-        scale(factor: 1 / norm)
+        self * (1 / norm)
     }
 
     func perpendicular() -> CGVector {

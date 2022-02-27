@@ -30,7 +30,7 @@ public struct SphereSphereCollision: Collision {
         let positionVectorA = CGVector(dx: bodyA.center.x, dy: bodyA.center.y)
         let positionVectorB = CGVector(dx: bodyB.center.x, dy: bodyB.center.y)
 
-        return positionVectorB.subtract(positionVectorA)
+        return positionVectorB - positionVectorA
     }
 
     public var collisionAngle: CGFloat {

@@ -33,7 +33,7 @@ extension PhysicsWorld {
 
     public func addBody(physicsBody: PhysicsBody) {
         if physicsBody.isGravitable {
-            let weight = gravity.scale(factor: physicsBody.mass)
+            let weight = gravity * physicsBody.mass
             physicsBody.applyForce(force: weight)
         }
 

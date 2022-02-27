@@ -23,7 +23,7 @@ extension Circular {
     }
 
     public func move(offset: CGVector) {
-        let newCenter = CGPoint(from: CGVector(from: center).add(offset))
+        let newCenter = center + CGPoint(from: offset)
 
         move(to: newCenter)
     }
@@ -47,10 +47,10 @@ extension Circular {
     public func getMinMaxProjectionsOntoAxis(axis: CGVector) -> (CGFloat, CGFloat) {
         let normalizedAxis = axis.normalized()
 
-        let directionVector = normalizedAxis.scale(factor: radius)
+        let directionVector = normalizedAxis * radius
 
-        let pointOnCircumference1 = center.add(CGPoint(from: directionVector))
-        let pointOnCircumference2 = center.subtract(CGPoint(from: directionVector))
+        let pointOnCircumference1 = center + CGPoint(from: directionVector)
+        let pointOnCircumference2 = center - CGPoint(from: directionVector)
 
         let projection1 = pointOnCircumference1.projectOnto(axis: normalizedAxis)
         let projection2 = pointOnCircumference2.projectOnto(axis: normalizedAxis)

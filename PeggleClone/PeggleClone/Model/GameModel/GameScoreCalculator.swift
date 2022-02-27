@@ -31,7 +31,6 @@ struct GameScoreCalculator {
     private static let tier6Multiplier = 1
     private static let minPercentageOrangePegsClearedForTier6 = 0.0
 
-
     private static var pegColorsScoreWhenHit: [Peg.Color: Int] {
         [
             .blue: bluePegPoints,

@@ -35,7 +35,11 @@ class Board {
         pegs.map({ $0 as BoardObject }) + blocks.map({ $0 as BoardObject })
     }
 
-    var maxObjectYCoordinate: CGFloat {
+    var unusedHeightAtBottom: CGFloat {
+        size.height - maxObjectYCoordinate
+    }
+
+    private var maxObjectYCoordinate: CGFloat {
         let maxPegYCoordinate = pegs.reduce(0.0, { currMax, peg in
             max(currMax, peg.center.y + peg.radius)
         })
@@ -45,10 +49,6 @@ class Board {
         })
 
         return max(maxPegYCoordinate, maxBlockYCoordinate)
-    }
-
-    var isScrollable: Bool {
-        size.height > baseSize.height
     }
 
     required init(id: UUID? = UUID(), name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
@@ -62,24 +62,22 @@ class Board {
         self.isSeedData = isSeedData
         self.pegs = pegs
         self.blocks = blocks
-
-        pegs.forEach { $0.parentBoard = self }
     }
 
     convenience init(name: String, size: CGSize) {
         self.init(id: UUID(), name: name, baseSize: size, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
     }
 
-    static func makeBoardFromSeedData(board: Board) -> Board {
-        let pegs = board.pegs.map { peg in
+    static func makeBoardFromTemplate(templateBoard: Board) -> Board {
+        let pegs = templateBoard.pegs.map { peg in
             Peg(center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color)
         }
 
-        let blocks = board.blocks.map { block in
+        let blocks = templateBoard.blocks.map { block in
             Block(vertices: block.vertices)
         }
 
-        return Board(name: "", baseSize: board.baseSize, size: board.size, snapshot: board.snapshot, pegs: Set(pegs), blocks: Set(blocks))
+        return Board(name: "", baseSize: templateBoard.baseSize, size: templateBoard.size, snapshot: templateBoard.snapshot, pegs: Set(pegs), blocks: Set(blocks))
     }
 
     @discardableResult func addPeg(_ peg: Peg) -> Bool {
@@ -87,7 +85,6 @@ class Board {
             return false
         }
 
-        peg.parentBoard = self
         pegs.insert(peg)
         return true
     }
@@ -308,15 +305,10 @@ extension Board: Persistable {
         entity.baseHeight = baseSize.height
         entity.width = size.width
         entity.height = size.height
-        let pegEntities: [PegEntity] = pegs.map({ peg in
-            let pegEntity = peg.toManagedObject()
-            pegEntity.parentBoard = entity
-            return pegEntity
-        })
         entity.dateCreated = dateCreated
         entity.snapshot = snapshot
         entity.isSeedData = isSeedData
-        entity.pegs = NSSet(array: pegEntities)
+        entity.pegs = NSSet(array: pegs.map({ $0.toManagedObject() }))
         entity.blocks = NSSet(array: blocks.map({ $0.toManagedObject() }))
         return entity
     }

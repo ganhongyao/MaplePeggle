@@ -1,5 +1,5 @@
 //
-//  CGRect+FromCircularBoardObject.swift
+//  CGRect+FromBoardObject.swift
 //  PeggleClone
 //
 //  Created by Hong Yao on 29/1/22.
@@ -16,7 +16,7 @@ extension CGRect {
         case let polygon as Polygonal:
             self.init(from: polygon)
         default:
-            assertionFailure("BoardObject has unknown shape")
+            assertionFailure("Initializer for shape not implemented")
             self.init()
         }
     }
@@ -36,12 +36,8 @@ extension CGRect {
     }
 
     init(from polygon: Polygonal) {
-        let minX = polygon.vertices.reduce(CGFloat.infinity, { min($0, $1.x) })
-        let maxX = polygon.vertices.reduce(-CGFloat.infinity, { max($0, $1.x) })
-
-        let minY = polygon.vertices.reduce(CGFloat.infinity, { min($0, $1.y) })
-        let maxY = polygon.vertices.reduce(-CGFloat.infinity, { max($0, $1.y) })
-
-        self.init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
+        self.init(x: polygon.minX, y: polygon.minY,
+                  width: polygon.maxX - polygon.minX,
+                  height: polygon.maxY - polygon.minY)
     }
 }

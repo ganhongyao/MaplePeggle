@@ -22,31 +22,10 @@ extension Collision {
         let initialRotatedVelocityA = bodyA.velocity.rotate(by: collisionAngle)
         let initialRotatedVelocityB = bodyB.velocity.rotate(by: collisionAngle)
 
-        var finalRotatedVelocityA: CGVector
-        var finalRotatedVelocityB: CGVector
-
-        if bodyA.isKnockable && bodyB.isKnockable {
-            let massSum = bodyA.mass + bodyB.mass
-
-            finalRotatedVelocityA = CGVector(dx: initialRotatedVelocityA.dx * (bodyA.mass - bodyB.mass) / massSum +
-                                                 initialRotatedVelocityB.dx * 2 * bodyB.mass / massSum,
-                                             dy: initialRotatedVelocityA.dy)
-
-            finalRotatedVelocityB = CGVector(dx: initialRotatedVelocityB.dx * (bodyB.mass - bodyA.mass) / massSum +
-                                                 initialRotatedVelocityA.dx * 2 * bodyA.mass / massSum,
-                                             dy: initialRotatedVelocityA.dy)
-        } else if bodyA.isKnockable {
-            finalRotatedVelocityA = CGVector(dx: -initialRotatedVelocityA.dx,
-                                             dy: initialRotatedVelocityA.dy)
-            finalRotatedVelocityB = initialRotatedVelocityB
-        } else if bodyB.isKnockable {
-            finalRotatedVelocityA = initialRotatedVelocityA
-            finalRotatedVelocityB = CGVector(dx: -initialRotatedVelocityB.dx,
-                                             dy: initialRotatedVelocityB.dy)
-        } else {
-            finalRotatedVelocityA = .zero
-            finalRotatedVelocityB = .zero
-        }
+        var (finalRotatedVelocityA, finalRotatedVelocityB) = calculateFinalVelocitiesAlongNormal(
+            bodyA: bodyA, velocityAlongNormalA: initialRotatedVelocityA,
+            bodyB: bodyB, velocityAlongNormalB: initialRotatedVelocityB
+        )
 
         finalRotatedVelocityA.dx *= bodyA.bounciness
         finalRotatedVelocityB.dx *= bodyB.bounciness
@@ -66,5 +45,36 @@ extension Collision {
             let timeToMoveB = depthOfPenetration / bodyB.velocity.norm
             bodyB.updateCenter(deltaTime: timeToMoveB)
         }
+    }
+
+    private func calculateFinalVelocitiesAlongNormal(bodyA: PhysicsBody, velocityAlongNormalA: CGVector,
+                                                     bodyB: PhysicsBody, velocityAlongNormalB: CGVector) -> (CGVector, CGVector) {
+        let finalVelocityAlongNormalA: CGVector
+        let finalVelocityAlongNormalB: CGVector
+
+        if bodyA.isKnockable && bodyB.isKnockable {
+            let massSum = bodyA.mass + bodyB.mass
+
+            finalVelocityAlongNormalA = CGVector(dx: velocityAlongNormalA.dx * (bodyA.mass - bodyB.mass) / massSum +
+                                                 velocityAlongNormalB.dx * 2 * bodyB.mass / massSum,
+                                                 dy: velocityAlongNormalA.dy)
+
+            finalVelocityAlongNormalB = CGVector(dx: velocityAlongNormalB.dx * (bodyB.mass - bodyA.mass) / massSum +
+                                                 velocityAlongNormalA.dx * 2 * bodyA.mass / massSum,
+                                                 dy: velocityAlongNormalA.dy)
+        } else if bodyA.isKnockable {
+            finalVelocityAlongNormalA = CGVector(dx: -velocityAlongNormalA.dx,
+                                                 dy: velocityAlongNormalA.dy)
+            finalVelocityAlongNormalB = velocityAlongNormalB
+        } else if bodyB.isKnockable {
+            finalVelocityAlongNormalA = velocityAlongNormalA
+            finalVelocityAlongNormalB = CGVector(dx: -velocityAlongNormalB.dx,
+                                                 dy: velocityAlongNormalB.dy)
+        } else {
+            finalVelocityAlongNormalA = .zero
+            finalVelocityAlongNormalB = .zero
+        }
+
+        return (finalVelocityAlongNormalA, finalVelocityAlongNormalB)
     }
 }

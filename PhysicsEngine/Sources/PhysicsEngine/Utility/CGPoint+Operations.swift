@@ -8,16 +8,16 @@
 import CoreGraphics
 
 extension CGPoint {
+    static func +(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
+    }
+
+    static func -(lhs: CGPoint, rhs: CGPoint) -> CGPoint {
+        CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
+    }
+
     init(from vector: CGVector) {
         self.init(x: vector.dx, y: vector.dy)
-    }
-
-    func add(_ otherPoint: CGPoint) -> CGPoint {
-        CGPoint(x: x + otherPoint.x, y: y + otherPoint.y)
-    }
-
-    func subtract(_ otherPoint: CGPoint) -> CGPoint {
-        CGPoint(x: x - otherPoint.x, y: y - otherPoint.y)
     }
 
     func distance(to otherPoint: CGPoint) -> CGFloat {

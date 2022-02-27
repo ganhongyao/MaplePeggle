@@ -29,26 +29,22 @@ class Peg: Circular, BoardObject {
 
     let color: Peg.Color
 
-    unowned var parentBoard: Board?
-
     var isPowerup: Bool {
         color == .green
     }
 
-    required init(id: UUID? = UUID(), center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color,
-                  parentBoard: Board? = nil) {
+    required init(id: UUID? = UUID(), center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color) {
         self.id = id
         self.center = center
         self.radius = radius
         self.facingAngle = facingAngle
         self.color = color
-        self.parentBoard = parentBoard
     }
 
     convenience init(from pegToClone: Peg, newCenter: CGPoint? = nil, newRadius: CGFloat? = nil,
                      newColor: Peg.Color? = nil) {
         self.init(id: pegToClone.id, center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
-                  color: newColor ?? pegToClone.color, parentBoard: pegToClone.parentBoard)
+                  color: newColor ?? pegToClone.color)
     }
 
     func rotate(angle: CGFloat) {
@@ -76,8 +72,6 @@ extension Peg: Hashable {
 // MARK: Persistable
 extension Peg: Persistable {
     /// Deserializes a PegEntity object managed by Core Data to a Peg instance
-    /// Note: The parentBoard property will be set by the parent board so as to prevent cylical function
-    /// calls when deserializing the entities.
     static func fromManagedObject(_ managedObject: PegEntity) -> Self {
         Self(id: managedObject.id,
              center: CGPoint(x: managedObject.centerX, y: managedObject.centerY),
@@ -88,8 +82,6 @@ extension Peg: Persistable {
     }
 
     /// Serializes a PegEntity object which is managed by Core Data.
-    /// Note: The parentBoard property will be set by the parent board so as to prevent cylical function
-    /// calls when serializing the entities.
     func toManagedObject() -> PegEntity {
         let entity = CoreDataManager.sharedInstance.makeCoreDataEntity(class: Peg.self)
         entity.id = id
