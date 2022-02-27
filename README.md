@@ -18,9 +18,7 @@
 3. Do not burn out. Have fun!
 
 ## Dev Guide
-You may put your dev guide either in this section, or in a new file entirely.
-You are encouraged to include diagrams where appropriate in order to enhance
-your guide.
+[Go to developer guide](/docs/ps4-developer-guide/DeveloperGuide.md)
 
 ## Rules of the Game
 Please write the rules of your game here. This section should include the
