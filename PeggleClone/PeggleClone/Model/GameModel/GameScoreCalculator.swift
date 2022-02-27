@@ -43,16 +43,21 @@ struct GameScoreCalculator {
     static func calculateScoreForHittingPeg(gameBoard: GameBoard, gamePeg: GamePeg) -> Int {
         let rawPegScore = GameScoreCalculator.pegColorsScoreWhenHit[gamePeg.color] ?? 0
 
-        return rawPegScore * calculateMultiplier(gameBoard: gameBoard)
+        return rawPegScore * calculateMultiplier(gameBoard: gameBoard, gamePegJustLit: gamePeg)
     }
 
-    private static func calculateMultiplier(gameBoard: GameBoard) -> Int {
+    private static func calculateMultiplier(gameBoard: GameBoard, gamePegJustLit: GamePeg) -> Int {
         let numInitialOrangePegs = gameBoard.pegs.filter { $0.color == .orange }.count
         let numUnhitOrangePegs = gameBoard.gamePegs.filter { $0.color == .orange && !$0.hasCollided }.count
 
-        let numClearedOrangePegs = numInitialOrangePegs - numUnhitOrangePegs
+        var numOrangePegsClearedBeforeCollision = numInitialOrangePegs - numUnhitOrangePegs
 
-        let percentageOfOrangePegsCleared = Double(numClearedOrangePegs) / Double(numInitialOrangePegs) * 100
+        if gamePegJustLit.color == .orange {
+            numOrangePegsClearedBeforeCollision -= 1
+        }
+
+        let percentageOfOrangePegsCleared = Double(numOrangePegsClearedBeforeCollision) /
+            Double(numInitialOrangePegs) * 100
 
         switch percentageOfOrangePegsCleared {
         case minPercentageOrangePegsClearedForTier6..<minPercentageOrangePegsClearedForTier5:
