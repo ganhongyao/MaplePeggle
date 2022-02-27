@@ -171,6 +171,7 @@ class LevelDesignerBoardViewModel: ObservableObject {
 
     func selectObjects(inRectangle rect: CGRect) {
         let rectangle = GenericPolygon(from: rect)
+        rectangle.vertices = rectangle.vertices.map(getActualBoardPosition)
 
         for object in board.boardObjects where object.overlaps(with: rectangle) {
             select(object: object)
