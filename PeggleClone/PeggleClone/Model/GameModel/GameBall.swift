@@ -31,6 +31,14 @@ class GameBall: CircularPhysicsBody {
 
     var collisionCount = 0
 
+    var subtotalScore: Int = 0
+
+    var numPegsHit: Int = 0
+
+    var totalScore: Int {
+        subtotalScore * numPegsHit
+    }
+
     init(center: CGPoint) {
         self.center = center
     }

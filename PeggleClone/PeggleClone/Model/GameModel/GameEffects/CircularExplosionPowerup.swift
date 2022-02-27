@@ -42,6 +42,7 @@ class CircularExplosionPowerup: Circular, Powerup {
             }
 
             gameBoard.pegsToBeRemovedQueue.append(collidedGamePeg)
+            gameBoard.handleScoringForLitPeg(litPeg: collidedGamePeg)
 
             guard collidedGamePeg.willActivatePowerup else {
                 continue

@@ -64,6 +64,8 @@
 		F3C9F76527CB66B40089241A /* GameEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F76427CB66B40089241A /* GameEffect.swift */; };
 		F3C9F76727CB67050089241A /* BucketRestoreEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F76627CB67050089241A /* BucketRestoreEffect.swift */; };
 		F3C9F76927CB701B0089241A /* CrossZapperPowerup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F76827CB701B0089241A /* CrossZapperPowerup.swift */; };
+		F3C9F76D27CB7A330089241A /* CollisionProfiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F76C27CB7A330089241A /* CollisionProfiler.swift */; };
+		F3C9F76F27CB7B5E0089241A /* GameScoreCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F76E27CB7B5E0089241A /* GameScoreCalculator.swift */; };
 		F3CB758427A3C27B0053B675 /* BoardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB758327A3C27B0053B675 /* BoardCardView.swift */; };
 		F3CB758627A3C3D40053B675 /* BoardCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB758527A3C3D40053B675 /* BoardCardViewModel.swift */; };
 		F3D0DF5A27A5252000740A26 /* CGRectFromCircularObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF5927A5252000740A26 /* CGRectFromCircularObjectTests.swift */; };
@@ -175,6 +177,8 @@
 		F3C9F76427CB66B40089241A /* GameEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEffect.swift; sourceTree = "<group>"; };
 		F3C9F76627CB67050089241A /* BucketRestoreEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucketRestoreEffect.swift; sourceTree = "<group>"; };
 		F3C9F76827CB701B0089241A /* CrossZapperPowerup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrossZapperPowerup.swift; sourceTree = "<group>"; };
+		F3C9F76C27CB7A330089241A /* CollisionProfiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionProfiler.swift; sourceTree = "<group>"; };
+		F3C9F76E27CB7B5E0089241A /* GameScoreCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScoreCalculator.swift; sourceTree = "<group>"; };
 		F3CB758327A3C27B0053B675 /* BoardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardView.swift; sourceTree = "<group>"; };
 		F3CB758527A3C3D40053B675 /* BoardCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardViewModel.swift; sourceTree = "<group>"; };
 		F3D0DF5927A5252000740A26 /* CGRectFromCircularObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectFromCircularObjectTests.swift; sourceTree = "<group>"; };
@@ -499,7 +503,9 @@
 				F3F6408927ACE9790063B64A /* GameBall.swift */,
 				F3B2967727AFE96800BA25D5 /* GameCannon.swift */,
 				F3F6408B27ACE9A70063B64A /* GameBoard.swift */,
+				F3C9F76E27CB7B5E0089241A /* GameScoreCalculator.swift */,
 				F3C7709127C4ABEA0030F7BE /* GameBlock.swift */,
+				F3C9F76C27CB7A330089241A /* CollisionProfiler.swift */,
 				F34A671527C6ABCC00B9CABE /* GameBucket.swift */,
 				F34A671427C6983100B9CABE /* GameEffects */,
 			);
@@ -690,6 +696,7 @@
 				F3C7709627C4CAC70030F7BE /* GameBlockViewModel.swift in Sources */,
 				F3CB758427A3C27B0053B675 /* BoardCardView.swift in Sources */,
 				F3F6408827ACE8DA0063B64A /* GamePeg.swift in Sources */,
+				F3C9F76F27CB7B5E0089241A /* GameScoreCalculator.swift in Sources */,
 				F3B6E68427A13524004A82A1 /* View+Snapshot.swift in Sources */,
 				F34A671A27C752DB00B9CABE /* GameBucketViewModel.swift in Sources */,
 				F3B6D0F9279805330069BED7 /* ControlsView.swift in Sources */,
@@ -699,6 +706,7 @@
 				F3C7709027C3FCA90030F7BE /* BoardObject.swift in Sources */,
 				F34A672427C8A97A00B9CABE /* CGPoint+Offset.swift in Sources */,
 				F398144627969B7B0032536A /* LevelDesignerView.swift in Sources */,
+				F3C9F76D27CB7A330089241A /* CollisionProfiler.swift in Sources */,
 				F3F6409127ACF25E0063B64A /* GameBoardView.swift in Sources */,
 				F398144427969B7B0032536A /* PeggleCloneApp.swift in Sources */,
 				F3E13C7327CA6B7100E5E376 /* AudioPlayer.swift in Sources */,

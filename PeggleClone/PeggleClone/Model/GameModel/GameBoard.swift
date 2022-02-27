@@ -20,6 +20,8 @@ class GameBoard: Board, PhysicsWorld {
 
     var gravity = CGVector(dx: 0, dy: 500)
 
+    var currentScore: Int = 0
+
     var gameCannon: GameCannon
 
     var gameBucket: GameBucket
@@ -65,16 +67,23 @@ class GameBoard: Board, PhysicsWorld {
 
         addBody(physicsBody: gameBucket)
 
-        let gamePegs = pegs.map(GamePeg.init)
-        gamePegs.forEach { addBody(physicsBody: $0) }
-
-        let gameBlocks = blocks.map(GameBlock.init)
-        gameBlocks.forEach { addBody(physicsBody: $0) }
+        addGamePegsFromPegs()
+        addGameBlocksFromBlocks()
     }
 
     convenience init(from board: Board) {
         self.init(id: board.id, name: board.name, baseSize: board.baseSize, size: board.size, snapshot: board.snapshot, pegs: board.pegs,
                   blocks: board.blocks, dateCreated: board.dateCreated, isSeedData: board.isSeedData)
+    }
+
+    private func addGamePegsFromPegs() {
+        let gamePegs = pegs.map(GamePeg.init)
+        gamePegs.forEach { addBody(physicsBody: $0) }
+    }
+
+    private func addGameBlocksFromBlocks() {
+        let gameBlocks = blocks.map(GameBlock.init)
+        gameBlocks.forEach { addBody(physicsBody: $0) }
     }
 
     func launchBall() {
@@ -102,6 +111,24 @@ class GameBoard: Board, PhysicsWorld {
         removeBall()
 
         numBallsRemaining += 1
+    }
+
+    func handleCollision(collision: Collision) {
+        if CollisionProfiler.isBallEnteringBucket(collision: collision) {
+            handleBallEnteredBucket()
+            return
+        }
+
+        if let litPeg = CollisionProfiler.getLitPeg(collision: collision) {
+            handleScoringForLitPeg(litPeg: litPeg)
+        }
+
+        collision.resolveCollision()
+    }
+
+    func handleScoringForLitPeg(litPeg: GamePeg) {
+        gameBall?.numPegsHit += 1
+        gameBall?.subtotalScore += GameScoreCalculator.calculateScoreForHittingPeg(gameBoard: self, gamePeg: litPeg)
     }
 
     func activatePowerups(gameMaster: GameMaster?) {
@@ -169,24 +196,24 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func resetToInitialState() {
+        currentScore = 0
         numBallsRemaining = GameBoard.numInitialBalls
         gameEffects = []
         physicsBodies = []
 
-        let gamePegs = pegs.map(GamePeg.init)
-        gamePegs.forEach { addBody(physicsBody: $0) }
-
-        let gameBlocks = blocks.map(GameBlock.init)
-        gameBlocks.forEach { addBody(physicsBody: $0) }
-
+        gameBucket.centralize()
         addBody(physicsBody: gameBucket)
+
+        addGamePegsFromPegs()
+        addGameBlocksFromBlocks()
 
         offsetPegsByCannonHeight()
         offsetBlocksByCannonHeight()
-        gameBucket.centralize()
     }
 
     private func removeBall() {
+        currentScore += gameBall?.totalScore ?? 0
+
         physicsBodies = physicsBodies.filter({ $0 !== gameBall })
     }
 

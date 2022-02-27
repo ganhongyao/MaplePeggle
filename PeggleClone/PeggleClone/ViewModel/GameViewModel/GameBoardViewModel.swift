@@ -13,36 +13,6 @@ import PhysicsEngine
 class GameBoardViewModel: ObservableObject {
     @Published private var gameBoard: GameBoard
 
-    @Published private(set) var score = 0
-
-    private var currentBallScore = 0
-
-    private var pegsHitWithCurrentBall: [GamePeg] = []
-
-    private var scoreMultiplier: Int {
-        let numInitialOrangePegs = gameBoard.pegs.filter { $0.color == .orange }.count
-        let numUnhitOrangePegs = gameBoard.gamePegs.filter { $0.color == .orange && !$0.hasCollided }.count
-        let numClearedOrangePegs = numInitialOrangePegs - numUnhitOrangePegs
-        let percentageOfOrangePegsCleared = Double(numClearedOrangePegs) / Double(numInitialOrangePegs) * 100
-
-        switch percentageOfOrangePegsCleared {
-        case 0..<40:
-            return 1
-        case 40..<60:
-            return 2
-        case 60..<72:
-            return 3
-        case 72..<88:
-            return 5
-        case 88..<100:
-            return 10
-        case 100:
-            return 100
-        default:
-            return 1
-        }
-    }
-
     private unowned var gameViewModel: GameViewModel
 
     private(set) var cannonViewModel: GameCannonViewModel
@@ -57,21 +27,16 @@ class GameBoardViewModel: ObservableObject {
         displayLink != nil
     }
 
+    var score: Int {
+        gameBoard.currentScore
+    }
+
     var chosenGameMaster: GameMaster? {
         gameViewModel.chosenGameMaster
     }
 
     var pegColors: [Peg.Color] {
         Peg.Color.allCases
-    }
-
-    var pegColorsScoreWhenHit: [Peg.Color: Int] {
-        [
-            .blue: 10,
-            .green: 10,
-            .orange: 100,
-            .purple: 500
-        ]
     }
 
     var gamePegs: [GamePeg] {
@@ -153,7 +118,11 @@ class GameBoardViewModel: ObservableObject {
         let collisions = gameBoard.simulate(deltaTime: deltaTime)
 
         for collision in collisions {
-            handleCollision(collision: collision)
+            if CollisionProfiler.didLightPeg(collision: collision) {
+                AudioPlayer.sharedInstance.play(sound: .bounce)
+            }
+
+            gameBoard.handleCollision(collision: collision)
         }
 
         gameBoard.activatePowerups(gameMaster: gameViewModel.chosenGameMaster)
@@ -162,8 +131,6 @@ class GameBoardViewModel: ObservableObject {
 
         if !hasBallWithinBoard {
             gameBoard.handleBallLeftBoard()
-
-            addScore()
         }
 
         gameBoard.removeBoardObjectsExceedingMaxCollisions()
@@ -173,48 +140,6 @@ class GameBoardViewModel: ObservableObject {
         }
 
         objectWillChange.send()
-    }
-
-    private func handleCollision(collision: Collision) {
-        if isBallEnteringBucket(collision: collision) {
-            gameBoard.handleBallEnteredBucket()
-            return
-        }
-
-        if let litPeg = getLitPeg(collision: collision) {
-            AudioPlayer.sharedInstance.play(sound: .bounce)
-            pegsHitWithCurrentBall.append(litPeg)
-            currentBallScore += (pegColorsScoreWhenHit[litPeg.color] ?? 0) * scoreMultiplier
-        }
-
-        collision.resolveCollision()
-    }
-
-    private func isBallEnteringBucket(collision: Collision) -> Bool {
-        let (bodyA, bodyB) = collision.bodies
-
-        let involvesBallAndBucket = (bodyA is GameBucket && bodyB is GameBall) ||
-                                    (bodyB is GameBucket && bodyA is GameBall)
-
-        guard involvesBallAndBucket else {
-            return false
-        }
-
-        return collision.collisionAngle == -.pi / 2
-    }
-
-    private func getLitPeg(collision: Collision) -> GamePeg? {
-        let (bodyA, bodyB) = collision.bodies
-
-        if let bodyAPeg = bodyA as? GamePeg, bodyAPeg.collisionCount == 1 {
-            return bodyAPeg
-        }
-
-        if let bodyBPeg = bodyB as? GamePeg, bodyBPeg.collisionCount == 1 {
-            return bodyBPeg
-        }
-
-        return nil
     }
 
     func scaleBoard(isFirstRender: Bool = true) {
@@ -280,18 +205,10 @@ class GameBoardViewModel: ObservableObject {
     }
 
     func restart() {
-        score = 0
         gameBoard.resetToInitialState()
         scaleBoard(isFirstRender: false)
         gameViewModel.chosenGameMaster = nil
         objectWillChange.send()
-    }
-
-    private func addScore() {
-        score += currentBallScore * pegsHitWithCurrentBall.count
-
-        currentBallScore = 0
-        pegsHitWithCurrentBall = []
     }
 
     private func handleGameEnded() {
