@@ -142,7 +142,9 @@ struct GameBoardView: View {
             .onDisappear(perform: gameBoardViewModel.deinitialiseDisplayLink)
             .gesture(DragGesture(minimumDistance: 0).onChanged { value in
                 isAiming = true
-                gameBoardViewModel.aimCannon(towards: value.location)
+                let aimedLocation = CGPoint(x: value.location.x - horizontalBoardOffset,
+                                            y: value.location.y - verticalBoardOffset)
+                gameBoardViewModel.aimCannon(towards: aimedLocation)
             }.onEnded { _ in
                 isAiming = false
 
