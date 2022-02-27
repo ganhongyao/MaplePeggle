@@ -8,12 +8,36 @@
 import Foundation
 
 struct GameScoreCalculator {
+    private static let bluePegPoints = 10
+    private static let greenPegPoints = 10
+    private static let orangePegPoints = 100
+    private static let purplePegPoints = 500
+
+    private static let tier1Multiplier = 100
+    private static let minPercentageOrangePegsClearedForTier1 = 100.0
+
+    private static let tier2Multiplier = 10
+    private static let minPercentageOrangePegsClearedForTier2 = 88.0
+
+    private static let tier3Multiplier = 5
+    private static let minPercentageOrangePegsClearedForTier3 = 72.0
+
+    private static let tier4Multiplier = 3
+    private static let minPercentageOrangePegsClearedForTier4 = 60.0
+
+    private static let tier5Multiplier = 2
+    private static let minPercentageOrangePegsClearedForTier5 = 40.0
+
+    private static let tier6Multiplier = 1
+    private static let minPercentageOrangePegsClearedForTier6 = 0.0
+
+
     private static var pegColorsScoreWhenHit: [Peg.Color: Int] {
         [
-            .blue: 10,
-            .green: 10,
-            .orange: 100,
-            .purple: 500
+            .blue: bluePegPoints,
+            .green: greenPegPoints,
+            .orange: orangePegPoints,
+            .purple: purplePegPoints
         ]
     }
 
@@ -26,24 +50,26 @@ struct GameScoreCalculator {
     private static func calculateMultiplier(gameBoard: GameBoard) -> Int {
         let numInitialOrangePegs = gameBoard.pegs.filter { $0.color == .orange }.count
         let numUnhitOrangePegs = gameBoard.gamePegs.filter { $0.color == .orange && !$0.hasCollided }.count
+
         let numClearedOrangePegs = numInitialOrangePegs - numUnhitOrangePegs
+
         let percentageOfOrangePegsCleared = Double(numClearedOrangePegs) / Double(numInitialOrangePegs) * 100
 
         switch percentageOfOrangePegsCleared {
-        case 0..<40:
-            return 1
-        case 40..<60:
-            return 2
-        case 60..<72:
-            return 3
-        case 72..<88:
-            return 5
-        case 88..<100:
-            return 10
-        case 100:
-            return 100
+        case minPercentageOrangePegsClearedForTier6..<minPercentageOrangePegsClearedForTier5:
+            return tier6Multiplier
+        case minPercentageOrangePegsClearedForTier5..<minPercentageOrangePegsClearedForTier4:
+            return tier5Multiplier
+        case minPercentageOrangePegsClearedForTier4..<minPercentageOrangePegsClearedForTier3:
+            return tier4Multiplier
+        case minPercentageOrangePegsClearedForTier3..<minPercentageOrangePegsClearedForTier2:
+            return tier3Multiplier
+        case minPercentageOrangePegsClearedForTier2..<minPercentageOrangePegsClearedForTier1:
+            return tier2Multiplier
+        case minPercentageOrangePegsClearedForTier1...:
+            return tier1Multiplier
         default:
-            return 1
+            return tier6Multiplier
         }
     }
 }
