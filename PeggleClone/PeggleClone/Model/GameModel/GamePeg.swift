@@ -10,8 +10,6 @@ import CoreGraphics
 import PhysicsEngine
 
 class GamePeg: Peg, CircularPhysicsBody {
-    static let maxCollisionsBeforeForceRemoval = 50
-
     let isMovable = false
 
     let isKnockable = false
