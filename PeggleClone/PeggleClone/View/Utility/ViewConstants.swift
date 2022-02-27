@@ -16,10 +16,18 @@ struct ViewConstants {
                             """
     /// Image asset names
     static let coralBackgroundImage = "coral"
+    static let titleBackgroundImage = "title"
+    static let fountainBackgroundImage = "fountain"
+    static let henesysBackgroundImage = "henesys"
+    static let kerningBackgroundImage = "kerning"
+    static let elliniaBackgroundImage = "ellinia"
+    static let perionBackgroundImage = "perion"
     static let deleteImage = "delete"
     static let cannonImage = "cannon"
     static let ballImage = "ball"
     static let bucketImage = "bucket"
+
+    static let backgroundBlurRadius = 3.0
 
     /// Audio
     static let audioFadeDuration = 10.0

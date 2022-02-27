@@ -12,11 +12,18 @@ class AudioPlayer {
 
     static let sharedInstance = AudioPlayer()
 
+    /// Shared music
     private var titlePlayer: AVAudioPlayer?
     private var floralLifePlayer: AVAudioPlayer?
     private var goPicnicPlayer: AVAudioPlayer?
-    private var restNPeacePlayer: AVAudioPlayer?
 
+    /// GameMaster-specific music
+    private var restNPeacePlayer: AVAudioPlayer?
+    private var nightmarePlayer: AVAudioPlayer?
+    private var whenTheMorningComesPlayer: AVAudioPlayer?
+    private var badGuysPlayer: AVAudioPlayer?
+
+    /// Shared sound effects
     private var bouncePlayer: AVAudioPlayer?
     private var tapPlayer: AVAudioPlayer?
     private var victoryPlayer: AVAudioPlayer?
@@ -27,7 +34,11 @@ class AudioPlayer {
             .title: titlePlayer,
             .floralLife: floralLifePlayer,
             .goPicnic: goPicnicPlayer,
+
             .restNPeace: restNPeacePlayer,
+            .nightmare: nightmarePlayer,
+            .whenTheMorningComes: whenTheMorningComesPlayer,
+            .badGuys: badGuysPlayer,
 
             .bounce: bouncePlayer,
             .tap: tapPlayer,
@@ -40,7 +51,11 @@ class AudioPlayer {
         titlePlayer = initializePlayerForSound(sound: .title)
         floralLifePlayer = initializePlayerForSound(sound: .floralLife)
         goPicnicPlayer = initializePlayerForSound(sound: .goPicnic)
+
         restNPeacePlayer = initializePlayerForSound(sound: .restNPeace)
+        nightmarePlayer = initializePlayerForSound(sound: .nightmare)
+        whenTheMorningComesPlayer = initializePlayerForSound(sound: .whenTheMorningComes)
+        badGuysPlayer = initializePlayerForSound(sound: .badGuys)
 
         bouncePlayer = initializePlayerForSound(sound: .bounce, soundWillLoop: false)
         tapPlayer = initializePlayerForSound(sound: .tap, soundWillLoop: false)

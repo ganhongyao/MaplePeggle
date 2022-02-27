@@ -11,7 +11,12 @@ enum Sound: String {
     case title
     case floralLife
     case goPicnic
+
     case restNPeace
+    case nightmare
+    case whenTheMorningComes
+    case badGuys
+
     case bounce
     case tap
     case victory

@@ -57,6 +57,9 @@
 		F3C80C3127A2E8F1000770FB /* LevelDesignerBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C80C3027A2E8F1000770FB /* LevelDesignerBoardView.swift */; };
 		F3C80C3327A2E93D000770FB /* LevelDesignerBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C80C3227A2E93D000770FB /* LevelDesignerBoardViewModel.swift */; };
 		F3C9F75B27CB3B220089241A /* GenericPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C9F75A27CB3B210089241A /* GenericPolygon.swift */; };
+		F3C9F75D27CB4F280089241A /* whenTheMorningComes.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3C9F75C27CB4F280089241A /* whenTheMorningComes.mp3 */; };
+		F3C9F75F27CB4F320089241A /* badGuys.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3C9F75E27CB4F320089241A /* badGuys.mp3 */; };
+		F3C9F76127CB4F3A0089241A /* nightmare.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3C9F76027CB4F3A0089241A /* nightmare.mp3 */; };
 		F3CB758427A3C27B0053B675 /* BoardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB758327A3C27B0053B675 /* BoardCardView.swift */; };
 		F3CB758627A3C3D40053B675 /* BoardCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3CB758527A3C3D40053B675 /* BoardCardViewModel.swift */; };
 		F3D0DF5A27A5252000740A26 /* CGRectFromCircularObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0DF5927A5252000740A26 /* CGRectFromCircularObjectTests.swift */; };
@@ -161,6 +164,9 @@
 		F3C80C3027A2E8F1000770FB /* LevelDesignerBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignerBoardView.swift; sourceTree = "<group>"; };
 		F3C80C3227A2E93D000770FB /* LevelDesignerBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDesignerBoardViewModel.swift; sourceTree = "<group>"; };
 		F3C9F75A27CB3B210089241A /* GenericPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPolygon.swift; sourceTree = "<group>"; };
+		F3C9F75C27CB4F280089241A /* whenTheMorningComes.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = whenTheMorningComes.mp3; path = ../../../../../assets/whenTheMorningComes.mp3; sourceTree = "<group>"; };
+		F3C9F75E27CB4F320089241A /* badGuys.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = badGuys.mp3; path = ../../../../../assets/badGuys.mp3; sourceTree = "<group>"; };
+		F3C9F76027CB4F3A0089241A /* nightmare.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nightmare.mp3; path = ../../../../../assets/nightmare.mp3; sourceTree = "<group>"; };
 		F3CB758327A3C27B0053B675 /* BoardCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardView.swift; sourceTree = "<group>"; };
 		F3CB758527A3C3D40053B675 /* BoardCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardCardViewModel.swift; sourceTree = "<group>"; };
 		F3D0DF5927A5252000740A26 /* CGRectFromCircularObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRectFromCircularObjectTests.swift; sourceTree = "<group>"; };
@@ -430,14 +436,17 @@
 		F3E13C6F27CA6A6900E5E376 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F3C9F75E27CB4F320089241A /* badGuys.mp3 */,
 				F3E13C8027CA8F2D00E5E376 /* bounce.mp3 */,
 				F3E13C8427CA926900E5E376 /* defeat.mp3 */,
 				F3E13C7627CA7BA200E5E376 /* floralLife.mp3 */,
 				F3E13C7827CA7CAB00E5E376 /* goPicnic.mp3 */,
+				F3C9F76027CB4F3A0089241A /* nightmare.mp3 */,
 				F3E13C7C27CA89D800E5E376 /* restNPeace.mp3 */,
 				F3E13C8627CA927D00E5E376 /* tap.mp3 */,
 				F3E13C7027CA6AB200E5E376 /* title.mp3 */,
 				F3E13C8227CA925D00E5E376 /* victory.mp3 */,
+				F3C9F75C27CB4F280089241A /* whenTheMorningComes.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -605,11 +614,14 @@
 			files = (
 				F3E13C7D27CA89D900E5E376 /* restNPeace.mp3 in Resources */,
 				F3E13C8327CA925D00E5E376 /* victory.mp3 in Resources */,
+				F3C9F75D27CB4F280089241A /* whenTheMorningComes.mp3 in Resources */,
 				F398144B27969B8B0032536A /* Preview Assets.xcassets in Resources */,
 				F398144827969B8B0032536A /* Assets.xcassets in Resources */,
 				F3E13C8127CA8F2D00E5E376 /* bounce.mp3 in Resources */,
 				F3E13C7927CA7CAC00E5E376 /* goPicnic.mp3 in Resources */,
+				F3C9F76127CB4F3A0089241A /* nightmare.mp3 in Resources */,
 				F3E13C8727CA927D00E5E376 /* tap.mp3 in Resources */,
+				F3C9F75F27CB4F320089241A /* badGuys.mp3 in Resources */,
 				F3E13C7727CA7BA200E5E376 /* floralLife.mp3 in Resources */,
 				F3E13C7127CA6AB300E5E376 /* title.mp3 in Resources */,
 				F3E13C8527CA926900E5E376 /* defeat.mp3 in Resources */,

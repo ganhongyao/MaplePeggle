@@ -12,6 +12,8 @@ struct GameView: View {
 
     @StateObject var gameViewModel: GameViewModel
 
+    @State var gameMusic: Sound = getGameMusicToPlay(chosenGameMaster: nil)
+
     private func returnToLevelDesigner() {
         gameViewModel.exitLevel()
         dismiss()
@@ -55,11 +57,18 @@ struct GameView: View {
             })
             .navigationBarHidden(true)
             .onAppear {
-                AudioPlayer.sharedInstance.play(sound: gameViewModel.soundToPlay,
+                AudioPlayer.sharedInstance.play(sound: gameMusic,
+                                                withFadeDuration: ViewConstants.gameMusicFadeDuration)
+            }
+            .onChange(of: gameViewModel.chosenGameMaster) { chosenGameMaster in
+                AudioPlayer.sharedInstance.stop(sound: gameMusic,
+                                                withFadeDuration: ViewConstants.gameMusicFadeDuration)
+                gameMusic = getGameMusicToPlay(chosenGameMaster: gameViewModel.chosenGameMaster)
+                AudioPlayer.sharedInstance.play(sound: gameMusic,
                                                 withFadeDuration: ViewConstants.gameMusicFadeDuration)
             }
             .onDisappear {
-                AudioPlayer.sharedInstance.stop(sound: gameViewModel.soundToPlay,
+                AudioPlayer.sharedInstance.stop(sound: gameMusic,
                                                 withFadeDuration: ViewConstants.gameMusicFadeDuration)
             }
         }

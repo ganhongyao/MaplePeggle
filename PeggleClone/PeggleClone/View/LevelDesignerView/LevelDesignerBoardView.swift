@@ -92,7 +92,9 @@ struct LevelDesignerBoardView: View {
     /// Used for snapshots.
     var fullBoardView: some View {
         ZStack {
-            Image(ViewConstants.coralBackgroundImage).resizable()
+            Image(ViewConstants.fountainBackgroundImage)
+                .resizable()
+                .blur(radius: ViewConstants.backgroundBlurRadius)
 
             ForEach(levelDesignerBoardViewModel.pegViewModels, id: \.pegId) { pegViewModel in
                 PegView(pegViewModel: pegViewModel)
@@ -156,7 +158,9 @@ struct LevelDesignerBoardView: View {
 
     private var mainBoardView: some View {
         ZStack {
-            Image(ViewConstants.coralBackgroundImage).resizable()
+            Image(ViewConstants.fountainBackgroundImage)
+                .resizable()
+                .blur(radius: ViewConstants.backgroundBlurRadius)
 
             selectedRectShape
 

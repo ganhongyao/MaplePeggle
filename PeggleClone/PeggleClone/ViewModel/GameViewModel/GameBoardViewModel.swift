@@ -57,6 +57,10 @@ class GameBoardViewModel: ObservableObject {
         displayLink != nil
     }
 
+    var chosenGameMaster: GameMaster? {
+        gameViewModel.chosenGameMaster
+    }
+
     var pegColors: [Peg.Color] {
         Peg.Color.allCases
     }

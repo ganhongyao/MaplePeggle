@@ -37,13 +37,6 @@ class GameViewModel: ObservableObject {
 
     private let board: Board
 
-    var soundToPlay: Sound {
-        switch chosenGameMaster {
-        default:
-            return .restNPeace
-        }
-    }
-
     init(board: Board) {
         self.board = board
         controlsViewModel = GameControlsViewModel(gameViewModel: self)

@@ -84,7 +84,9 @@ struct GameBoardView: View {
         // swiftlint:disable:next closure_body_length
         GeometryReader { geo in
             ZStack {
-                Image(ViewConstants.coralBackgroundImage).resizable()
+                getGameBackgroundImage(chosenGameMaster: gameBoardViewModel.chosenGameMaster)
+                    .resizable()
+                    .blur(radius: ViewConstants.backgroundBlurRadius)
 
                 GameCannonView(gameCannonViewModel: gameBoardViewModel.cannonViewModel, isAiming: $isAiming)
                     .offset(y: offset)

@@ -11,7 +11,7 @@ struct MainMenuView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image(ViewConstants.coralBackgroundImage)
+                Image(ViewConstants.titleBackgroundImage)
                     .resizable()
                     .scaledToFill()
 
