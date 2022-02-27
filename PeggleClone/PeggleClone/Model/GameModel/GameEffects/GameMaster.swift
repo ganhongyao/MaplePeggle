@@ -8,14 +8,12 @@
 struct GameMaster {
     static let availableGameMasters = [archer, magician, thief, warrior]
 
-    static let archer = GameMaster(name: "Archer", description: ViewConstants.loremIpsum, powerup: .kaboom)
-    static let magician = GameMaster(name: "Magician", description: ViewConstants.loremIpsum, powerup: .bucketExpansion)
-    static let thief = GameMaster(name: "Thief", description: ViewConstants.loremIpsum, powerup: .spookyBall)
-    static let warrior = GameMaster(name: "Warrior", description: ViewConstants.loremIpsum, powerup: .crossZapper)
+    static let archer = GameMaster(name: "Archer", powerup: .kaboom)
+    static let magician = GameMaster(name: "Magician", powerup: .bucketExpansion)
+    static let thief = GameMaster(name: "Thief", powerup: .spookyBall)
+    static let warrior = GameMaster(name: "Warrior", powerup: .crossZapper)
 
     let name: String
-
-    let description: String
 
     let powerup: PowerupDescriptor
 }

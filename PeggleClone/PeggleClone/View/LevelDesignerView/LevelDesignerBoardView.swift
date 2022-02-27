@@ -174,51 +174,58 @@ struct LevelDesignerBoardView: View {
         }
     }
 
+    func handleBoardDragGestureChange(value: DragGesture.Value) {
+        guard levelDesignerBoardViewModel.isInMultiselectMode else {
+            return
+        }
+
+        guard levelDesignerBoardViewModel.hasSelectedObjects else {
+            selectedRectStart = value.startLocation
+            selectedRectEnd = value.location
+            return
+        }
+
+        let currentLocation = value.location
+
+        guard let lastPositionForCurrentDrag = lastPositionForCurrentDrag else {
+            lastPositionForCurrentDrag = currentLocation
+            return
+        }
+
+        let movementOffset = CGVector(from: currentLocation) -
+            CGVector(from: lastPositionForCurrentDrag)
+
+        self.lastPositionForCurrentDrag = currentLocation
+
+        levelDesignerBoardViewModel.moveBoardObjects(offset: movementOffset)
+    }
+
+    func handleBoardDragGestureEnd(value: DragGesture.Value) {
+        if levelDesignerBoardViewModel.isInAddPegMode {
+            levelDesignerBoardViewModel.addPeg(center: value.location)
+        } else if levelDesignerBoardViewModel.isInAddBlockMode {
+            levelDesignerBoardViewModel.addBlock(center: value.location)
+        }
+
+        if let selectedRect = selectedRect {
+            levelDesignerBoardViewModel.selectObjects(inRectangle: selectedRect)
+            selectedRectStart = nil
+            selectedRectEnd = nil
+        }
+
+        lastPositionForCurrentDrag = nil
+    }
+
     var body: some View {
+
         GeometryReader { geo in
             ZStack {
                 mainBoardView
                     .gesture(
                         DragGesture(minimumDistance: .zero, coordinateSpace: .local)
-                            .onChanged { value in
-                                guard levelDesignerBoardViewModel.isInMultiselectMode else {
-                                    return
-                                }
-
-                                guard levelDesignerBoardViewModel.hasSelectedObjects else {
-                                    selectedRectStart = value.startLocation
-                                    selectedRectEnd = value.location
-                                    return
-                                }
-
-                                let currentLocation = value.location
-
-                                guard let lastPositionForCurrentDrag = lastPositionForCurrentDrag else {
-                                    lastPositionForCurrentDrag = currentLocation
-                                    return
-                                }
-
-                                let movementOffset = CGVector(from: currentLocation) -
-                                    CGVector(from: lastPositionForCurrentDrag)
-
-                                self.lastPositionForCurrentDrag = currentLocation
-
-                                levelDesignerBoardViewModel.moveBoardObjects(offset: movementOffset)
-                            }.onEnded { value in
-                                if levelDesignerBoardViewModel.isInAddPegMode {
-                                    levelDesignerBoardViewModel.addPeg(center: value.location)
-                                } else if levelDesignerBoardViewModel.isInAddBlockMode {
-                                    levelDesignerBoardViewModel.addBlock(center: value.location)
-                                }
-
-                                if let selectedRect = selectedRect {
-                                    levelDesignerBoardViewModel.selectObjects(inRectangle: selectedRect)
-                                    selectedRectStart = nil
-                                    selectedRectEnd = nil
-                                }
-
-                                lastPositionForCurrentDrag = nil
-                    })
+                            .onChanged(handleBoardDragGestureChange)
+                            .onEnded(handleBoardDragGestureEnd)
+                    )
                     .gesture(MagnificationGesture().onChanged { value in
                         let scaleFactor = value / lastScale
                         lastScale = value

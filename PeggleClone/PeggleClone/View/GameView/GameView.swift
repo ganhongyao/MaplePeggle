@@ -41,7 +41,8 @@ struct GameView: View {
                 gameBoardView
             }
             .overlay(
-                GameMasterSelectorView(chosenGameMaster: $gameViewModel.chosenGameMaster)
+                GameMasterSelectorView(availableGameMasters: gameViewModel.availableGameMasters,
+                                       chosenGameMaster: $gameViewModel.chosenGameMaster)
             )
             .alert(gameViewModel.currentGameState == .won
                        ? ViewConstants.gameWonDialogTitle

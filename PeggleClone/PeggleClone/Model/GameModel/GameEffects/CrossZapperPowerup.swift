@@ -45,7 +45,7 @@ class CrossZapperPowerup: Powerup {
                 continue
             }
 
-            gameBoard.pegsToBeRemovedQueue.append(collidedGamePeg)
+//            gameBoard.pegsToBeRemovedQueue.append(collidedGamePeg)
             gameBoard.handleScoringForLitPeg(litPeg: collidedGamePeg)
         }
 

@@ -37,6 +37,10 @@ class GameViewModel: ObservableObject {
 
     private let board: Board
 
+    var availableGameMasters: [GameMaster] {
+        GameMaster.availableGameMasters
+    }
+
     init(board: Board) {
         self.board = board
         controlsViewModel = GameControlsViewModel(gameViewModel: self)

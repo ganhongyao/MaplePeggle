@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GameMasterSelectorView: View {
 
+    let availableGameMasters: [GameMaster]
+
     @Binding var chosenGameMaster: GameMaster?
 
     var body: some View {
@@ -20,8 +22,8 @@ struct GameMasterSelectorView: View {
                     .bold()
 
                 ScrollView {
-                    VStack {
-                        ForEach(GameMaster.availableGameMasters, id: \.name) { gameMaster in
+                    VStack(alignment: .leading) {
+                        ForEach(availableGameMasters, id: \.name) { gameMaster in
                             HStack {
                                 getGameBackgroundImage(gameMaster: gameMaster)
                                     .resizable()
@@ -37,10 +39,11 @@ struct GameMasterSelectorView: View {
 
                                     Spacer()
 
-                                    Text(gameMaster.description)
+                                    Text(gameMaster.powerup.description)
                                         .font(.caption)
                                         .padding()
                                 }
+                                .frame(maxWidth: .infinity)
                             }.onTapGesture {
                                 withAnimation {
                                     chosenGameMaster = gameMaster
