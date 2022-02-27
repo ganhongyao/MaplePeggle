@@ -53,6 +53,7 @@ mass and acceleration.
 - Classes that are to obey the laws of physics will have to conform to the underlying `PhysicsEngine` protocol.
   - For example, the `GameBoard` conforms to the `PhysicsWorld` protocol and the `GameBall` and `GamePeg` conforms
   to the `PhysicsBody` protocol.
+- Applications of powerups in the game boards follow the Command pattern.
   
 The below image shows the full Model-View-ViewModel class diagram, excluding the relationships with
 the Physics Engine which have already been shown [earlier](#physicsengineinteraction).
