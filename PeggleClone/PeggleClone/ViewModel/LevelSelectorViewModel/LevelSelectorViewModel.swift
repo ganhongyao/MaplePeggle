@@ -19,13 +19,13 @@ class LevelSelectorViewModel: ObservableObject {
     func fetchAllBoards() {
         let sortDescriptors = [NSSortDescriptor(key: LevelSelectorViewModel.sortDescriptorKey, ascending: true)]
 
-//        if !CoreDataManager.sharedInstance.isSeeded {
+        if !CoreDataManager.sharedInstance.isSeeded {
             do {
                 try SeedData.seedAllBoards(database: CoreDataManager.sharedInstance)
             } catch {
                 print("Error seeding boards: \(error)")
             }
-//        }
+        }
 
         do {
             let fetchedBoards: [Board] = try CoreDataManager.sharedInstance.fetchAll(sortDescriptors: sortDescriptors)
