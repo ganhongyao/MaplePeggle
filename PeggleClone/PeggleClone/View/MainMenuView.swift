@@ -15,15 +15,19 @@ struct MainMenuView: View {
                     .resizable()
                     .scaledToFill()
 
-                VStack(alignment: .leading) {
+                VStack {
                     NavigationLink(destination: LevelDesignerView(levelDesignerViewModel: LevelDesignerViewModel())) {
-                        Text(ViewConstants.mainMenuCreateLevelText)
-                    }
+                        Label(ViewConstants.mainMenuCreateLevelText,
+                              systemImage: ViewConstants.levelSelectorCreateButtonImage)
+                    }.padding(.bottom)
 
                     NavigationLink(destination: LevelSelectorView()) {
-                        Text(ViewConstants.mainMenuLoadLevelText)
+                        Label(ViewConstants.mainMenuLoadLevelText,
+                              systemImage: ViewConstants.levelSelectorCreateButtonImage)
                     }
                 }
+                .buttonStyle(.bordered)
+                .labelStyle(.titleOnly)
             }
             .navigationBarHidden(true)
             .navigationTitle(ViewConstants.mainMenuNavTitle)
