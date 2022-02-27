@@ -29,7 +29,7 @@ struct ViewConstants {
     static let deleteImage = "delete"
     static let cannonImage = "cannon"
     static let ballImage = "ball"
-    static let bucketImage = "bucket"
+    static let bucketImage = "portal"
 
     static let backgroundBlurRadius = 3.0
 
