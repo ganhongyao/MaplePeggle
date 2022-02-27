@@ -84,7 +84,7 @@ struct GameBoardView: View {
         // swiftlint:disable:next closure_body_length
         GeometryReader { geo in
             ZStack {
-                getGameBackgroundImage(chosenGameMaster: gameBoardViewModel.chosenGameMaster)
+                getGameBackgroundImage(gameMaster: gameBoardViewModel.chosenGameMaster)
                     .resizable()
                     .blur(radius: ViewConstants.backgroundBlurRadius)
 

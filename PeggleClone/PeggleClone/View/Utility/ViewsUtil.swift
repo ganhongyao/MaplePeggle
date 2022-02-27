@@ -19,8 +19,8 @@ func getPegImage(color: Peg.Color, isLit: Bool) -> Image {
     return Image("peg-\(color.rawValue)-glow")
 }
 
-func getGameBackgroundImage(chosenGameMaster: GameMaster?) -> Image {
-    guard let chosenGameMaster = chosenGameMaster else {
+func getGameBackgroundImage(gameMaster: GameMaster?) -> Image {
+    guard let chosenGameMaster = gameMaster else {
         return Image(ViewConstants.fountainBackgroundImage)
     }
 
@@ -35,6 +35,21 @@ func getGameBackgroundImage(chosenGameMaster: GameMaster?) -> Image {
         return Image(ViewConstants.perionBackgroundImage)
     default:
         return Image(ViewConstants.fountainBackgroundImage)
+    }
+}
+
+func getGameMasterImage(gameMaster: GameMaster) -> Image {
+    switch gameMaster {
+    case .archer:
+        return Image(ViewConstants.athenaPierceImage)
+    case .magician:
+        return Image(ViewConstants.grendelTheReallyOldImage)
+    case .thief:
+        return Image(ViewConstants.darkLordImage)
+    case .warrior:
+        return Image(ViewConstants.dancesWithBalrogImage)
+    default:
+        return Image(ViewConstants.boardCardDefaultImage)
     }
 }
 

@@ -23,11 +23,12 @@ struct GameMasterSelectorView: View {
                     VStack {
                         ForEach(GameMaster.availableGameMasters, id: \.name) { gameMaster in
                             HStack {
-                                Image(ViewConstants.coralBackgroundImage)
+                                getGameBackgroundImage(gameMaster: gameMaster)
                                     .resizable()
                                     .frame(width: ViewConstants.gameMasterImageSize,
                                            height: ViewConstants.gameMasterImageSize)
                                     .cornerRadius(ViewConstants.gameMasterImageCornerRadius)
+                                    .overlay(getGameMasterImage(gameMaster: gameMaster))
 
                                 VStack {
                                     Text(gameMaster.name)
