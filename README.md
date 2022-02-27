@@ -63,4 +63,25 @@ tests in code, please delete this section.
 > - if you were to redo the entire application, is there anything you would
 >   have done differently?
 
-Your answer here
+I think that my design in the previous problem sets were good enough to make PS4
+not too painful. Particularly, the use of the MVVM architecture made it clear
+which layers should be changed to accommodate which kind of changes.
+
+There was some technical debt that I had to clean. One of them was having to move
+the collision resolution logic out of the physics engine and into the game engine.
+This is because the game engine should be responsible for handling the collisions,
+instead of allowing the physics engine to resolve them automatically after detection.
+In some cases, we would want to add game-specific logic when handling collisions.
+
+If I were to redo the entire application, some things that I would have done
+differently include the following:
+- Modelling physics properties using composition instead of inheritance
+  - For example, currently a game peg conforms to the `CircularPhysicsBody`
+protocol. This may make it harder to accommodate pegs of different shapes in
+future.
+- Maintaining a better separation of concerns between the view model and model of 
+`GameBoard`
+  - Currently, some of the domain logic is handled by the view model, particularly
+the behaviour in the `GameBoardViewModel::step` method. Though this was mentioned
+in PS3 comments, unfortunately, I did not have the time to fix it before the PS4
+deadline.
