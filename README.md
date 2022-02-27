@@ -59,8 +59,8 @@ your grader can award you credit.
 
 ### Unit tests
 
-- [PhysicsEngine unit tests](https://github.com/cs3217-2122/problem-set-3-ganhongyao/tree/master/PhysicsEngine/Tests/PhysicsEngineTests)
-- [PeggleClone unit tests](https://github.com/cs3217-2122/problem-set-3-ganhongyao/tree/master/PeggleClone/PeggleCloneTests)
+- [PhysicsEngine unit tests](https://github.com/cs3217-2122/problem-set-4-ganhongyao/tree/master/PhysicsEngine/Tests/PhysicsEngineTests)
+- [PeggleClone unit tests](https://github.com/cs3217-2122/problem-set-4-ganhongyao/tree/master/PeggleClone/PeggleCloneTests)
 
 ### Integration tests
 
