@@ -15,5 +15,6 @@ struct GameBucketView: View {
             .resizable()
             .frame(width: gameBucketViewModel.bucketWidth, height: gameBucketViewModel.bucketHeight)
             .position(gameBucketViewModel.bucketPosition)
+            .animation(.easeInOut, value: gameBucketViewModel.bucketWidth)
     }
 }

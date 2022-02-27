@@ -10,7 +10,7 @@ import CoreGraphics
 import PhysicsEngine
 
 class GameBucket: PolygonalPhysicsBody {
-    private static let defaultHeight = 100.0
+    private static let defaultSize = 100.0
 
     var initialPosition: CGPoint {
         didSet {
@@ -18,9 +18,11 @@ class GameBucket: PolygonalPhysicsBody {
         }
     }
 
-    var width: CGFloat = defaultHeight
+    let initialWidth: CGFloat = GameBucket.defaultSize
 
-    var height: CGFloat = defaultHeight
+    var width: CGFloat = GameBucket.defaultSize
+
+    var height: CGFloat = GameBucket.defaultSize
 
     var center: CGPoint
 

@@ -8,4 +8,6 @@
 enum PowerupDescriptor {
     case kaboom
     case spookyBall
+    case bucketExpansion
+    case crossZapper
 }

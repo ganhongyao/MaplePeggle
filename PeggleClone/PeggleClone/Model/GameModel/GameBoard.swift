@@ -39,7 +39,7 @@ class GameBoard: Board, PhysicsWorld {
     /// Pegs that are to be removed in the next re-render.
     var pegsToBeRemovedQueue: [GamePeg] = []
 
-    var powerups: [Powerup] = []
+    var gameEffects: [GameEffect] = []
 
     var numBallsRemaining = GameBoard.numInitialBalls
 
@@ -112,9 +112,13 @@ class GameBoard: Board, PhysicsWorld {
         for powerupPeg in gamePegs.filter({ $0.willActivatePowerup }) {
             switch gameMaster.powerup {
             case .kaboom:
-                powerups.append(CircularExplosionPowerup(from: powerupPeg))
+                gameEffects.append(CircularExplosionPowerup(from: powerupPeg))
             case .spookyBall:
-                powerups.append(SpookyBallPowerup())
+                gameEffects.append(SpookyBallPowerup())
+            case .bucketExpansion:
+                gameEffects.append(BucketExpansionPowerup())
+            case .crossZapper:
+                gameEffects.append(CrossZapperPowerup(from: powerupPeg))
             }
 
             powerupPeg.hasActivatedPowerup = true
@@ -122,10 +126,10 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     func applyPowerups() {
-        for powerup in powerups {
+        for powerup in gameEffects {
             let wasApplied = powerup.apply(gameBoard: self)
             if wasApplied {
-                powerups.removeAll { $0 === powerup }
+                gameEffects.removeAll { $0 === powerup }
             }
         }
     }
@@ -166,7 +170,7 @@ class GameBoard: Board, PhysicsWorld {
 
     func resetToInitialState() {
         numBallsRemaining = GameBoard.numInitialBalls
-        powerups = []
+        gameEffects = []
         physicsBodies = []
 
         let gamePegs = pegs.map(GamePeg.init)
