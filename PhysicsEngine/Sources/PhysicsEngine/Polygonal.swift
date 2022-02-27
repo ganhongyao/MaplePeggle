@@ -31,7 +31,7 @@ extension Polygonal {
     public var maxY: CGFloat {
         vertices.reduce(-CGFloat.infinity, { max($0, $1.y) })
     }
-    
+
     public var edges: [(CGPoint, CGPoint)] {
         vertices.indices.map { idx in
             (vertices[idx], vertices[(idx + 1) % vertices.count])

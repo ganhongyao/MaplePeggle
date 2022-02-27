@@ -141,7 +141,7 @@ struct LevelDesignerBoardView: View {
         let canDisplayInFull = !exceededTop && !exceededBottom
 
         return LevelDesignerBlockView(blockViewModel: blockViewModel,
-                  yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
+                                      yOffset: -levelDesignerBoardViewModel.amountScrolledDownwards)
             .highPriorityGesture(TapGesture().onEnded {
                 levelDesignerBoardViewModel.isInDeleteMode
                     ? blockViewModel.removeBlock()

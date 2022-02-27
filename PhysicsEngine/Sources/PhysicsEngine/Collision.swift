@@ -47,8 +47,10 @@ extension Collision {
         }
     }
 
-    private func calculateFinalVelocitiesAlongNormal(bodyA: PhysicsBody, velocityAlongNormalA: CGVector,
-                                                     bodyB: PhysicsBody, velocityAlongNormalB: CGVector) -> (CGVector, CGVector) {
+    private func calculateFinalVelocitiesAlongNormal(bodyA: PhysicsBody,
+                                                     velocityAlongNormalA: CGVector,
+                                                     bodyB: PhysicsBody,
+                                                     velocityAlongNormalB: CGVector) -> (CGVector, CGVector) {
         let finalVelocityAlongNormalA: CGVector
         let finalVelocityAlongNormalB: CGVector
 

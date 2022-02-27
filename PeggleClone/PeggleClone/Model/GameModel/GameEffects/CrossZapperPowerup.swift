@@ -20,7 +20,8 @@ class CrossZapperPowerup: Powerup {
     }
 
     convenience init(from gamePeg: GamePeg) {
-        self.init(center: gamePeg.center, thickness: gamePeg.diameter * CrossZapperPowerup.thicknessProportionOfPegDiameter)
+        self.init(center: gamePeg.center,
+                  thickness: gamePeg.diameter * CrossZapperPowerup.thicknessProportionOfPegDiameter)
     }
 
     func apply(gameBoard: GameBoard) -> Bool {
@@ -45,7 +46,6 @@ class CrossZapperPowerup: Powerup {
                 continue
             }
 
-//            gameBoard.pegsToBeRemovedQueue.append(collidedGamePeg)
             gameBoard.handleScoringForLitPeg(litPeg: collidedGamePeg)
         }
 

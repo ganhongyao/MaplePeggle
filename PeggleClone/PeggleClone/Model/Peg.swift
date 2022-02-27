@@ -33,7 +33,8 @@ class Peg: Circular, BoardObject {
         color == .green
     }
 
-    required init(id: UUID? = UUID(), center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color) {
+    required init(center: CGPoint, radius: CGFloat, color: Peg.Color,
+                  id: UUID? = UUID(), facingAngle: CGFloat = .zero) {
         self.id = id
         self.center = center
         self.radius = radius
@@ -43,8 +44,8 @@ class Peg: Circular, BoardObject {
 
     convenience init(from pegToClone: Peg, newCenter: CGPoint? = nil, newRadius: CGFloat? = nil,
                      newColor: Peg.Color? = nil) {
-        self.init(id: pegToClone.id, center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
-                  color: newColor ?? pegToClone.color)
+        self.init(center: newCenter ?? pegToClone.center, radius: newRadius ?? pegToClone.radius,
+                  color: newColor ?? pegToClone.color, id: pegToClone.id)
     }
 
     func rotate(angle: CGFloat) {
@@ -73,11 +74,11 @@ extension Peg: Hashable {
 extension Peg: Persistable {
     /// Deserializes a PegEntity object managed by Core Data to a Peg instance
     static func fromManagedObject(_ managedObject: PegEntity) -> Self {
-        Self(id: managedObject.id,
-             center: CGPoint(x: managedObject.centerX, y: managedObject.centerY),
+        Self(center: CGPoint(x: managedObject.centerX, y: managedObject.centerY),
              radius: managedObject.radius,
-             facingAngle: managedObject.facingAngle,
-             color: intRepresentationToColor(intRep: managedObject.color)
+             color: intRepresentationToColor(intRep: managedObject.color),
+             id: managedObject.id,
+             facingAngle: managedObject.facingAngle
         )
     }
 

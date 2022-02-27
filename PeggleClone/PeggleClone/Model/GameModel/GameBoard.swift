@@ -57,13 +57,14 @@ class GameBoard: Board, PhysicsWorld {
         !gameCannon.isAimingAtSelf && gameBall == nil && numBallsRemaining > 0
     }
 
-    required init(id: UUID?, name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
-                  dateCreated: Date? = Date(), isSeedData: Bool = false) {
+    required init(name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
+                  id: UUID?, dateCreated: Date? = Date(), isSeedData: Bool = false) {
         let boardCenter = CGPoint(x: size.width / 2, y: size.height / 2)
         gameCannon = GameCannon(xCoordinate: boardCenter.x, initialAimedLocation: boardCenter)
         gameBucket = GameBucket(initialPosition: CGPoint(x: boardCenter.x, y: size.height))
 
-        super.init(id: id, name: name, baseSize: baseSize, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, dateCreated: dateCreated)
+        super.init(name: name, baseSize: baseSize, size: size, snapshot: snapshot, pegs: pegs, blocks: blocks, id: id,
+                   dateCreated: dateCreated, isSeedData: isSeedData)
 
         addBody(physicsBody: gameBucket)
 
@@ -72,8 +73,9 @@ class GameBoard: Board, PhysicsWorld {
     }
 
     convenience init(from board: Board) {
-        self.init(id: board.id, name: board.name, baseSize: board.baseSize, size: board.size, snapshot: board.snapshot, pegs: board.pegs,
-                  blocks: board.blocks, dateCreated: board.dateCreated, isSeedData: board.isSeedData)
+        self.init(name: board.name, baseSize: board.baseSize, size: board.size, snapshot: board.snapshot,
+                  pegs: board.pegs, blocks: board.blocks, id: board.id, dateCreated: board.dateCreated,
+                  isSeedData: board.isSeedData)
     }
 
     private func addGamePegsFromPegs() {

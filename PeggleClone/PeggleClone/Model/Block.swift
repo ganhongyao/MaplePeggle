@@ -16,7 +16,7 @@ class Block: Polygonal, BoardObject {
 
     var vertices: [CGPoint] = []
 
-    required init(id: UUID? = UUID(), vertices: [CGPoint]) {
+    required init(vertices: [CGPoint], id: UUID? = UUID()) {
         self.id = id
         self.vertices = vertices
     }
@@ -30,7 +30,7 @@ class Block: Polygonal, BoardObject {
     }
 
     convenience init(from blockToClone: Block) {
-        self.init(id: blockToClone.id, vertices: blockToClone.vertices)
+        self.init(vertices: blockToClone.vertices, id: blockToClone.id)
     }
 }
 
@@ -51,7 +51,7 @@ extension Block: Persistable {
         let vertex2 = CGPoint(x: managedObject.vertex2X, y: managedObject.vertex2Y)
         let vertex3 = CGPoint(x: managedObject.vertex3X, y: managedObject.vertex3Y)
 
-        return Self(id: managedObject.id, vertices: [vertex1, vertex2, vertex3])
+        return Self(vertices: [vertex1, vertex2, vertex3], id: managedObject.id)
     }
 
     func toManagedObject() -> BlockEntity {

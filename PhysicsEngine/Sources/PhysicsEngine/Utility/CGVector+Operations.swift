@@ -8,15 +8,15 @@
 import CoreGraphics
 
 extension CGVector {
-    static func +(lhs: CGVector, rhs: CGVector) -> CGVector {
+    static func + (lhs: CGVector, rhs: CGVector) -> CGVector {
         CGVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy)
     }
 
-    static func -(lhs: CGVector, rhs: CGVector) -> CGVector {
+    static func - (lhs: CGVector, rhs: CGVector) -> CGVector {
         CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)
     }
 
-    static func *(vector: CGVector, factor: CGFloat) -> CGVector {
+    static func * (vector: CGVector, factor: CGFloat) -> CGVector {
         CGVector(dx: vector.dx * factor, dy: vector.dy * factor)
     }
 

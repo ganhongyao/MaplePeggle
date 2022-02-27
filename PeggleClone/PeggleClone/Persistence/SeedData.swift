@@ -57,16 +57,12 @@ import CoreGraphics
                                Peg(center: CGPoint(x: 335, y: 851.4), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 335, y: 901.5), radius: 25, color: .blue),
                                Peg(center: CGPoint(x: 335, y: 951.6), radius: 25, color: .blue),
-                               Peg(center: CGPoint(x: 335, y: 1001.7), radius: 25, color: .blue)]
+                               Peg(center: CGPoint(x: 335, y: 1_001.7), radius: 25, color: .blue)]
 
-         let board = Board(id: UUID(),
-                               name: "Trident",
-                               baseSize: CGSize(width: 700, height: 800),
-                               size: CGSize(width: 700, height: 1100),
-                               snapshot: nil,
-                               pegs: pegs,
-                               blocks: [],
-                               isSeedData: true)
+         let board = Board(name: "Trident",
+                           baseSize: CGSize(width: 700, height: 800), size: CGSize(width: 700, height: 1_100),
+                           snapshot: nil, pegs: pegs, blocks: [],
+                           id: UUID(), isSeedData: true)
 
          return board
      }
@@ -88,14 +84,10 @@ import CoreGraphics
                                Peg(center: CGPoint(x: 328.5, y: 477.5), radius: 25.0, color: .green),
                                Peg(center: CGPoint(x: 269.5, y: 291.5), radius: 25.0, color: .blue)]
 
-         let board = Board(id: UUID(),
-                               name: "Cocktail",
-                               baseSize: CGSize(width: 500, height: 650),
-                               size: CGSize(width: 500, height: 650),
-                               snapshot: nil,
-                               pegs: pegs,
-                               blocks: [],
-                               isSeedData: true)
+         let board = Board(name: "Cocktail",
+                           baseSize: CGSize(width: 500, height: 650), size: CGSize(width: 500, height: 650),
+                           snapshot: nil, pegs: pegs, blocks: [],
+                           id: UUID(), isSeedData: true)
 
          return board
      }
@@ -134,14 +126,10 @@ import CoreGraphics
             Block(vertices: [CGPoint(x: 405, y: 35), CGPoint(x: 405, y: 371), CGPoint(x: 675, y: 371)])
          ]
 
-         let board = Board(id: UUID(),
-                               name: "Diamond",
-                               baseSize: CGSize(width: 700, height: 800),
-                               size: CGSize(width: 700, height: 800),
-                               snapshot: nil,
-                               pegs: pegs,
-                               blocks: blocks,
-                               isSeedData: true)
+         let board = Board(name: "Diamond",
+                           baseSize: CGSize(width: 700, height: 800), size: CGSize(width: 700, height: 800),
+                           snapshot: nil, pegs: pegs, blocks: blocks,
+                           id: UUID(), isSeedData: true)
 
          return board
      }

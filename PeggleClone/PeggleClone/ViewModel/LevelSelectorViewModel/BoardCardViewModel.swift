@@ -47,7 +47,8 @@ class BoardCardViewModel: ObservableObject {
         }
 
         let currentDateTime = Date()
-        let distanceFromCreation = RelativeDateTimeFormatter().localizedString(for: dateCreated, relativeTo: currentDateTime)
+        let distanceFromCreation = RelativeDateTimeFormatter()
+            .localizedString(for: dateCreated, relativeTo: currentDateTime)
 
         return "Created \(distanceFromCreation)"
     }

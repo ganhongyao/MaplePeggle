@@ -36,9 +36,8 @@ public struct SpherePolygonCollision: Collision {
         polygon.collisionCount += 1
     }
 
-
     private static func findCollisionAngleAndPenetrationDepth(circle: CircularPhysicsBody,
-                                                               polygon: PolygonalPhysicsBody) -> (CGFloat, CGFloat) {
+                                                              polygon: PolygonalPhysicsBody) -> (CGFloat, CGFloat) {
         var collisionNormal: CGVector = .zero
         var penetrationDepth: CGFloat = .infinity
 

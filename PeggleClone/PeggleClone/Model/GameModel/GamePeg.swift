@@ -34,12 +34,11 @@ class GamePeg: Peg, CircularPhysicsBody {
         isPowerup && hasCollided && !hasActivatedPowerup
     }
 
-    required init(id: UUID?, center: CGPoint, radius: CGFloat, facingAngle: CGFloat = .zero, color: Peg.Color
-                  ) {
-        super.init(id: id, center: center, radius: radius, facingAngle: facingAngle, color: color)
+    required init(center: CGPoint, radius: CGFloat, color: Peg.Color, id: UUID?, facingAngle: CGFloat = .zero) {
+        super.init(center: center, radius: radius, color: color, id: id, facingAngle: facingAngle)
     }
 
     convenience init(from peg: Peg) {
-        self.init(id: peg.id, center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color)
+        self.init(center: peg.center, radius: peg.radius, color: peg.color, id: peg.id, facingAngle: peg.facingAngle)
     }
 }

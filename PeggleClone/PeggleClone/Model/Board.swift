@@ -51,8 +51,8 @@ class Board {
         return max(maxPegYCoordinate, maxBlockYCoordinate)
     }
 
-    required init(id: UUID? = UUID(), name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>, blocks: Set<Block>,
-                  dateCreated: Date? = Date(), isSeedData: Bool = false) {
+    required init(name: String, baseSize: CGSize, size: CGSize, snapshot: Data?, pegs: Set<Peg>,
+                  blocks: Set<Block>, id: UUID? = UUID(), dateCreated: Date? = Date(), isSeedData: Bool = false) {
         self.id = id
         self.name = name
         self.baseSize = baseSize
@@ -65,19 +65,20 @@ class Board {
     }
 
     convenience init(name: String, size: CGSize) {
-        self.init(id: UUID(), name: name, baseSize: size, size: size, snapshot: nil, pegs: [], blocks: [], dateCreated: Date())
+        self.init(name: name, baseSize: size, size: size, snapshot: nil, pegs: [], blocks: [])
     }
 
     static func makeBoardFromTemplate(templateBoard: Board) -> Board {
         let pegs = templateBoard.pegs.map { peg in
-            Peg(center: peg.center, radius: peg.radius, facingAngle: peg.facingAngle, color: peg.color)
+            Peg(center: peg.center, radius: peg.radius, color: peg.color, facingAngle: peg.facingAngle)
         }
 
         let blocks = templateBoard.blocks.map { block in
             Block(vertices: block.vertices)
         }
 
-        return Board(name: "", baseSize: templateBoard.baseSize, size: templateBoard.size, snapshot: templateBoard.snapshot, pegs: Set(pegs), blocks: Set(blocks))
+        return Board(name: "", baseSize: templateBoard.baseSize, size: templateBoard.size,
+                     snapshot: templateBoard.snapshot, pegs: Set(pegs), blocks: Set(blocks))
     }
 
     @discardableResult func addPeg(_ peg: Peg) -> Bool {
@@ -283,13 +284,13 @@ extension Board: Persistable {
             blocks = Set(blockEntities.map(Block.fromManagedObject))
         }
 
-        let board = Self(id: managedObject.id,
-                         name: managedObject.name ?? "",
+        let board = Self(name: managedObject.name ?? "",
                          baseSize: CGSize(width: managedObject.baseWidth, height: managedObject.baseHeight),
                          size: CGSize(width: managedObject.width, height: managedObject.height),
                          snapshot: managedObject.snapshot,
                          pegs: pegs,
                          blocks: blocks,
+                         id: managedObject.id,
                          dateCreated: managedObject.dateCreated,
                          isSeedData: managedObject.isSeedData
         )

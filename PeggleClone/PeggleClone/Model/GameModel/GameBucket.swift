@@ -34,9 +34,9 @@ class GameBucket: PolygonalPhysicsBody {
              CGPoint(x: center.x - width / 2, y: center.y + height / 2)]
         }
 
-        set {
-
-        }
+        // Note: Bucket vertices should not be manipulated directly
+        // swiftlint:disable:next unused_setter_value
+        set {}
     }
 
     let isMovable = true

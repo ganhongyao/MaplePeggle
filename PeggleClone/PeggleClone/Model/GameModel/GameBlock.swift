@@ -28,12 +28,12 @@ class GameBlock: Block, PolygonalPhysicsBody {
 
     var collisionCount = 0
 
-    required init(id: UUID?, vertices: [CGPoint]) {
-        super.init(id: id, vertices: vertices)
+    required init(vertices: [CGPoint], id: UUID?) {
+        super.init(vertices: vertices, id: id)
     }
 
     convenience init(from block: Block) {
-        self.init(id: block.id, vertices: block.vertices)
+        self.init(vertices: block.vertices, id: block.id)
     }
 
 }

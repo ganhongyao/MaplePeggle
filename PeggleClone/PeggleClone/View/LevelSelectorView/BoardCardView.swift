@@ -14,7 +14,6 @@ struct BoardCardView: View {
         let levelDesignerViewModel = LevelDesignerViewModel(boardId: boardCardViewModel.boardId)
         let levelDesignerView = LevelDesignerView(levelDesignerViewModel: levelDesignerViewModel)
 
-        // swiftlint:disable:next closure_body_length
         VStack {
             NavigationLink(destination: levelDesignerView) {
                 makeSnapshotImage(snapshotImageData: boardCardViewModel.snapshotImageData)
